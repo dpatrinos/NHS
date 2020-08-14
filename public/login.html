@@ -1,92 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Login!</title>
-        <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="bg-primary">
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
-                <main>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-5">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
-                                    <div class="card-body">
-                                        <form method='POST' action='' enctype="multipart/form-data" id='login-form'>
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                                <input class="form-control py-4" id="inputEmailAddress" type="email" name="email" placeholder="Enter email address" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="inputPassword">Password</label>
-                                                <input class="form-control py-4" id="inputPassword" type="password" name="password" placeholder="Enter password" />
-                                            </div>
-                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">Forgot Password?</a>
-                                                <button class="btn btn-primary" type='submit'>Login</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="card-footer text-center">
-                                        <div class="small"><a href="/signup">Need an account? Sign up!</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-            <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    </body>
-    <script>
-        const loginForm = document.querySelector("#login-form");
-    
-        loginForm.onsubmit = (e) => {
-            e.preventDefault();
-    
-            let loginFormData = new FormData(e.target);
-            loginRequest(loginFormData);
-        }
-    
-        const loginRequest = async (data) => {
-    
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                body: data,
-                credentials: 'include'
-            });
-    
-            const status = (await response.json()).status;
-            console.log(status);
-            if(status == "logged in") { 
-                
-                window.location.replace("/account");
-            }
-        }
-    </script>
-</html>
+<head>
 
+     <title>Login to your account - BP NHS</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="Evan Zelt & Demetrios Patrinos" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <!-- STYLES -->
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/owl.carousel.css">
+     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+     <link rel="stylesheet" href="css/styles.css">
+     <script src="https://kit.fontawesome.com/df95adec8c.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+     <!-- MENU -->
+     <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+          <div class="container">
+
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+
+                    <!-- lOGO TEXT -->
+                    <a href="index.html#" class="navbar-brand">Bethel Park NHS</a>
+               </div>
+
+               <!-- MENU LINKS -->
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-nav-first">
+                         <li><a href="index.html#top" class="smoothScroll">Home</a></li>
+                         <li><a href="index.html#about" class="smoothScroll">About</a></li>
+                         <li><a href="index.html#team" class="smoothScroll">Our Leadership</a></li>
+                         <li><a href="index.html#events" class="smoothScroll">Events</a></li>
+                         <li><a href="index.html#resources" class="smoothScroll">Resources</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                         <li><a href="login.html" class="smoothScroll">Login</a></li>
+                    </ul>
+               </div>
+
+          </div>
+     </section>
+
+     <!-- LOGIN -->
+     <section id="login-section">
+          <div class="container" >
+               <div class="col-md-5 col-sm-12 login-box col-centered">
+                    <form id="login-form" role="form" action="" method="post">
+                         <img id="login-crest" src="images/crest.png">
+
+                         <input type="text" class="form-control" placeholder="Username" id="user" required="">
+                         <input type="password" class="form-control" placeholder="Password" id="pw" required="">
+
+                         <a href="recovery.html"><h2 class="login-link"><small>Forgot your password?</small></h2></a>
+
+                         <input id="login-button" type="submit" class="form-control" value="Log In">
+                         <a href="create.html"><h2 class="login-link"><small>New inductee?</small></h2></a>
+                    </form>
+               </div>
+           </div>
+     </section>
+
+     <!-- FOOTER -->
+     <footer id="footer">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2>Bethel Park High School</h2>
+                              </div>
+                              <address>
+                                   <p>390 Church Road,<br> Bethel Park, PA 15102</p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2>Quick Links</h2>
+                              </div>
+
+                              <div class="footer_menu">
+                                   <ul>
+                                        <li><a href="https://www.bpsd.org" target="_blank">BPSD</a></li>
+                                        <li><a href="https://www.nhs.us/" target="_blank">NHS</a></li>
+                                        <li><a href="tos.html">Terms of Use</a></li>
+                                        <li><a href="privacy.html">Privacy Policy</a></li>
+                                   </ul>
+                              </div>
+
+                              <ul class="social-icon">
+                                   <li><a href="https://vm.tiktok.com/JjrQ3EW/" class="fab fa-tiktok"></a></li>
+                                   <li><a href="https://www.instagram.com/bphsnhs00/" class="fab fa-instagram"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <p>This Site is not maintained by the Bethel Park School District. The views and decisions expressed on this Site are those of the Bethel Park National Honor Society and do not necessarily reflect the official policies or declarations of any other organization.</p>
+                         </div>
+                    </div>
+                    
+               </div>
+          </div>
+     </footer>
+
+     <footer id="subfooter">
+          <div class="container">
+               <div class="row">
+                    
+                    <div class="col-md-6">
+                         <p>Made with <i class="fas fa-clock"></i> and <i class="fas fa-tint"></i> by Evan Zelt & Demetri Patrinos</p>
+                    </div>
+
+                    <div class="col-md-6 copyright-text">
+                         <p>&copy; 2020 Bethel Park National Honor Society</p>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+
+     <!-- SCRIPTS -->
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/owl.carousel.min.js"></script>
+     <script src="js/smoothscroll.js"></script>
+     <script src="js/custom.js"></script>
+
+</body>
+</html>

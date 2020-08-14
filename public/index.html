@@ -1,137 +1,657 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+     <title>Bethel Park National Honor Society</title>
 
-  <title>BPHS NHS - Home</title>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="Evan Zelt & Demetrios Patrinos" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <!-- Bootstrap core CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Universal style sheet -->
-  <link href="./css/styles.css" rel="stylesheet">
-  
+     <!-- STYLES -->
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/owl.carousel.css">
+     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+     <link rel="stylesheet" href="css/styles.css">
+     <script src="https://kit.fontawesome.com/df95adec8c.js" crossorigin="anonymous"></script>
 
 </head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
-<body>
+     <!-- PRE LOADER -->
+     <section class="preloader">
+          <div class="spinner">
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="">Bethel Park NHS</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Page Content -->
-  <div class="container">
-
-    <!-- Jumbotron Header -->
-    <header class="jumbotron my-4">
-      <h1 class="display-3">Bethel Park NHS</h1>
-      <p class="lead">Welcome to the Bethel Park National Honors Society Website! Here you can view and sign up for various NHS events.</p>
-    </header>
-
-    <!-- Page Features -->
-    <div class="row text-center">
-
-      <template id="event-card-template">
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100">
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <h4 class="card-title"></h4>
-              <p class="card-text"></p>
-            </div>
+               <span class="spinner-rotate"></span>
+               
           </div>
-        </div>
-      </template>
+     </section>
 
-      
 
-    </div>
-    <!-- /.row -->
+     <!-- MENU -->
+     <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+          <div class="container">
 
-  </div>
-  <!-- /.container -->
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
 
-  <!-- Footer -->
-  <div id="layoutAuthentication_footer">
-    <footer class="py-4 bg-light mt-auto">
-        <div class="container-fluid">
-            <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; Your Website 2020</div>
-                <div>
-                    <a href="#">Privacy Policy</a>
-                    &middot;
-                    <a href="#">Terms &amp; Conditions</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-  </div>
+                    <!-- lOGO TEXT -->
+                    <a href="#top" class="navbar-brand">Bethel Park NHS</a>
+               </div>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+               <!-- MENU LINKS -->
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-nav-first">
+                         <li><a href="#top" class="smoothScroll">Home</a></li>
+                         <li><a href="#about" class="smoothScroll">About</a></li>
+                         <li><a href="#team" class="smoothScroll">Our Leadership</a></li>
+                         <li><a href="#events" class="smoothScroll">Events</a></li>
+                         <li><a href="#resources" class="smoothScroll">Resources</a></li>
+                    </ul>
 
-  <!-- Custom styling -->
-  <style>
-    nav { 
-      background-color: var(--blue);
-    }
-  </style>
+                    <ul class="nav navbar-nav navbar-right">
+                         <li><a href="login.html" class="smoothScroll">Login</a></li>
+                    </ul>
+               </div>
 
-  <!-- Fetch the events from api and output them -->
-  <script>
-    const eventTemplate = document.querySelector("#event-card-template");
+          </div>
+     </section>
 
-    const getEvents = async () => {
-      let response = await fetch("/api/events");
-      for(event of await response.json()) {
-        displayEvent(event);
-        console.log(event);
-      } 
-    }
 
-    const displayEvent = (event) => { 
-      let newEvent = eventTemplate.content.cloneNode(true);
-      console.log(newEvent);
-      newEvent.querySelector(".card-title").innerText = event.event_name;
-      if(event.event_description != null) { 
-        newEvent.querySelector(".card-text").innerText = event.event_description;
-      }
-      eventTemplate.parentElement.appendChild(newEvent);
-    }
-    
-    getEvents();
-  </script>
+     <!-- HOME -->
+     <section id="home">
+          <div class="row">
+
+                    <div class="owl-carousel owl-theme home-slider">
+                         <div class="item item-first">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-6 col-sm-12">
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item item-second">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-6 col-sm-12">
+                                             <h1>Check your hours and atttendance anytime!</h1>
+                                             <h3>Our database automatically logs your membership details for you to view in real time.</h3>
+                                             <a href="login.html" class="section-btn btn btn-default smoothScroll">Login</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item item-third">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-6 col-sm-12">
+                                             <h1>Lots of service opportunities</h1>
+                                             <h3>Navigate to the events section to see upcoming service opportunities</h3>
+                                             <a href="#events" class="section-btn btn btn-default smoothScroll">Events</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+          </div>
+     </section>
+
+
+     <!-- FEATURE -->
+     <section id="feature">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-4 col-sm-4">
+                         <div class="feature-thumb">
+                              <span>01</span>
+                              <h3>Helping the Community</h3>
+                              <p>Over 2000 hours were volunteered through the chapter last year alone.</p>
+                              <br/>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                         <div class="feature-thumb">
+                              <span>02</span>
+                              <h3>Preparing Students</h3>
+                              <p>The chapter's goal is to provide meaningful experiences for students to help create great people for life beyond high school.</p>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                         <div class="feature-thumb">
+                              <span>03</span>
+                              <h3>Creating from Within</h3>
+                              <p>Many service projects with Bethel Park NHS are grassroots, straight from the students.</p>
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </section>
+
+
+     <!-- ABOUT -->
+     <section id="about">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-6 col-sm-12">
+                         <div class="about-info">
+                              <h2>Club Requirements</h2>
+
+                              <figure>
+                                   <span style="padding-bottom: 65px;"><i class="fas fa-user-clock"></i></span>
+                                   <figcaption>
+                                        <h3>Service</h3>
+                                        <p>All current and potential members must perform 35 community service hours in the calendar year before application. Current members must also complete at least 6 NHS hours in the same time period.</p>
+                                   </figcaption>
+                              </figure>
+
+                              <figure>
+                                   <span><i class="fas fa-certificate"></i></span>
+                                   <figcaption>
+                                        <h3>Scholarship</h3>
+                                        <p>All current and potential members must acheive and maintain a cumulative QPA of 3.85 or higher.</p>
+                                   </figcaption>
+                              </figure>
+
+                              <figure>
+                                   <span><i class="fas fa-users"></i></span>
+                                   <figcaption>
+                                        <h3>Leadership and Character</h3>
+                                        <p>All current and potential members must exhibit clear leadership and good character.</p>
+                                   </figcaption>
+                              </figure>
+                         </div>
+                    </div>
+
+                    <div class="col-md-offset-1 col-md-4 col-sm-12">
+                         <div class="entry-form">
+                              <h2>Meeting Attendance</h2>
+                              <h2><small>All current members must attend 70% of the committee and general membership meetings. Also, members must attend meetings of the committee signed up for at the start of the year to receive meeting credit.</small></h2>
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </section>
+
+
+     <!-- TEAM -->
+     <section id="team">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-12 col-sm-12">
+                         <div class="section-title">
+                              <h2 style="margin-bottom: -35px;">Executive Board Members</h2>
+                                   <h2><small>Officers</small></h2>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12 col-sm-12">
+                         <div class="owl-carousel owl-theme owl-courses">
+                              <div class="item">
+                                   <div class="col-md-9 col-sm-10">
+                                        <div class="team-thumb">
+                                             <div class="team-image">
+                                                  <img src="images/president.jpg" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="team-info">
+                                                  <h3>Demetrios Patrinos</h3>
+                                                  <span>President</span>
+                                             </div>
+                                             <ul class="social-icon">
+                                                  <li><a href="mailto: patrinos.demetrios@bphawks.org" class="fas fa-envelope"></a></li>
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="item">
+                                   <div class="col-md-9 col-sm-10">
+                                        <div class="team-thumb">
+                                             <div class="team-image">
+                                                  <img src="images/vp.jpg" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="team-info">
+                                                  <h3>Ethan Donovan</h3>
+                                                  <span>Vice President</span>
+                                             </div>
+                                             <ul class="social-icon">
+                                                  <li><a href="mailto: donovan.ethan@bphawks.org" class="fas fa-envelope"></a></li>
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="item">
+                                   <div class="col-md-9 col-sm-10">
+                                        <div class="team-thumb">
+                                             <div class="team-image">
+                                                  <img src="images/secretary.jpg" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="team-info">
+                                                  <h3>Morgan Beardsley</h3>
+                                                  <span>Secretary</span>
+                                             </div>
+                                             <ul class="social-icon">
+                                                  <li><a href="mailto: beardsley.morgan@bphawks.org" class="fas fa-envelope"></a></li>
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="item">
+                                   <div class="col-md-9 col-sm-10">
+                                        <div class="team-thumb">
+                                             <div class="team-image">
+                                                  <img src="images/treasurer.jpg" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="team-info">
+                                                  <h3>Nicholas Massari</h3>
+                                                  <span>Treasurer</span>
+                                             </div>
+                                             <ul class="social-icon">
+                                                  <li><a href="mailto: massari.nicholas@bphawks.org" class="fas fa-envelope"></a></li>
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                         <div class="section-title">
+                              <h2><small>Commuity Service Committee Chairs</small></h2>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12 col-sm-12">
+                         <div class="owl-carousel owl-theme owl-courses">
+                              <div class="item">
+                                   <div class="col-md-9 col-sm-10">
+                                        <div class="team-thumb">
+                                             <div class="team-image">
+                                                  <img src="images/cs1.jpg" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="team-info">
+                                                  <h3>Evan Zelt</h3>
+                                                  <span>Senior Chairman</span>
+                                             </div>
+                                             <ul class="social-icon">
+                                                  <li><a href="mailto: zelt.evan@bphawks.org" class="fas fa-envelope"></a></li>
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="item">
+                                   <div class="col-md-9 col-sm-10">
+                                        <div class="team-thumb">
+                                             <div class="team-image">
+                                                  <img src="images/cs2.jpg" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="team-info">
+                                                  <h3>Christian McClaine</h3>
+                                                  <span>Senior Chairman</span>
+                                             </div>
+                                             <ul class="social-icon">
+                                                  <li><a href="mailto: mcclaine.christian@bphawks.org" class="fas fa-envelope"></a></li>
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="item">
+                                   <div class="col-md-9 col-sm-10">
+                                        <div class="team-thumb">
+                                             <div class="team-image">
+                                                  <img src="images/cs3.jpg" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="team-info">
+                                                  <h3>Keelan Donovan</h3>
+                                                  <br>
+                                             </div>
+                                             <ul class="social-icon">
+                                                  <li><a href="mailto: donovan.keelan@bphawks.org" class="fas fa-envelope"></a></li>
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                         <div class="section-title">
+                              <h2><small>Dance and Induction Committee Chairs</small></h2>
+                         </div>
+                    </div>
+
+
+                    <div class="col-xs-12 col-md-12 col-sm-12">
+                         <div class="owl-carousel owl-theme owl-courses">
+                              <div class="item">
+                                   <div class="col-md-9 col-sm-10">
+                                        <div class="team-thumb">
+                                             <div class="team-image">
+                                                  <img src="images/di1.jpg" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="team-info">
+                                                  <h3>Allison Kurtz</h3>
+                                                  <br/>
+                                             </div>
+                                             <ul class="social-icon">
+                                                  <li><a href="mailto: kurtz.allison@bphawks.org" class="fas fa-envelope"></a></li>
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="item">
+                                   <div class="col-md-9 col-sm-10">
+                                        <div class="team-thumb">
+                                             <div class="team-image">
+                                                  <img src="images/di2.jpg" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="team-info">
+                                                  <h3>Lily Gaston</h3>
+                                                  <br/>
+                                             </div>
+                                             <ul class="social-icon">
+                                                  <li><a href="mailto: gaston.lily@bphawks.org" class="fas fa-envelope"></a></li>
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="item">
+                                   <div class="col-md-9 col-sm-10">
+                                        <div class="team-thumb">
+                                             <div class="team-image">
+                                                  <img src="images/di3.jpg" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="team-info">
+                                                  <h3>Sarah Gilliland</h3>
+                                                  <br>
+                                             </div>
+                                             <ul class="social-icon">
+                                                  <li><a href="mailto: gilliland.sarah@bphawks.org" class="fas fa-envelope"></a></li>
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                         <div class="section-title">
+                              <h2><small>PR and Fundraising Committee Chairs</small></h2>
+                         </div>
+                    </div>
+
+                    
+                    <div class="col-md-3 col-xs-6">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/pf1.jpg" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Jake Cook</h3>
+                                   <br/>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="mailto: cook.jake@bphawks.org" class="fas fa-envelope"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                              
+                    <div class="col-md-3 col-xs-6">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/pf2.jpg" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Freddy Schein</h3>
+                                   <br>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="mailto: schein.frederick@bphawks.org" class="fas fa-envelope"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </section>
+
+
+     <!-- Events -->
+     <section id="events">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-12 col-sm-12">
+                         <div class="section-title">
+                              <h2>Upcoming Events</h2>
+                         </div>
+                         <!--
+                         <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=YnBoYXdrcy5vcmdfY2xhc3Nyb29tZjljNmM4MWNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23202124&amp;title&amp;showTitle=0&amp;showPrint=0" style="border-width:0" width="960" height="600" frameborder="0" scrolling="no"></iframe>
+                         -->
+                    </div>
+
+               </div>
+          </div>
+     </section> 
+
+
+     <!-- Resources -->
+     <section id="resources">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-12 col-sm-12">
+                         <div class="section-title">
+                              <h2>Resources</h2>
+                              <h2><small>Documents</small></h2>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/inductee-app.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Inductee Application</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="https://docs.google.com/document/d/1BC8vtdHeHnSwfYx-MvLFEf9LV0tXaZNdG_frAosazYU/edit?usp=sharing" target="_blank" class="fab fa-google-drive"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/leadership-ckst.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Leadership Check Sheet</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="https://docs.google.com/document/d/13g4V0fI2cpc8eze7K8AnGYCmP5ee_ffXHnXf5wW8hDY/edit?usp=sharing" target="_blank" class="fab fa-google-drive"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+                    
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/service-sht.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Service Sheet</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="https://docs.google.com/document/d/1d1Mk7ZogrT-pNQ7W09zFYVyuLt48pmCepEHU604VNkI/edit?usp=sharing" target="_blank" class="fab fa-google-drive"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/scholarship-app.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Scholariship Application</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="https://docs.google.com/document/d/1oWDf9udluLP8CDVsZW-5dhObzrss8nMUsCz_sV1E4nQ/edit?usp=sharing" target="_blank" class="fab fa-google-drive"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/officer-election.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Officer Election Form</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="https://docs.google.com/document/d/1ZbUEfdzx1NMotnI5jM2jCp-mRMDUmEd9WX-4HMKa3CI/edit?usp=sharing" target="_blank" class="fab fa-google-drive"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/committee-chair.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Committee Chair Form</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="https://docs.google.com/document/d/1cV29Om1YcnMOBk9xPpoeVS7r9duhb8-sMpH8twGpHHU/edit?usp=sharing" target="_blank" class="fab fa-google-drive"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                         <div class="section-title">
+                              <h2 style="padding-top:10px"><small>Service Opportunities</small></h2>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/red-cross.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Red Cross Digital</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="https://www.redcross.org/volunteer/volunteer-opportunities/be-a-digital-advocate.html" target="_blank" class="fas fa-external-link-alt"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+
+               </div>
+          </div>
+     </section>
+
+       
+
+
+     <!-- FOOTER -->
+     <footer id="footer">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2>Bethel Park High School</h2>
+                              </div>
+                              <address>
+                                   <p>390 Church Road,<br> Bethel Park, PA 15102</p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2>Quick Links</h2>
+                              </div>
+
+                              <div class="footer_menu">
+                                   <ul>
+                                        <li><a href="https://www.bpsd.org" target="_blank">BPSD</a></li>
+                                        <li><a href="https://www.nhs.us/" target="_blank">NHS</a></li>
+                                        <li><a href="tos.html">Terms of Use</a></li>
+                                        <li><a href="privacy.html">Privacy Policy</a></li>
+                                   </ul>
+                              </div>
+
+                              <ul class="social-icon">
+                                   <li><a href="https://vm.tiktok.com/JjrQ3EW/" class="fab fa-tiktok"></a></li>
+                                   <li><a href="https://www.instagram.com/bphsnhs00/" class="fab fa-instagram"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <p>This Site is not maintained by the Bethel Park School District. The views and decisions expressed on this Site are those of the Bethel Park National Honor Society and do not necessarily reflect the official policies or declarations of any other organization.</p>
+                         </div>
+                    </div>
+                    
+               </div>
+          </div>
+     </footer>
+
+     <footer id="subfooter">
+          <div class="container">
+               <div class="row">
+                    
+                    <div class="col-md-6">
+                         <p>Made with <i class="fas fa-clock"></i> and <i class="fas fa-tint"></i> by Evan Zelt & Demetri Patrinos</p>
+                    </div>
+
+                    <div class="col-md-6 copyright-text">
+                         <p>&copy; 2020 Bethel Park National Honor Society</p>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+
+     <!-- SCRIPTS -->
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/owl.carousel.min.js"></script>
+     <script src="js/smoothscroll.js"></script>
+     <script src="js/custom.js"></script>
+
 </body>
-
 </html>
