@@ -61,20 +61,32 @@
      <!-- LOGIN -->
      <section id="login-section">
           <div class="container" >
-               <div class="col-md-5 col-sm-12 login-box col-centered">
+               <div class="col-xs-8 col-md-5 col-sm-5 login-box col-centered">
                     <form id="create-form" role="form" action="" method="post">
                          <img id="login-crest" src="images/crest.png">
                             <br>
+
                          <input type="text" class="form-control" placeholder="First (Given) Name" id=fName required="">
                          <input type="text" class="form-control" placeholder="Last Name" id=lName required="">
                          <input type="email" class="form-control set-email" placeholder="Email" id="set-email" required="">
                          <input type="email" class="form-control set-email" placeholder="Confirm Email" id="set-email2" required="" onchange="checkEmailMatch()">
 
+
+                         <input type="password" class="form-control" placeholder="Password" id="set-pw" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                         <input type="password" class="form-control" placeholder="Confirm Password" id="set-pw2" required="" onchange="checkPasswordMatch(); check();">
                          
-                         <input type="password" class="form-control" placeholder="Password" id="set-pw" required="">
-                         <input type="password" class="form-control" placeholder="Confirm Password" id="set-pw2" required="" onchange="checkPasswordMatch()">
+                         <div class="pw-info">
+                              <h2><small>Password must meet the following requirements:</small></h2>
+                              <ul class="fa-ul">
+                                  <li id="letter"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one lower-case letter</strong></li>
+                                  <li id="capital"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one capital letter</strong></li>
+                                  <li id="number"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one number</strong></li>
+                                  <li id="length"><span class="fa-li"><i class="fas fa-times"></i></span>Be at least <strong>8 characters</strong></li>
+                              </ul>
+                         </div>
 
                          <input id="create-button" type="submit" class="form-control" value="Create Account">
+                         <a href="login.html"><h2 class="login-link"><small>Have an account already?</small></h2></a>
                     </form>
                </div>
            </div>

@@ -1,11 +1,3 @@
-/*
-
-Known Template 
-
-https://templatemo.com/tm-516-known
-
-*/
-
   @import url('https://fonts.googleapis.com/css?family=Muli:300,700|Nunito');
 
   body {
@@ -286,6 +278,10 @@ https://templatemo.com/tm-516-known
     padding-right: 22px;
     padding-left: 22px;
   }
+  
+  .navbar-icon {
+    font-size: 20px;
+  }
 
   .custom-navbar .navbar-nav > li > a:hover,
   .custom-navbar .navbar-nav > li > a:focus {
@@ -485,90 +481,6 @@ https://templatemo.com/tm-516-known
     width: 100%;
   }
 
-
-  /*---------------------------------------
-     NEWS              
-  -----------------------------------------*/
-
-  .news-thumb {
-    clear: both;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 30px;
-  }
-
-  .news-thumb .news-image {
-    float: left;
-    width: 40%;
-    margin-right: 30px;
-  }
-
-  .news-info h3 {
-    margin-top: 5px;
-    margin-bottom: 10px;
-  }
-
-  .news-date span {
-    color: #909090;
-    font-weight: bold;
-  }
-
-
-
-  /*---------------------------------------
-      TESTIMONIAL             
-  -----------------------------------------*/
-
-  #testimonial .item {
-    background: #ffffff;
-    margin: 20px 0;
-    padding: 4em 3em;
-    text-align: left;
-  }
-
-  #courses .col-md-4,
-  #testimonial .col-md-4 {
-    display: block;
-    width: 100%;
-  }
-
-  #testimonial .item > p {
-    font-size: 16px;
-    line-height: 26px;
-  }
-
-  .tst-rating {
-    margin-bottom: 15px;
-  }
-
-  .tst-rating .fa {
-    color: #3f51b5;
-  }
-
-  .tst-image,
-  .tst-author {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 20px;
-    text-align: left;
-  }
-
-  .tst-image img {
-    border-radius: 50px;
-    width: 60px !important;
-    height: 60px;
-    margin-right: 15px;
-  }
-
-  .tst-author h4 {
-    margin: 0;
-  }
-
-  .tst-author span {
-    color: #808080;
-    font-size: 14px;
-  }
-
   /*---------------------------------------
       RESOURCES             
   -----------------------------------------*/
@@ -674,39 +586,6 @@ https://templatemo.com/tm-516-known
     text-align: right;
   }
 
-  .newsletter-form .form-control {
-    background: transparent;
-    border-radius: 0;
-    box-shadow: none;
-    border: 0;
-    border-bottom: 1px solid #303030;
-    height: 50px;
-    margin: 5px 0;
-  }
-
-  .newsletter-form input[type="submit"] {
-    background: transparent;
-    border: 1px solid #f9f9f9;
-    border-radius: 50px;
-    color: #ffffff;
-    display: block;
-    margin-top: 20px;
-    outline: none;
-    width: 50%;
-  }
-
-  .newsletter-form input[type="submit"]:hover {
-    background: #f56b2c;
-    border-color: transparent;
-  }
-
-  .newsletter-form .form-group span {
-    color: #909090;
-    display: block;
-    font-size: 12px;
-    margin-top: 20px;
-  }
-
   /*---------------------------------------
       SUBFOOTER              
     -----------------------------------------*/
@@ -782,6 +661,47 @@ https://templatemo.com/tm-516-known
      LOGIN             
   -----------------------------------------*/
 
+  .pw-info {
+    position:absolute;
+    bottom:-110px;
+    bottom: -115px\9;
+    right:215px;
+    width:250px;
+    padding:15px;
+    background:#fefefe;
+    font-size:.875em;
+    border-radius:5px;
+    box-shadow:0 1px 3px #ccc;
+    border:1px solid #ddd;
+    display: none;
+  }
+
+  #length, #capital, #letter, #number {
+    color: red;
+  }
+
+  .pw-info ul {
+    text-align: left;
+  }
+
+  .pw-info h2 {
+    margin-bottom: 3px;
+    padding-top: 12px;
+    line-height: 20px;
+  }
+
+  .pw-info::before {
+    content: "\25B2";
+    position:absolute;
+    top:-12px;
+    left:45%;
+    font-size:14px;
+    line-height:14px;
+    color:#ddd;
+    text-shadow:none;
+    display:block;
+}
+
   .login-box {
     text-align: center;
     border: 1px solid #cccccc;
@@ -819,7 +739,7 @@ https://templatemo.com/tm-516-known
     color: #575757;
   }
 
-  #login-form input[type='text'], #login-form input[type='password'], #recovery-form input[type='text'], #recovery-form input[type='password'], #recovery-form input[type='email'] {
+  #login-form input[type='email'], #login-form input[type='password'], #recovery-form input[type='text'], #recovery-form input[type='password'], #recovery-form input[type='email'] {
     height: 50px;
     width: 300px;
   }
@@ -944,10 +864,6 @@ https://templatemo.com/tm-516-known
 
     .footer-info {
       margin-right: 0;
-    }
-
-    .footer-info.newsletter-form {
-      margin-bottom: 0;
     }
 
     .entry-form {

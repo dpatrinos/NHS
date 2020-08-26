@@ -90,25 +90,21 @@
       if ((email!=confirmEmail) && (email!="") && (confirmEmail!="")) {
         $("#set-email").css("border", "2px solid red");
         $('#set-email2').css('border', '2px solid red');
-      }
-
-      else if (email=="" || confirmEmail=="") {
-        $("#set-email").css("border", "1px solid transparent");
-        $('#set-email2').css('border', '1px solid transparent');
+        $('#create-button').prop('disabled', true);
       }
 
       else {
-        $('#set-email').css('border', '2px solid green');
-        $('#set-email2').css('border', '2px solid green');
+        $("#set-email").css("border", "1px solid transparent");
+        $('#set-email2').css('border', '1px solid transparent');
+        $('#create-button').prop('disabled', false);
       }
     }
-
 
     // PASSWORD MATCHING
     $(document).ready(function () {
       $("#set-pw, #set-pw2").keyup(checkPasswordMatch);
     });
-
+    
     function checkPasswordMatch() {
       var password = $("#set-pw").val();
       var confirmPassword = $("#set-pw2").val();
@@ -116,18 +112,71 @@
       if ((password!=confirmPassword) && (password!="") && (confirmPassword!="")) {
         $("#set-pw").css("border", "2px solid red");
         $('#set-pw2').css('border', '2px solid red');
+        $('#create-button').prop('disabled', true);
       }
       
-      else if ((password=="") || (confirmPassword=="")) {
+      else {
         $("#set-pw").css("border", "1px solid transparent");
         $('#set-pw2').css('border', '1px solid transparent');
-      }
-
-      else {
-        $('#set-pw').css('border', '2px solid green');
-        $('#set-pw2').css('border', '2px solid green');
+        $('#create-button').prop('disabled', false);
       }
     }
+
+    // PASSWORD VALIDATION
+    $(document).ready(function() {
+      $('#set-pw').keyup(function() {
+        var pswd = $(this).val();
+        if ( pswd.length > 8 ) {
+          $('#length i').removeClass('fa-times').addClass('fa-check');
+          $('#length').css('color', 'green');
+        }
+        else {
+          $('#length i').removeClass('fa-check').addClass('fa-times');
+          $('#length').css('color', 'red'); 
+        }
+        if ( pswd.match(/[a-z]/) ) {
+          $('#letter i').removeClass('fa-times').addClass('fa-check');
+          $('#letter').css('color', 'green');
+        }
+        else {
+          $('#letter i').removeClass('fa-check').addClass('fa-times');
+          $('#letter').css('color', 'red');
+        }
+        if ( pswd.match(/[A-Z]/) ) {
+          $('#capital i').removeClass('fa-times').addClass('fa-check');
+          $('#capital').css('color', 'green');
+        }
+        else {
+          $('#capital i').removeClass('fa-check').addClass('fa-times');
+          $('#capital').css('color', 'red');
+        }
+        if ( pswd.match(/\d/) ) {
+          $('#number i').removeClass('fa-times').addClass('fa-check');
+          $('#number').css('color', 'green');
+        }
+        else {
+          $('#number i').removeClass('fa-check').addClass('fa-times');
+          $('#number').css('color', 'red');
+        }
+      }).focus(function() {
+        $('.pw-info').show();
+      }).blur(function() {
+        $('.pw-info').hide();
+    });
+    });
+
+    //TABLE PAGINATION
+    $(document).ready(function () {
+      $('#dtBasicExample').DataTable({
+        "pagingType": "simple"
+      });
+      $('.dataTables_length').addClass('bs-select');
+    });
+
+    $(document).ready(function () {
+      $('#dtBasicExample').DataTable();
+      $('.dataTables_length').addClass('bs-select');
+    });
 
 })(jQuery);
 
