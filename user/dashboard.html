@@ -56,9 +56,9 @@
                         <li><a href="index.html#resources" class="smoothScroll">Resources</a></li>
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul id="right-menu" class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+                            <a class="dropdown-toggle fas fa-user-circle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">  <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="dashboard.html">Dashboard</a></li>
                                 <li><a href="actions.html">Actions</a></li>
@@ -68,6 +68,15 @@
                                 <li><a action="" class="smoothScroll">Log Out</a></li>
                             </ul>
                         </li>
+                   </ul>
+
+                   <ul id="right-menu-collapse" class="nav navbar-nav navbar-right">
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="actions.html">Actions</a></li>
+                        <li><a href="settings.html">Settings</a></li>
+                        <li role="separator" class="divider"></li>
+                        <!-- EVAN FIX ACTION-->
+                        <li><a action="" class="smoothScroll">Log Out</a></li>
                    </ul>
                 </div>
 
@@ -299,6 +308,7 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/smoothscroll.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/dashboard.js"></script>
 
 </body>
 </html>

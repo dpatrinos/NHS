@@ -56,24 +56,107 @@
                         <li><a href="index.html#resources" class="smoothScroll">Resources</a></li>
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="dashboard.html">Dashboard</a></li>
-                                <li><a href="actions.html">Actions</a></li>
-                                <li><a href="settings.html">Settings</a></li>
-                                <li role="separator" class="divider"></li>
-                                <!-- EVAN FIX ACTION-->
-                                <li><a action="" class="smoothScroll">Log Out</a></li>
-                            </ul>
-                        </li>
-                   </ul>
+                    <ul id="right-menu" class="nav navbar-nav navbar-right">
+                         <li class="dropdown">
+                             <a class="dropdown-toggle fas fa-user-circle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">  <span class="caret"></span></a>
+                             <ul class="dropdown-menu">
+                                 <li><a href="dashboard.html">Dashboard</a></li>
+                                 <li><a href="actions.html">Actions</a></li>
+                                 <li><a href="settings.html">Settings</a></li>
+                                 <li role="separator" class="divider"></li>
+                                 <!-- EVAN FIX ACTION-->
+                                 <li><a action="" class="smoothScroll">Log Out</a></li>
+                             </ul>
+                         </li>
+                    </ul>
+ 
+                    <ul id="right-menu-collapse" class="nav navbar-nav navbar-right">
+                         <li><a href="dashboard.html">Dashboard</a></li>
+                         <li><a href="actions.html">Actions</a></li>
+                         <li><a href="settings.html">Settings</a></li>
+                         <li role="separator" class="divider"></li>
+                         <!-- EVAN FIX ACTION-->
+                         <li><a action="" class="smoothScroll">Log Out</a></li>
+                    </ul>
                 </div>
 
             </div>
     </section>
 
+
+    <section id="settings">
+        <div class="container">
+
+            <div style="margin-bottom:40px;" class="col-xs-12 action-box">
+                <div class="col-md-3">
+                   <label class="user-label">First Name</label>
+                   <h3 class="user-stuff"><small>John</small></h3>
+                </div>
+
+                <div class="col-md-3">
+                   <label class="user-label">Last Name</label>
+                   <h3 class="user-stuff"><small>Doe</small></h3>
+                </div>
+
+                <div class="col-md-3">
+                   <label class="user-label">Email</label>
+                   <h3 class="user-stuff"><small>example@domain.com</small></h3>
+                </div>
+
+                <div class="col-md-3">
+                   <label class="user-label">Committee</label>
+                   <h3 class="user-stuff"><small>Community Service</small></h3>
+                </div>
+           </div>
+
+           <div class="col-md-6">
+                <div class="col-md-8 col-centered action-box">
+                    <h2><small>Change Password</small></h2>
+                    <form autocomplete="off" id="change-pw" class="action-form" role="form" action="" method="post">
+                        <label for="current-pw">Current Password</label>
+                        <input type="password" class="form-control" id="current-pw" required="">
+
+                        <label for="new-pw">New Password</label>
+                        <input type="password" class="form-control" id="new-pw" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+
+                        <label for="new-pw2">Confirm New Password</label>
+                        <input type="password" class="form-control" id="new-pw2" required="" onchange="checkPasswordMatch();">
+
+                        <div class="pw-info">
+                            <h2><small>Password must meet the following requirements:</small></h2>
+                            <ul class="fa-ul">
+                                <li id="letter"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one lower-case letter</strong></li>
+                                <li id="capital"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one capital letter</strong></li>
+                                <li id="number"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one number</strong></li>
+                                <li id="length"><span class="fa-li"><i class="fas fa-times"></i></span>Be at least <strong>8 characters</strong></li>
+                            </ul>
+                        </div>
+
+                        <input id="new-pw-submit" type="submit" class="form-control" value="Submit">
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class= "col-md-8 col-centered action-box">
+                <h2><small>Change Email</small></h2>
+                <form autocomplete="off" id="change-email" class="action-form" role="form" action="" method="post">
+                    <label for="new-email">New Email</label>
+                    <input type="email" class="form-control" id="new-email" required="">
+
+                    <label for="new-email2">Confirm New Email</label>
+                    <input type="email" class="form-control" id="new-email2" required="" onchange="checkEmailMatch();">
+
+                    <label for="email-pw">Password</label>
+                    <input type="password" class="form-control" id="email-pw" required="">
+
+                    <input id="new-email-submit" type="submit" class="form-control" value="Submit">
+                </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 
     <!-- FOOTER -->

@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/df95adec8c.js" crossorigin="anonymous"></script>
     <script src="../node_modules/chart.js/dist/Chart.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
    
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -48,7 +49,7 @@
 
                 <!-- MENU LINKS -->
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-nav-first">
+                    <ul id="nav-left" class="nav navbar-nav navbar-nav-first">
                         <li><a href="index.html#top" class="smoothScroll">Home</a></li>
                         <li><a href="index.html#about" class="smoothScroll">About</a></li>
                         <li><a href="index.html#team" class="smoothScroll">Our Leadership</a></li>
@@ -56,9 +57,9 @@
                         <li><a href="index.html#resources" class="smoothScroll">Resources</a></li>
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul id="right-menu" class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+                            <a class="dropdown-toggle fas fa-user-circle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">  <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="dashboard.html">Dashboard</a></li>
                                 <li><a href="actions.html">Actions</a></li>
@@ -69,14 +70,67 @@
                             </ul>
                         </li>
                    </ul>
-                </div>
 
+                   <ul id="right-menu-collapse" class="nav navbar-nav navbar-right">
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="actions.html">Actions</a></li>
+                        <li><a href="settings.html">Settings</a></li>
+                        <li role="separator" class="divider"></li>
+                        <!-- EVAN FIX ACTION-->
+                        <li><a action="" class="smoothScroll">Log Out</a></li>
+                   </ul>
+                </div>
             </div>
     </section>
 
-    <section id="events">
+    <section>
         <div class="container">
-    
+
+            <div class="col-md-6">
+                <div class="col-md-8 col-centered action-box">
+                    <h2><small>Hours Log Form</small></h2>
+                    <form autocomplete="off" id="hours-request" class="action-form" role="form" action="" method="post">
+                        <label for="event">Event Name</label>
+                        <input type="text" class="form-control" id="event" required="">
+
+                        <label for="date">Event Date</label>
+                        <input type="date" class="form-control" id="date" required="">
+
+                        <label for="hours">Hours Volunteered</label>
+                        <input type="number" class="form-control" id="hours" step="0.1" required="">
+
+                        <label for="proof-pic">Picture from Event</label>
+                        <input type="file" class="form-control" id="proof-pic" accept=".jpg,.png,.jpeg,.pdf,.heic" required="">
+
+                        <input style="margin-top:33px;" id="hours-submit" type="submit" class="form-control" value="Submit">
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="col-md-8 col-centered action-box">
+                    <h2><small>Event Sign Up</small></h2>
+                    <form autocomplete="off" id="event-signup" class="action-form" role="form" action="" method="post">
+                        <label for="event-select">Event Name</label>
+                        <input type="text" class="form-control" list="event-list" id="event-select" required="">
+                            <datalist id="event-list">
+                                <option value='Event 1'></option>
+                                <option value='Event 2'></option>
+                            </datalist>
+
+                        <label for="time-start">Start Time</label>
+                        <input type="time" class="form-control" id="time-start" step="3600" required="">
+
+                        <label for="time-end">End Time</label>
+                        <input type="time" class="form-control" id="time-end" step="3600" required="">
+
+                        <div class="robo"><div class="g-recaptcha" data-sitekey="6Lfix8QZAAAAAP5BoOfBaGXNykRLJrjmQyjPnzH4"></div></div>
+
+                        <input id="event-submit" type="submit" class="form-control" value="Submit">
+                    </form>
+                </div>
+            </div>
+
         </div>
     </section>
 

@@ -156,6 +156,11 @@
     margin: 0 auto;
   }
 
+  .col-right {
+    float:right;
+    margin-right:0;
+  }
+
   /*---------------------------------------
      BUTTONS               
   -----------------------------------------*/
@@ -231,6 +236,10 @@
   /*---------------------------------------
       MENU              
   -----------------------------------------*/
+
+  .dropdown-toggle {
+    font-size: 20px;
+  }
 
   .dropdown:hover .dropdown-menu {
     display: block;
@@ -722,6 +731,119 @@
     background: #f9f9f9;
     border-radius: 8px;
   }
+  
+  .action-form {
+    padding: 3rem 0 1rem;
+  }
+
+  .action-box h2 {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .action-form .form-control {
+    border: 0;
+    border-radius: 5px;
+    box-shadow: none;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    color: #575757;
+  }
+
+  .action-form input[type='submit'] {
+    border-radius: 500px;
+    border: 1px solid transparent;
+    margin-top: 10px;
+    height: 50px;
+    width: 185px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .action-form input[type='submit']:hover {
+    background: transparent;
+    border: 8px solid #f9f9f9;
+  }
+
+  .action-form input[type='text'], .action-form input[type='email'], .action-form input[type='date'], .action-form input[type='number'], .action-form input[type='time'], .action-form input[type='password'] {
+    height: 50px;
+    width: 100%; 
+  }
+
+  .action-form input[type='file'] {
+    height:35px;
+    width:100%;
+  }
+
+  .action-box {
+    border: 1px solid #cccccc;
+  }
+
+  .robo {
+    text-align:center;
+  }
+
+  .g-recaptcha {
+    display:inline-block;
+  }
+
+  .pw-info {
+    position:absolute;
+    bottom:-20px;
+    bottom: -115px\9;
+    right:65px;
+    width:250px;
+    padding:15px;
+    background:#fefefe;
+    font-size:.875em;
+    border-radius:5px;
+    box-shadow:0 1px 3px #ccc;
+    border:1px solid #ddd;
+    display:none;
+  }
+
+  #length, #capital, #letter, #number {
+    color: red;
+  }
+
+  .pw-info ul {
+    text-align: left;
+  }
+
+  .pw-info h2 {
+    margin-bottom: 3px;
+    margin-top: -5px;
+    line-height: 20px;
+    font-size: 22px;
+  }
+
+  .pw-info:before {
+    content: "\25B2";
+    position:absolute;
+    top:-12px;
+    left:45%;
+    font-size:14px;
+    line-height:14px;
+    color:#ddd;
+    text-shadow:none;
+    display:block;
+  }
+
+  .user-stuff {
+    background: #f9f9f9;
+    border-radius:8px;
+    height:50px;
+    font-size:24px;
+    text-align:left;
+    padding-left:10px;
+    padding-top:5px;
+    margin-bottom: 15px;
+    margin-top:0;
+  }
+
+  .user-label {
+    margin-top:15px;
+  }
 
   /*---------------------------------------
      RESPONSIVE STYLES              
@@ -764,6 +886,7 @@
       padding-right: 10px;
       padding-left: 10px;
     }
+
   }
 
   @media only screen and (max-width: 767px) {
@@ -774,6 +897,8 @@
     h1,h2,h3 {
       line-height: normal;
     }
+
+
 
     .custom-navbar {
       background: #ffffff;
@@ -803,11 +928,13 @@
     .top-nav-collapse .nav li a {
       color: #575757;
     }
-
-    .custom-navbar .navbar-nav.navbar-right li {
+    
+    .custom-navbar .navbar-nav.navbar-right li:nth-child(-n+3) {
       display: inline-block;
+      border-top: 1px solid #cccccc;
+      padding:0;
     }
-
+    
     .footer-info {
       margin-right: 0;
     }

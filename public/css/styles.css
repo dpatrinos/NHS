@@ -663,7 +663,7 @@
 
   .pw-info {
     position:absolute;
-    bottom:-110px;
+    bottom:-65px;
     bottom: -115px\9;
     right:215px;
     width:250px;
@@ -690,7 +690,7 @@
     line-height: 20px;
   }
 
-  .pw-info::before {
+  .pw-info:before {
     content: "\25B2";
     position:absolute;
     top:-12px;
@@ -700,7 +700,7 @@
     color:#ddd;
     text-shadow:none;
     display:block;
-}
+  }
 
   .login-box {
     text-align: center;

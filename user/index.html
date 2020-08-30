@@ -18,6 +18,8 @@
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
      <link rel="stylesheet" href="css/styles.css">
+     <link rel="stylesheet" href="../node_modules/fullcalendar/main.css">
+     <script src="../node_modules/fullcalendar/main.js"></script>
      <script src="https://kit.fontawesome.com/df95adec8c.js" crossorigin="anonymous"></script>
 
 </head>
@@ -58,9 +60,9 @@
                          <li><a href="#resources" class="smoothScroll">Resources</a></li>
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul id="right-menu" class="nav navbar-nav navbar-right">
                          <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+                             <a class="dropdown-toggle fas fa-user-circle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">  <span class="caret"></span></a>
                              <ul class="dropdown-menu">
                                  <li><a href="dashboard.html">Dashboard</a></li>
                                  <li><a href="actions.html">Actions</a></li>
@@ -70,6 +72,15 @@
                                  <li><a action="" class="smoothScroll">Log Out</a></li>
                              </ul>
                          </li>
+                    </ul>
+ 
+                    <ul id="right-menu-collapse" class="nav navbar-nav navbar-right">
+                         <li><a href="dashboard.html">Dashboard</a></li>
+                         <li><a href="actions.html">Actions</a></li>
+                         <li><a href="settings.html">Settings</a></li>
+                         <li role="separator" class="divider"></li>
+                         <!-- EVAN FIX ACTION-->
+                         <li><a action="" class="smoothScroll">Log Out</a></li>
                     </ul>
                </div>
 
@@ -97,7 +108,7 @@
                                         <div class="col-md-6 col-sm-12">
                                              <h1>Check your hours and atttendance anytime!</h1>
                                              <h3>Our database automatically logs your membership details for you to view in real time.</h3>
-                                             <a href="login.html" class="section-btn btn btn-default smoothScroll">Login</a>
+                                             <a href="dashboard.html" class="section-btn btn btn-default smoothScroll">Dashboard</a>
                                         </div>
                                    </div>
                               </div>
@@ -459,9 +470,7 @@
                          <div class="section-title">
                               <h2>Upcoming Events</h2>
                          </div>
-                         <!--
-                         <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=YnBoYXdrcy5vcmdfY2xhc3Nyb29tZjljNmM4MWNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23202124&amp;title&amp;showTitle=0&amp;showPrint=0" style="border-width:0" width="960" height="600" frameborder="0" scrolling="no"></iframe>
-                         -->
+                         <div id='calendar'></div>
                     </div>
 
                </div>
@@ -474,7 +483,7 @@
           <div class="container">
                <div class="row">
 
-                    <div class="col-md-12 col-sm-12">
+                    <div class="col-md-12 col-xs-12">
                          <div class="section-title">
                               <h2>Resources</h2>
                               <h2><small>Documents</small></h2>
@@ -565,9 +574,23 @@
                          </div>
                     </div>
 
-                    <div class="col-md-12 col-sm-12">
+                    <div class="col-md-12 col-xs-12">
                          <div class="section-title">
-                              <h2 style="padding-top:10px"><small>Service Opportunities</small></h2>
+                              <h2 style="padding-top:10px"><small>Digital Service Opportunities</small></h2>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/something-logo.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>DoSomething.org</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="https://www.dosomething.org/us/about/volunteer-hours-nassp-program?utm_source=NASSP20SL-0073&utm_medium=Email&utm_campaign=NASSP20SL" target="_blank" class="fas fa-external-link-alt"></a></li>
+                              </ul>
                          </div>
                     </div>
 
@@ -585,6 +608,47 @@
                          </div>
                     </div>
 
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/un-logo.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>United Nations</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="https://www.onlinevolunteering.org/en" target="_blank" class="fas fa-external-link-alt"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/smith-logo.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Smithsonian</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="si.edu/volunteer/DigitalVolunteers" target="_blank" class="fas fa-external-link-alt"></a></li>
+                              </ul>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-2">
+                         <div class="team-thumb">
+                              <div class="team-image">
+                                   <img src="images/zoon-logo.png" class="img-responsive" alt="">
+                              </div>
+                              <div class="team-info">
+                                   <h3>Zooniverse</h3>
+                              </div>
+                              <ul class="social-icon">
+                                   <li><a href="https://www.zooniverse.org/" target="_blank" class="fas fa-external-link-alt"></a></li>
+                              </ul>
+                         </div>
+                    </div>
 
                </div>
           </div>
@@ -659,8 +723,8 @@
 
 
      <!-- SCRIPTS -->
-     <script src="js/jquery.js"></script>
      <script src="js/bootstrap.min.js"></script>
+     <script src="js/jquery.js"></script>
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/smoothscroll.js"></script>
      <script src="js/custom.js"></script>
