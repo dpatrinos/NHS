@@ -7,7 +7,7 @@ const cors = require("cors");
 router.use(
     cors({
         credentials: true,
-        origin: "http://example.com",
+        origin: "http://bpnhs.org:3000",
     })
 )
 
@@ -120,7 +120,7 @@ router.post("/login", urlencodedParser, (req, res) => {
 
 //handle registration requests 
 router.post("/register", urlencodedParser, (req, res) => {
-    console.log(req.body)
+    console.log(req.body);
     verifyData(req.body, (status) => {
         if(status != "valid") { 
             res.send({ "status" : status })
@@ -161,17 +161,17 @@ const verifyData = (data, cb) => {
 //get user information
 router.get("/currentUser", (req, res) => { 
     if(req.session.account) { 
-        res.send({name: req.session.account.name, committee: req.session.account.committee});
+        res.send({name: req.session.account.name, committee: req.session.account.committee, status: req.session.account.status});
     } else {
         res.send({});
     }
 });
 
 
-//get user attendance
+//get user's past events (submitted)
 router.get("/currentUser/pastevents", (req, res) => {
     if(req.session.account != null) { 
-        let query = `SELECT event_name, hours, status, event_date FROM service WHERE account_id = ${req.session.account.id}`;
+        let query = `SELECT event_name, hours, status, event_date FROM service WHERE account_id = ${req.session.account.id} ORDER BY event_date`;
         connection.query(query, (err, rows) => {
             if (err) throw err;
 
@@ -181,6 +181,20 @@ router.get("/currentUser/pastevents", (req, res) => {
         res.sendStatus(403);
     }
 });
+
+//get user's attendance record
+router.get("/currentUser/attendance", (req, res) => { 
+    if(req.session.account != null) {
+        let query = `SELECT status, meeting_name, meeting_time FROM attendance a INNER JOIN meetings m ON a.meeting_id = m.id WHERE a.account_id = ${req.session.account.id} ORDER BY m.meeting_time`;
+        connection.query(query, (err, rows) => { 
+            if(err) throw err;
+
+            res.send(rows);
+        });
+    } else {
+        res.sendStatus(403);
+    }
+})
 
 //get committee attendance records
 router.get("/committeeAttendance/:committee?", (req, res) => {
