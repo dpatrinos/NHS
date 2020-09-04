@@ -1,3 +1,50 @@
+//Get User info
+$.ajax({
+  type: 'get',
+  url: 'http://api.example.com/currentUser',
+  crossDomain: true,
+  xhrFields: {
+      withCredentials: true
+  },
+  success: (data) => {
+    if(data.name) {
+      console.log(data)
+      $("#username-text").text(data.name);
+    } else {
+      location.href = "/login";
+    }
+  }
+})
+
+//Get user events
+$.ajax({
+  type: 'get',
+  url: 'http://api.example.com/currentUser/pastevents',
+  crossDomain: true,
+  xhrFields: {
+      withCredentials: true
+  },
+  success: (data) => {
+    if(data.length != 0) { 
+      console.log(data)
+      $("#no-events-message").hide();
+      for(let event of data) {
+        let eventRow = $($("#event-row").html());
+        eventRow.find('#event-name').text(event.event_name);
+        console.log(event.event_date)
+        let date = new Date(event.event_date);
+        eventRow.find('#event-date').text(date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear());
+        eventRow.find('#event-hours').text(event.hours.toFixed(1));
+        let status = event.status == 0 ? "Pending" : event.status == 1 ? "Approved" : "Denied";
+        eventRow.find('#event-status').attr("class", `badge ${status}`).text(status);
+        $("#hours").append(eventRow);
+      }
+      
+    }
+
+  }
+})
+
 // HOURS CHART
 var ctx = document.getElementById('hoursDoughnut').getContext('2d');
 var options = {

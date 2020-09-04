@@ -2,12 +2,14 @@
 const express = require("express");
 const router = express.Router();
 
-//tools to read form encodings
-const bodyParser = require('body-parser');
-const multer = require('multer')
-const upload = multer();
-
-router.use(upload.array());
+//CORS
+const cors = require("cors");
+router.use(
+    cors({
+        credentials: true,
+        origin: "http://example.com",
+    })
+)
 
 //bcrypt for password hashing
 const bcrypt = require('bcrypt');
@@ -15,40 +17,110 @@ const bcrypt = require('bcrypt');
 //initialize mysql connection
 const connection = require("./connection");
 
-//handle get requests to the events endpoint
-router.get("/events/:id?", (req, res) => { 
+//body parser for parsing forms
+const bodyParser = require("body-parser");
+
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+//get event
+router.get("/events/:eventname?", (req, res) => {
     let query;
-    if (req.params.id == null) {
-        query = "SELECT * FROM events ORDER BY event_time";
+    let account_status;
+    if (req.params.eventname == null) {
+        query = "SELECT * FROM events ORDER BY event_time DESC";
     }
     else {
-        query = `SELECT * FROM events WHERE id = ${connection.escape(req.params.id)}`
+        let event_name = connection.escape(req.params.eventname);
+        if(req.session.account) {
+            query = `SELECT * FROM participation WHERE account_id = ${req.session.account.id} AND event_name = ${event_name}`;
+            connection.query(query, (err,rows) => {
+                if(err) throw err;
+
+                account_status = rows.length != 0 ? 1 : 0;
+            });
+        }
+        query = `SELECT * FROM events WHERE event_name = ${event_name}`
     }
 
     connection.query(query, (err,rows) => {
         if(err) throw err;
+
+        if(account_status) { 
+            rows[0].account_status = account_status;
+        }
         
         res.send(rows);
         return;
     });
 });
 
+//hnadle get reqests to event signup
+router.get("/eventSignup/:eventname", (req, res) => { 
+
+    //escape the 'eventname' parameter
+    let eventname = connection.escape(req.params.eventname);
+
+    //Check if signed in
+    if(req.session.account) { 
+
+        //Make sure event exists / is for the correct committee of the user
+        let query = `SELECT * FROM events WHERE event_name = ${eventname}`;
+        connection.query(query, (err, rows) => { 
+            if(err) throw err;
+
+            if(rows.length === 0 || (rows[0].committee != 'ALL' && rows[0].committee != req.session.account.role)) {
+                res.send({'status' : 'failure', 'error' : 'Permission denied'});
+                return;
+            }
+
+            //Make sure event has not already been signed up for by user
+            query = `SELECT * FROM participation WHERE account_id = ${req.session.account.id} AND event_name = ${eventname}`;
+            connection.query(query, (err, rows) => {
+                if(err) throw err;
+
+                if(rows.length != 0) {
+                    res.send({'status' : 'failure', 'error' : 'You are already signed up for this event'});
+                    return;
+                }
+
+                //If all above parameter queries are met, insert the signup information into participation
+                query = `INSERT INTO participation (account_id, event_name) VALUES (${req.session.account.id}, ${eventname})`;
+                connection.query(query, (err) => { 
+                    if(err) throw err;
+
+                    res.send({'status' : 'success'});
+                    return;
+                });
+            });     
+        });
+    }
+    else {
+        //Return forbidden without account session active
+        res.sendStatus(403);
+    }
+});
+
+
 //handle post requests to login endpoint
 const loginSession = require('./accountLogin');
-router.post("/login", (req, res) => {
-    console.log(req.session.account);
-    loginSession(req.body.email, req.body.password, (result, account) => {
-        if(result) { 
-            req.session.account = account;
-            res.send({status : "logged in"});
-        } else {
-            res.send({status : "password incorrect"});
-        }
-    })
+router.post("/login", urlencodedParser, (req, res) => {
+    if(req.body.email && req.body.password) {
+        loginSession(req.body.email, req.body.password, (result, account) => {
+            if(result) { 
+                req.session.account = account;
+                res.send({status : "logged in"});
+            } else {
+                res.send({status : "password incorrect"});
+            }
+        })
+    } else {
+        return res.sendStatus(403);
+    }
 });
 
 //handle registration requests 
-router.post("/register", (req, res) => {
+router.post("/register", urlencodedParser, (req, res) => {
+    console.log(req.body)
     verifyData(req.body, (status) => {
         if(status != "valid") { 
             res.send({ "status" : status })
@@ -88,14 +160,52 @@ const verifyData = (data, cb) => {
 
 //get user information
 router.get("/currentUser", (req, res) => { 
-    if(req.session.account != null) { 
-        res.send({name: req.session.account.name});
+    if(req.session.account) { 
+        res.send({name: req.session.account.name, committee: req.session.account.committee});
     } else {
-        res.status(404);
+        res.send({});
     }
 });
 
 
+//get user attendance
+router.get("/currentUser/pastevents", (req, res) => {
+    if(req.session.account != null) { 
+        let query = `SELECT event_name, hours, status, event_date FROM service WHERE account_id = ${req.session.account.id}`;
+        connection.query(query, (err, rows) => {
+            if (err) throw err;
+
+            res.send(rows);
+        });
+    } else {
+        res.sendStatus(403);
+    }
+});
+
+//get committee attendance records
+router.get("/committeeAttendance/:committee?", (req, res) => {
+    if(req.session.account && req.session.account.status != 'member') {
+        if(req.params.committee == null && req.session.account.role === 'ALL') {
+            let query = `SELECT event_name, participated, event_time, committee, name, email, role FROM participation INNER JOIN events USING (event_name) INNER JOIN accounts ON participation.account_id = accounts.id`;
+            connection.query(query, (err, rows) => {
+                if (err) throw err;
+
+                res.send(rows);
+            });
+        } else if(req.session.account.role == req.params.committee || req.session.account.role === 'ALL') { 
+            let query = `SELECT event_name, participated, event_time, committee, name, email, role FROM participation INNER JOIN events USING (event_name) INNER JOIN accounts ON participation.account_id = accounts.id WHERE events.committee = ${connection.escape(req.params.committee)}`;
+            connection.query(query, (err, rows) => {
+                if (err) throw err;
+
+                res.send(rows);
+            });
+        }
+    } else {
+        res.sendStatus(403);
+    }
+});
+
+router.all('*', (req, res) => {return res.sendStatus(404)}) 
 
 //export the api router
 module.exports = router;

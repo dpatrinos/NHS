@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/df95adec8c.js" crossorigin="anonymous"></script>
-    <script src="../node_modules/chart.js/dist/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" crossorigin="anonymous"></script>
    
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -87,7 +87,7 @@
         <div class="container">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="section-title">
-                    <h2 style="padding-top:5px;">John Doe</h2>
+                    <h2 style="padding-top:5px;" id="username-text">John Doe</h2>
                     <h3 style="margin-top:-5px">Community Service Committee</h3>
                 </div>
             </div>
@@ -104,42 +104,16 @@
                             </tr>
                         </thead>
                         <tbody id="hours">
-                            <tr>
-                                <td>Wellness Summit</td>
-                                <td>01/01/2020</td>
-                                <td>3.0</td>
-                                <td><span class="badge pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>College Fair</td>
-                                <td>01/01/2020</td>
-                                <td>2.5</td>
-                                <td><span class="badge approved">Approved</span></td>
-                            </tr>
-                            <tr>
-                                <td>Speech and Debate Tournament</td>
-                                <td>01/01/2020</td>
-                                <td>4.0</td>
-                                <td><span class="badge denied">Denied</span></td>
-                            </tr>
-                            <tr>
-                                <td>Graduation Pamphlets</td>
-                                <td>01/01/2020</td>
-                                <td>1.5</td>
-                                <td><span class="badge approved">Approved</span></td>
-                            </tr>
-                            <tr>
-                                <td>Car Cruise</td>
-                                <td>01/01/2020</td>
-                                <td>2.0</td>
-                                <td><span class="badge denied">Denied</span></td>
-                            </tr>
-                            <tr>
-                                <td>Car Cruise</td>
-                                <td>01/01/2020</td>
-                                <td>2.0</td>
-                                <td><span class="badge approved">Approved</span></td>
-                            </tr>
+                            <tr id="no-events-message"><td>You have no events logged</td></tr>
+
+                            <template id="event-row">
+                                <tr>
+                                    <td id="event-name">Wellness Summit</td>
+                                    <td id="event-date">01/01/2020</td>
+                                    <td id="event-hours">3.0</td>
+                                    <td id="event-status"><span class="badge pending">Pending</span></td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>

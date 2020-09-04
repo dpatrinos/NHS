@@ -2,7 +2,8 @@
 const express = require('express');
 const session = require('express-session')
 const app = express();
-const port = 8080;
+const port = 80;
+const subdomain = require("express-subdomain");
 
 //import the api router
 const api = require("./api/api");
@@ -19,8 +20,9 @@ app.use(session({
     }
 }))
 
+
 //serve api from the api router
-app.use("/api", api);
+app.use(subdomain('api', api));
 
 //serve static resources from the public folder
 app.use(express.static(__dirname + "/public", { extensions:['html'] }));
@@ -29,7 +31,9 @@ app.use(express.static(__dirname + "/public", { extensions:['html'] }));
 const auth = require("./authenticateUser")
 app.use(auth, express.static(__dirname + "/user", { extensions:['html'] }))
 
+app.get('*', (req, res) => {res.redirect('/')})
+
 //start server
-app.listen(port, () => {`Server running on port ${port}`});
+app.listen(port, () => {console.log(`Server running on port ${port}`)});
 
  
