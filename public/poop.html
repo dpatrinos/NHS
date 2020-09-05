@@ -126,7 +126,7 @@
         const userText = document.querySelector('#current-user');
 
 
-        fetch("/api/currentUser", {
+        fetch("http://api.bpnhs.org:3000/currentUser", {
             method: 'GET',
             credentials: 'include'
         })

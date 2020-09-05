@@ -89,18 +89,18 @@
             <div class="col-md-6">
                 <div class="col-md-8 col-centered action-box">
                     <h2><small>Hours Log Form</small></h2>
-                    <form autocomplete="off" id="hours-request" class="action-form" role="form" action="" method="post">
+                    <form autocomplete="off" id="hours-request" class="action-form" role="form" action="" method="post" enctype="multipart/form-data">
                         <label for="event">Event Name</label>
-                        <input type="text" class="form-control" id="event" required="">
+                        <input type="text" class="form-control" id="event" name='eventname' required="">
 
                         <label for="date">Event Date</label>
-                        <input type="date" class="form-control" id="date" required="">
+                        <input type="date" class="form-control" id="date" name='eventdate' required="">
 
                         <label for="hours">Hours Volunteered</label>
-                        <input type="number" class="form-control" id="hours" step="0.1" required="">
+                        <input type="number" class="form-control" id="hours" step="0.1" name='eventhours' required="">
 
                         <label for="proof-pic">Picture from Event</label>
-                        <input type="file" class="form-control" id="proof-pic" accept=".jpg,.png,.jpeg,.pdf,.heic" required="">
+                        <input type="file" class="form-control" id="proof-pic" accept=".jpg,.png,.jpeg,.pdf,.heic" name='eventpic' required="">
 
                         <input style="margin-top:33px;" id="hours-submit" type="submit" class="form-control" value="Submit">
                     </form>
