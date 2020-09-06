@@ -1,15 +1,17 @@
+let timeFormat = 'MM/DD/YYYY';
+
 //Get User info
 $.ajax({
   type: 'get',
-  url: 'http://api.example.com/currentUser',
+  url: 'http://api.bpnhs.org:3000/currentUser',
   crossDomain: true,
   xhrFields: {
       withCredentials: true
   },
   success: (data) => {
     if(data.name) {
-      console.log(data)
       $("#username-text").text(data.name);
+      $("#committee-text").text(data.committee == "NONE" ? "No Committee Designated" : data.committee + " Committee");
     } else {
       location.href = "/login";
     }
@@ -17,73 +19,142 @@ $.ajax({
 })
 
 //Get user events
+let eventData = [];
 $.ajax({
   type: 'get',
-  url: 'http://api.example.com/currentUser/pastevents',
+  url: 'http://api.bpnhs.org:3000/currentUser/pastevents',
   crossDomain: true,
   xhrFields: {
       withCredentials: true
   },
   success: (data) => {
     if(data.length != 0) { 
-      console.log(data)
       $("#no-events-message").hide();
+      let totalEventHours = 0;
       for(let event of data) {
         let eventRow = $($("#event-row").html());
+
         eventRow.find('#event-name').text(event.event_name);
-        console.log(event.event_date)
-        let date = new Date(event.event_date);
-        eventRow.find('#event-date').text(date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear());
+
+        totalEventHours += event.hours;
+
+        let date = moment(new Date(event.event_date)).format(timeFormat);
+        console.log(date)
+        eventData.push({x: date, y: totalEventHours, name: event.event_name});
+        eventRow.find('#event-date').text(date);
         eventRow.find('#event-hours').text(event.hours.toFixed(1));
+
         let status = event.status == 0 ? "Pending" : event.status == 1 ? "Approved" : "Denied";
         eventRow.find('#event-status').attr("class", `badge ${status}`).text(status);
+
         $("#hours").append(eventRow);
-      }
+      }      
       
+      hoursGraph.data.datasets[0].data = eventData;
+      hoursGraph.update();
     }
 
   }
 })
 
+//get user attendance
+let attendanceData = [];
+$.ajax({
+  type: 'get',
+  url: 'http://api.bpnhs.org:3000/currentUser/attendance',
+  crossDomain: true,
+  xhrFields: {
+      withCredentials: true
+  },
+  success: (data) => {
+    console.log(data)
+    if(data.length != 0) {
+      $("#no-meetings-message").hide();
+      for(meeting of data) { 
+        attendanceData.push(meeting.status);
+        let attendanceRow = $($("#attendance-row").html());
+
+        attendanceRow.find("#meeting-name").text(meeting.meeting_name);
+
+        let date = moment(new Date(meeting.meeting_time)).format(timeFormat);
+        attendanceRow.find("#meeting-date").text(date);
+
+        let status = meeting.status == 0 ? "Absent" : "Present";
+        attendanceRow.find("#meeting-attendance").attr("class", `badge ${status}`).text(status);
+
+        $("#attendance").append(attendanceRow);
+      }
+      let absentCount = attendanceData.filter(x => x === 0).length;
+      let presentCount = attendanceData.filter(x => x === 1).length;
+
+      attendancePercentage = Math.round(presentCount / data.length * 100)  + "%";
+
+      attendanceDoughnut.data.datasets[0].data = [presentCount, absentCount];
+      attendanceDoughnut.options.elements.center.text = attendancePercentage;
+      attendanceDoughnut.update();
+
+    }
+  }
+})
+
+
 // HOURS CHART
+var hoursGraph;
 var ctx = document.getElementById('hoursDoughnut').getContext('2d');
 var options = {
-    title: {
-        display: true,
-        fontSize: 14,
-        fontFamily: 'sans-serif',
-        fontColor: '#495057',
-        text: 'Progress of Other Students'
-    },
-    layout: {
-        padding: {
-            left: 0,
-            right: 0,
-            top: 15,
-            bottom: 20
+  title: {
+      display: true,
+      fontSize: 14,
+      fontFamily: 'sans-serif',
+      fontColor: '#495057',
+      text: 'Hours Goal Chart'
+  },
+  layout: {
+      padding: {
+          left: 0,
+          right: 0,
+          top: 15,
+          bottom: 20
+      }
+  },
+  scales: {
+    xAxes: [{
+        type: 'time',
+        time: {
+          unit: 'month'
         }
-    },
-}
-var data = {
-    datasets: [{
-        data: [14, 66, 97], //REQUIRES FUNCTION TO BE UPDATED FROM DATABASE
-        backgroundColor: ['#f37032','#fca474','#f3b797']
     }],
-    labels: [
-        ' 6+ NHS Hours',
-        ' 3-6 NHS Hours',
-        ' 0-3 NHS Hours'
-    ],
+    yAxes: [{
+      ticks: {
+        max: 6,
+        min: 0
+      }
+    }]
+  } 
 }
-var hoursDoughnut = new Chart(ctx, {
-    type: 'doughnut',
-    data: data,
-    options: options
+
+hoursGraph = new Chart(ctx, {
+  type: 'line',
+  data: {
+    datasets: 
+    [
+      {
+        label: "Hours accumulated",
+        borderColor: "#fca474",
+        backgroundColor: 'rgba(252, 164, 116, .4)',
+        data: []
+      },
+    ]
+  },
+  options: options
 })
+
+
+
 
 //ATTENDANCE CHART
 var ctx2 = document.getElementById('attendanceDoughnut').getContext('2d');
-var attendancePercentage = '90%'  //REQUIRES FUNCTION TO BE UPDATED FROM DATABASE
+var attendancePercentage = '100%'  //REQUIRES FUNCTION TO BE UPDATED FROM DATABASE
 
 var options2 = {
   cutoutPercentage: 88,
@@ -116,9 +187,11 @@ var options2 = {
     display: false
   }
 }
+
+
 var data2 = {
     datasets: [{
-        data: [8,4],  //REQUIRES FUNCTION TO BE UPDATED FROM DATABASE
+        data: [1,0],  //REQUIRES FUNCTION TO BE UPDATED FROM DATABASE
         backgroundColor: ['#f56b2c','transparent'],
         borderColor: ['transparent', 'transparent']
     }],
