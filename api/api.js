@@ -184,7 +184,7 @@ router.post("/submithours", (req, res) => {
 });
 
 router.get("/img", (req, res) => {
-    res.sendFile('/mnt/c/Users/bplax/Desktop/Projects/NHS/api/uploads/event-pic-1599279569819.jpg')
+    res.sendFile('__dirname+/uploads/event-pic-1599279569819.jpg')
 })
 
 //handle post requests to login endpoint
