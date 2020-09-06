@@ -169,7 +169,7 @@
                e.preventDefault()
                let form = $("#create-form").serialize()
                console.log(form)
-               $.post("/api/register", form, (res) => {
+               $.post("http://api.bpnhs.org:3000/register", form, (res) => {
                     if(res.status == "success") {
                          window.location.href = "/login"
                     }

@@ -3,7 +3,7 @@ $("#login-form").submit((e) => {
     let data = $("#login-form").serialize()
     $.ajax({
         type: 'post',
-        url: 'http://api.example.com/login',
+        url: 'http://api.bpnhs.org:3000/login',
         crossDomain: true,
         xhrFields: {
             withCredentials: true

@@ -19,7 +19,9 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/df95adec8c.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js" crossorigin="anonymous"></script>
    
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -88,7 +90,7 @@
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="section-title">
                     <h2 style="padding-top:5px;" id="username-text">John Doe</h2>
-                    <h3 style="margin-top:-5px">Community Service Committee</h3>
+                    <h3 style="margin-top:-5px" id="committee-text">Community Service Committee</h3>
                 </div>
             </div>
 
@@ -111,7 +113,7 @@
                                     <td id="event-name">Wellness Summit</td>
                                     <td id="event-date">01/01/2020</td>
                                     <td id="event-hours">3.0</td>
-                                    <td id="event-status"><span class="badge pending">Pending</span></td>
+                                    <td><span id="event-status" class="badge pending">Pending</span></td>
                                 </tr>
                             </template>
                         </tbody>
@@ -142,66 +144,14 @@
                             </tr>
                         </thead>
                         <tbody id="attendance">
-                            <tr>
-                                <td>Community Service Committee</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge approved">Present</span></td>
-                            </tr>
-                            <tr>
-                                <td>General Membership</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge denied">Absent</span></td>
-                            </tr>
-                            <tr>
-                                <td>Community Service Committee</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge denied">Absent</span></td>
-                            </tr>
-                            <tr>
-                                <td>General Membership</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge approved">Present</span></td>
-                            </tr>
-                            <tr>
-                                <td>Community Service Committee</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge approved">Present</span></td>
-                            </tr>
-                            <tr>
-                                <td>General Membership</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge approved">Present</span></td>
-                            </tr>
-                            <tr>
-                                <td>Community Service Committee</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge denied">Absent</span></td>
-                            </tr>
-                            <tr>
-                                <td>General Membership</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge approved">Present</span></td>
-                            </tr>
-                            <tr>
-                                <td>Community Service Committee</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge approved">Present</span></td>
-                            </tr>
-                            <tr>
-                                <td>Community Service Committee</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge denied">Absent</span></td>
-                            </tr>
-                            <tr>
-                                <td>General Membership</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge approved">Present</span></td>
-                            </tr>
-                            <tr>
-                                <td>Community Service Committee</td>
-                                <td>01/01/2020</td>
-                                <td><span class="badge approved">Present</span></td>
-                            </tr>
+                            <tr id="no-meetings-message"><td>You have no meetings logged</td></tr>
+                            <template id="attendance-row">
+                                <tr>
+                                    <td id="meeting-name">Community Service Committee</td>
+                                    <td id="meeting-date">01/01/2020</td>
+                                    <td><span id="meeting-attendance" class="badge approved">Present</span></td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                     <div class="col-md-12 text-center">

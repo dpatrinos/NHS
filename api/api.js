@@ -7,7 +7,7 @@ const cors = require("cors");
 router.use(
     cors({
         credentials: true,
-        origin: "http://example.com",
+        origin: "http://bpnhs.org:3000",
     })
 )
 
@@ -17,10 +17,56 @@ const bcrypt = require('bcrypt');
 //initialize mysql connection
 const connection = require("./connection");
 
-//body parser for parsing forms
-const bodyParser = require("body-parser");
+//path for relocating files
+const path = require('path');
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+//body parser for parsing forms and multer for multi part
+const bodyParser = require("body-parser");
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, __dirname + '/uploads/');
+    },
+
+    // By default, multer removes file extensions so let's add them back
+    filename: function(req, file, cb) {
+        req.finalfilename = file.fieldname + '-' + Date.now() + path.extname(file.originalname)
+        cb(null, req.finalfilename);
+    }
+});
+const upload = multer({ 
+    storage: storage,
+    fileFilter(req, file, cb) {
+        const ext = path.extname(file.originalname).toLowerCase();
+        if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg" && ext !== ".pdf" && ext !== ".heic") {
+            req.fileValidationError = 'Only image files are allowed!';
+            cb(new Error("Error: Unacceptable file format"), false);
+        } else {
+            cb(null, true);
+        }
+    }
+});
+
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+//Get level of authority
+const authority = (req) => {
+    if(req.session.account) { 
+        switch (req.session.account.status) {
+            case "member":
+                return 1
+                break;
+            case "chair":
+                return 2
+                break;
+            case "officer":
+                return 3
+                break;
+        }       
+    } else {
+        return 0;
+    }
+}
 
 //get event
 router.get("/events/:eventname?", (req, res) => {
@@ -100,6 +146,46 @@ router.get("/eventSignup/:eventname", (req, res) => {
     }
 });
 
+//Hours log Form submission
+router.post("/submithours", (req, res) => {
+    if(req.session.account) {
+        let hourFormUpload = upload.single('eventpic');
+        hourFormUpload(req, res, (err) => {
+            
+            if (req.fileValidationError) {
+                return res.send({ status: 'Forbidden file type'});
+            }
+            else if (!req.file) {
+                return res.send({ status : 'No image uploaded'});
+            }
+            else if (err instanceof multer.MulterError) {
+                return res.send(err);
+            }
+            else if (err) {
+                return res.send(err);
+            }
+            
+            let query = `INSERT INTO service (account_id, event_name, hours, event_date, img_name) VALUES (
+                ${req.session.account.id},
+                ${connection.escape(req.body.eventname)},
+                ${connection.escape(req.body.eventhours)},
+                ${connection.escape(req.body.eventdate)},
+                ${connection.escape(req.finalfilename)})`;
+            
+            connection.query(query, (err) => {
+                if (err) throw err;
+
+                res.send({status : 'status'});
+            })
+        });
+    } else {
+        res.send(403);
+    }
+});
+
+router.get("/img", (req, res) => {
+    res.sendFile('/mnt/c/Users/bplax/Desktop/Projects/NHS/api/uploads/event-pic-1599279569819.jpg')
+})
 
 //handle post requests to login endpoint
 const loginSession = require('./accountLogin');
@@ -120,7 +206,7 @@ router.post("/login", urlencodedParser, (req, res) => {
 
 //handle registration requests 
 router.post("/register", urlencodedParser, (req, res) => {
-    console.log(req.body)
+    console.log(req.body);
     verifyData(req.body, (status) => {
         if(status != "valid") { 
             res.send({ "status" : status })
@@ -160,18 +246,19 @@ const verifyData = (data, cb) => {
 
 //get user information
 router.get("/currentUser", (req, res) => { 
+    console.log(authority(req));
     if(req.session.account) { 
-        res.send({name: req.session.account.name, committee: req.session.account.committee});
+        res.send({name: req.session.account.name, committee: req.session.account.committee, status: req.session.account.status});
     } else {
         res.send({});
     }
 });
 
 
-//get user attendance
+//get user's past events (submitted)
 router.get("/currentUser/pastevents", (req, res) => {
     if(req.session.account != null) { 
-        let query = `SELECT event_name, hours, status, event_date FROM service WHERE account_id = ${req.session.account.id}`;
+        let query = `SELECT event_name, hours, status, event_date FROM service WHERE account_id = ${req.session.account.id} ORDER BY event_date`;
         connection.query(query, (err, rows) => {
             if (err) throw err;
 
@@ -181,6 +268,20 @@ router.get("/currentUser/pastevents", (req, res) => {
         res.sendStatus(403);
     }
 });
+
+//get user's attendance record
+router.get("/currentUser/attendance", (req, res) => { 
+    if(req.session.account != null) {
+        let query = `SELECT status, meeting_name, meeting_time FROM attendance a INNER JOIN meetings m ON a.meeting_id = m.id WHERE a.account_id = ${req.session.account.id} ORDER BY m.meeting_time`;
+        connection.query(query, (err, rows) => { 
+            if(err) throw err;
+
+            res.send(rows);
+        });
+    } else {
+        res.sendStatus(403);
+    }
+})
 
 //get committee attendance records
 router.get("/committeeAttendance/:committee?", (req, res) => {
