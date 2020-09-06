@@ -51,7 +51,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                         <li><a href="login.html" class="smoothScroll">Login</a></li>
+                         <li><a href="login.html" class="smoothScroll">Log In</a></li>
                     </ul>
                </div>
 
@@ -61,8 +61,8 @@
      <!-- LOGIN -->
      <section id="login-section">
           <div class="container" >
-               <div class="col-xs-8 col-md-5 col-sm-5 login-box col-centered">
-                    <form autocomplete="off" id="create-form" role="form" action="" method="post" enctype="application/x-www-form-urlencoded">
+               <div class="col-md-5 col-sm-12 login-box col-centered">
+                    <form autocomplete="off" id="create-form" role="form" method="post" enctype="application/x-www-form-urlencoded">
                          <img id="login-crest" src="images/crest.png">
                             <br>
 
@@ -73,7 +73,7 @@
 
 
                          <input type="password" class="form-control" placeholder="Password" id="set-pw" name="password" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                         <input type="password" class="form-control" placeholder="Confirm Password" id="set-pw2" required="" onchange="checkPasswordMatch();">
+                         <input type="password" class="form-control" placeholder="Confirm Password" id="set-pw2" required="" onchange="checkPasswordMatch()">
                          
                          <div class="pw-info">
                               <h2><small>Password must meet the following requirements:</small></h2>
