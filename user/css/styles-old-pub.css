@@ -156,11 +156,6 @@
     margin: 0 auto;
   }
 
-  .col-right {
-    float:right;
-    margin-right:0;
-  }
-
   /*---------------------------------------
      BUTTONS               
   -----------------------------------------*/
@@ -236,15 +231,6 @@
   /*---------------------------------------
       MENU              
   -----------------------------------------*/
-
-  .dropdown-toggle {
-    font-size: 20px;
-  }
-
-  .dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0;
-  }
 
   .custom-navbar {
     background: #ffffff;
@@ -670,128 +656,16 @@
     color: #454545;
   }
 
+
   /*---------------------------------------
-     ACCOUNT         
+     LOGIN             
   -----------------------------------------*/
-
-  #account-info .section-title {
-    color: #353535;
-  }
-
-  #account-info h5 {
-    background: #ffffff;
-    margin-bottom:0;
-    padding:0, .75rem, 0, 0;
-  }
-
-  #account-info li a {
-    border: 0;
-    border-radius: 100px;
-    font-size: 15px;
-    text-decoration: none;
-    text-align: center;
-    transition: all 0.4s ease-in-out;
-    position: relative;
-  }
-
-  .table {
-    width:100%;
-    margin-bottom:1rem;
-    color:#495057;
-    background: #f9f9f9;
-    border-radius: 8px;
-  }
-
-  .table thead tr th, .table tbody tr td {
-    padding:2rem;
-  }
-
-  #attendanceDoughnut {
-    background: #f9f9f9;
-    border-radius: 8px;
-  }
-
-  #hours-pager, #attendance-pager {
-    margin-top:3px;
-  }
-
-  .denied {
-    background: #cc0000;
-  }
-
-  .pending {
-    background: #f1c232;
-  }
-
-  .approved {
-    background: #6aa84f;
-  }
-
-  #hoursDoughnut {
-    background: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  .action-form {
-    padding: 3rem 0 1rem;
-  }
-
-  .action-box h2 {
-    text-align: center;
-    margin-bottom: 5px;
-  }
-
-  .action-form .form-control {
-    border: 0;
-    border-radius: 5px;
-    box-shadow: none;
-    margin-bottom: 15px;
-    background-color: #f9f9f9;
-    color: #575757;
-  }
-
-  .action-form input[type='submit'] {
-    border-radius: 500px;
-    border: 1px solid transparent;
-    margin-top: 10px;
-    height: 50px;
-    width: 185px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .action-form input[type='submit']:hover {
-    background: transparent;
-    border: 8px solid #f9f9f9;
-  }
-
-  .action-form input[type='text'], .action-form input[type='email'], .action-form input[type='date'], .action-form input[type='number'], .action-form input[type='time'], .action-form input[type='password'] {
-    height: 50px;
-    width: 100%; 
-  }
-
-  .action-form input[type='file'] {
-    height:35px;
-    width:100%;
-  }
-
-  .action-box {
-    border: 1px solid #cccccc;
-  }
-
-  .robo {
-    text-align:center;
-  }
-
-  .g-recaptcha {
-    display:inline-block;
-  }
 
   .pw-info {
     position:absolute;
-    bottom:-20px;
+    bottom:-65px;
     bottom: -115px\9;
-    right:65px;
+    right:215px;
     width:250px;
     padding:15px;
     background:#fefefe;
@@ -799,7 +673,7 @@
     border-radius:5px;
     box-shadow:0 1px 3px #ccc;
     border:1px solid #ddd;
-    display:none;
+    display: none;
   }
 
   #length, #capital, #letter, #number {
@@ -812,9 +686,8 @@
 
   .pw-info h2 {
     margin-bottom: 3px;
-    margin-top: -5px;
+    padding-top: 12px;
     line-height: 20px;
-    font-size: 22px;
   }
 
   .pw-info:before {
@@ -829,20 +702,79 @@
     display:block;
   }
 
-  .user-stuff {
-    background: #f9f9f9;
-    border-radius:8px;
-    height:50px;
-    font-size:24px;
-    text-align:left;
-    padding-left:10px;
-    padding-top:5px;
-    margin-bottom: 15px;
-    margin-top:0;
+  .login-box {
+    text-align: center;
+    border: 1px solid #cccccc;
   }
 
-  .user-label {
-    margin-top:15px;
+  #login-section h2 {
+    margin-top: -15px;
+  }
+
+  #login-section h2 small {
+    font-size: 14px;
+  }
+
+  #login-form, #recovery-form, #create-form {
+    padding: 1em 0;
+  }
+
+  #login-form img {
+    size: 75%;
+  }
+
+  #login-form .col-md-5,
+  #login-form .col-md-12 {
+    padding-left: 0;
+  }
+
+  #login-form .form-control, #recovery-form .form-control, #create-form .form-control {
+    border: 0;
+    border-radius: 5px;
+    box-shadow: none;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    margin-left: auto;
+    margin-right: auto;
+    color: #575757;
+  }
+
+  #login-form input[type='email'], #login-form input[type='password'], #recovery-form input[type='text'], #recovery-form input[type='password'], #recovery-form input[type='email'] {
+    height: 50px;
+    width: 300px;
+  }
+
+  #login-form input[type='submit'], #recovery-form input[type='button'], #recovery-form input[type='submit'], #create-form input[type='submit'] {
+    border-radius: 50px;
+    border: 1px solid transparent;
+    margin-top: 10px;
+    height: 50px;
+    width: 185px;
+  }
+
+  #login-form input[type='submit']:hover, #recovery-form input[type='submit']:hover, #recovery-form input[type='button']:hover, #create-form input[type='submit']:hover {
+    background: transparent;
+    border: 8px solid #f9f9f9;
+  }
+
+  #login-crest {
+    height: auto;
+    width: auto;
+    max-height: 200px;
+  }
+
+  .login-link small:hover{
+    text-decoration-line: underline;
+  }
+
+  .r-button {
+    display: inline;
+  }
+
+  #create-form input[type='text'], #create-form input[type='password'], #create-form input[type='email'] {
+    height: 50px;
+    width: 200px;
+    display: inline;
   }
 
   /*---------------------------------------
@@ -886,7 +818,6 @@
       padding-right: 10px;
       padding-left: 10px;
     }
-
   }
 
   @media only screen and (max-width: 767px) {
@@ -897,8 +828,6 @@
     h1,h2,h3 {
       line-height: normal;
     }
-
-
 
     .custom-navbar {
       background: #ffffff;
@@ -928,19 +857,13 @@
     .top-nav-collapse .nav li a {
       color: #575757;
     }
-    
-    .custom-navbar .navbar-nav.navbar-right li:nth-child(-n+3) {
+
+    .custom-navbar .navbar-nav.navbar-right li {
       display: inline-block;
-      border-top: 1px solid #cccccc;
-      padding:0;
-    }
-    
-    .footer-info {
-      margin-right: 0;
     }
 
-    .footer-info.newsletter-form {
-      margin-bottom: 0;
+    .footer-info {
+      margin-right: 0;
     }
 
     .entry-form {
