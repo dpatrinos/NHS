@@ -67,8 +67,7 @@
                                 <li><a href="students.html">Student Lookup</a></li>
                                 <li><a href="settings.html">Settings</a></li>
                                 <li role="separator" class="divider"></li>
-                                <!-- EVAN FIX ACTION-->
-                                <li><a action="" class="smoothScroll">Log Out</a></li>
+                                <li><a id="logout-button" class="smoothScroll">Log Out</a></li>
                             </ul>
                         </li>
                    </ul>
@@ -79,8 +78,7 @@
                         <li><a href="students.html">Student Lookup</a></li>
                         <li><a href="settings.html">Settings</a></li>
                         <li role="separator" class="divider"></li>
-                        <!-- EVAN FIX ACTION-->
-                        <li><a action="" class="smoothScroll">Log Out</a></li>
+                        <li><a id="logout-button" class="smoothScroll">Log Out</a></li>
                    </ul>
                 </div>
 
@@ -182,32 +180,42 @@
                </ul>
             </div>
 
+<<<<<<< HEAD
             <div class="col-md-4 com-table table-search">
                 <input type="text" id="committee-attendance-search" placeholder="Search for students..." class="form-control">
                 <div class="table-responsive">
+=======
+            <div class="col-md-5 com-table table-search">
+                <input type="text" id="committee-attendance-search" placeholder="Search for students..." class="form-control">
+                <div class="table-responsive table-scroll">
+>>>>>>> 49a1442330eadbc5ac282779ad0fce23beb42c01
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>Student Name</th>
-                                <th>Overall Attendance Percentage</th> <!-- Make dynamic for overall or committee -->
+                                <th>Attendance Percentage</th>
                             </tr>
                         </thead>
                         <tbody id="committee-attendance">
+<<<<<<< HEAD
                             <template id="comittee-attendance-row">
                                 <tr>
                                     <th id="comittee-attendance-row-name">John Doe</th>
                                     <th id="comittee-attendance-row-percent">100%</th>
                                 </tr>
                             </template>
+=======
+                            <tr>
+                                <td>John Doe</td>
+                                <td>100%</td>
+                            </tr>
+>>>>>>> 49a1442330eadbc5ac282779ad0fce23beb42c01
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-12 col-centered text-center">
-                    <ul class="pagination pagination-lg pager" id="committee-attendance-pager"></ul>
-                </div>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <canvas id="committee-attendance-chart" width="100%"></canvas>
             </div>
 
@@ -285,6 +293,7 @@
     <script src="js/smoothscroll.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/pagination.js"></script>
 
 </body>
 </html>

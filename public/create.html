@@ -73,8 +73,7 @@
 
 
                          <input autocomplete="off" type="password" class="form-control" placeholder="Password" id="set-pw" name="password" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                         <input autocomplete="off" type="password" class="form-control" placeholder="Confirm Password" id="set-pw2" required="" onchange="checkPasswordMatch()">
-                         
+
                          <div class="pw-info">
                               <h2><small>Password must meet the following requirements:</small></h2>
                               <ul class="fa-ul">
@@ -84,6 +83,17 @@
                                   <li id="length"><span class="fa-li"><i class="fas fa-times"></i></span>Be at least <strong>8 characters</strong></li>
                               </ul>
                          </div>
+                         <script>
+                         // .pw-info placement
+                         $(document).ready(function() {
+                              var pwInfoSpot = $('#set-pw').position();
+                              var leftSpot = pwInfoSpot.left;
+                              var topSpot = pwInfoSpot.top+250;
+                              $('.pw-info').css('left', leftSpot);
+                              $('.pw-info').css('top', topSpot);
+                         });
+                         </script>
+                         <input autocomplete="off" type="password" class="form-control" placeholder="Confirm Password" id="set-pw2" required="" onchange="checkPasswordMatch()">
 
                          <input id="create-button" type="submit" class="form-control" value="Create Account">
                          <a href="login.html"><h2 class="login-link"><small>Have an account already?</small></h2></a>

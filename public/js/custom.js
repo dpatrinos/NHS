@@ -7,7 +7,7 @@
       $('.preloader').fadeOut(1000); // set duration in brackets    
     });
 
-
+    
     //setup ajax 
     $.ajaxSetup({
       crossDomain: true,
@@ -15,7 +15,7 @@
           withCredentials: true
       }
     });
-
+    
     // MENU
     $('.navbar-collapse a').on('click',function(){
       $(".navbar-collapse").collapse('hide');
@@ -105,7 +105,7 @@
         }
       });
     });
-
+    
     $('form').attr('autocomplete','false');
 
     // EMAIL MATCHING
@@ -194,23 +194,7 @@
         $('.pw-info').hide();
       });
     });
-
-    // .pw-info placement NEEDS FIXED
-    $(document).ready(function() {
-      var pathname = $(location).attr('href').pathname;
-      var pwInfoSpot = $('#set-pw').position();
-      if(pathname=='/create.html'){
-        var leftSpot = pwInfoSpot.left-20;
-        var topSpot = pwInfoSpot.top+285;
-      }
-      else {
-        var leftSpot = pwInfoSpot.left+38;
-        var topSpot = pwInfoSpot.top+65;
-      }
-      $('.pw-info').css('left', leftSpot);
-      $('.pw-info').css('top', topSpot);
-    });
-
+    
     //logout listener
     $("#logout-button").click((e) => {
       e.preventDefault();
