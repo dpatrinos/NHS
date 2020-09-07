@@ -112,25 +112,25 @@
            <div class="col-md-6">
                 <div class="col-md-8 col-centered action-box">
                     <h2><small>Change Password</small></h2>
-                    <form autocomplete="off" id="change-pw" class="action-form" role="form" action="" method="post">
+                    <form autocomplete="no" id="change-pw" class="action-form" role="form" action="" method="post">
                         <label for="current-pw">Current Password</label>
                         <input type="password" class="form-control" id="current-pw" required="">
 
                         <label for="set-pw">New Password</label>
-                        <input type="password" class="form-control" id="set-pw" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                        <input autocomplete="no" type="password" class="form-control" id="set-pw" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+
+                         <div class="pw-info">
+                              <h2 style="margin-top:-12px;"><small>Password must meet the following requirements:</small></h2>
+                              <ul class="fa-ul">
+                                   <li id="letter"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one lower-case letter</strong></li>
+                                   <li id="capital"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one capital letter</strong></li>
+                                   <li id="number"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one number</strong></li>
+                                   <li id="length"><span class="fa-li"><i class="fas fa-times"></i></span>Be at least <strong>8 characters</strong></li>
+                              </ul>
+                         </div>
 
                         <label for="set-pw2">Confirm New Password</label>
-                        <input type="password" class="form-control" id="set-pw2" required="" onchange="checkPasswordMatch();">
-
-                        <div class="pw-info">
-                            <h2><small>Password must meet the following requirements:</small></h2>
-                            <ul class="fa-ul">
-                                <li id="letter"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one lower-case letter</strong></li>
-                                <li id="capital"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one capital letter</strong></li>
-                                <li id="number"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one number</strong></li>
-                                <li id="length"><span class="fa-li"><i class="fas fa-times"></i></span>Be at least <strong>8 characters</strong></li>
-                            </ul>
-                        </div>
+                        <input autocomplete="no" type="password" class="form-control" id="set-pw2" required="" onchange="checkPasswordMatch();">
 
                         <input id="new-pw-submit" type="submit" class="form-control" value="Submit">
                     </form>
