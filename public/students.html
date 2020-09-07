@@ -103,29 +103,18 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                            <tr>
-                                <th>Event</th>
-                                <th>Date</th>
-                                <th>Hours</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="hours">
-                            <tr id="no-events-message"><td>You have no events logged</td></tr>
 
-                            <template id="event-row">
-                                <tr>
-                                    <td id="event-name">Wellness Summit</td>
-                                    <td id="event-date">01/01/2020</td>
-                                    <td id="event-hours">3.0</td>
-                                    <td><span id="event-status" class="badge pending">Pending</span></td>
-                                </tr>
-                            </template>
+
+
+                        </thead>
+                        <tbody id="lookup-hours">
+
+
                         </tbody>
                     </table>
                 </div>
                 <div class="col-md-12 text-center">
-                    <ul class="pagination pagination-lg pager" id="hours-pager"></ul>
+                    <ul class="pagination pagination-lg pager" id="lookup-hours-pager"></ul>
                 </div>
             </div>
         </div>
@@ -136,24 +125,39 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Meeting</th>
-                                <th>Date</th>
-                                <th>Attendance</th>
+                                <th style="white-space:nowrap">Student Name</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
                             </tr>
                         </thead>
-                        <tbody id="attendance">
-                            <tr id="no-meetings-message"><td>You have no meetings logged</td></tr>
-                            <template id="attendance-row">
-                                <tr>
-                                    <td id="meeting-name">Community Service Committee</td>
-                                    <td id="meeting-date">01/01/2020</td>
-                                    <td><span id="meeting-attendance" class="badge approved">Present</span></td>
-                                </tr>
-                            </template>
+                        <tbody id="lookup-attendance">
+                            <tr>
+                                <td>John Doe</td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="col-md-12 text-center">
-                        <ul class="pagination pagination-lg pager" id="attendance-pager"></ul>
+                        <ul class="pagination pagination-lg pager" id="lookup-attendance-pager"></ul>
                     </div>
                 </div>
             </div>
