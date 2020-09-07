@@ -8,6 +8,14 @@
     });
 
 
+    //setup ajax 
+    $.ajaxSetup({
+      crossDomain: true,
+      xhrFields: {
+          withCredentials: true
+      }
+    });
+
     // MENU
     $('.navbar-collapse a').on('click',function(){
       $(".navbar-collapse").collapse('hide');
@@ -310,6 +318,17 @@
       }
       $('.pw-info').css('left', leftSpot);
       $('.pw-info').css('top', topSpot);
+    });
+
+    //logout listener
+    $("#logout-button").click((e) => {
+      e.preventDefault();
+
+      $.get("http://api.bpnhs.org:3000/logout", (response) => {
+        if(response.status = "success") { 
+          location.href = "/";
+        }
+      });
     });
 
 })(jQuery);

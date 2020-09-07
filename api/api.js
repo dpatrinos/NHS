@@ -100,6 +100,24 @@ router.get("/events/:eventname?", (req, res) => {
     });
 });
 
+//get events like 
+router.get("/eventslike/:eventq?", (req, res) => {
+    if(req.params.eventq){
+        let event_query = connection.escape('%'+req.params.eventq+'%');
+        let query = `SELECT * FROM events WHERE event_name LIKE ${event_query}`;
+
+        connection.query(query, (err,rows) => {
+            if(err) throw err;
+            
+            res.send(rows);
+            return;
+        });
+    } 
+    else { 
+        res.send([]);
+    }
+});
+
 //hnadle get reqests to event signup
 router.get("/eventSignup/:eventname", (req, res) => { 
 
@@ -175,7 +193,7 @@ router.post("/submithours", (req, res) => {
             connection.query(query, (err) => {
                 if (err) throw err;
 
-                res.send({status : 'status'});
+                res.send({status : 'success'});
             })
         });
     } else {
@@ -204,9 +222,13 @@ router.post("/login", urlencodedParser, (req, res) => {
     }
 });
 
+router.get("/logout", (req, res) => {
+    req.session.account = null;
+    res.send({status : "success"});
+})
+
 //handle registration requests 
 router.post("/register", urlencodedParser, (req, res) => {
-    console.log(req.body);
     verifyData(req.body, (status) => {
         if(status != "valid") { 
             res.send({ "status" : status })
@@ -246,7 +268,6 @@ const verifyData = (data, cb) => {
 
 //get user information
 router.get("/currentUser", (req, res) => { 
-    console.log(authority(req));
     if(req.session.account) { 
         res.send({name: req.session.account.name, committee: req.session.account.committee, status: req.session.account.status});
     } else {
