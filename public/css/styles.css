@@ -838,7 +838,7 @@
     margin-bottom: 30px;
   }
 
-  #hours-pager, #attendance-pager {
+  .pager {
     margin-top:3px;
   }
 
@@ -941,6 +941,11 @@
   #current-com:hover {
     background:none;
     color: #454545;
+  }
+
+  .table-scroll {
+    height: 225px;
+    overflow: auto;
   }
 
   /*---------------------------------------
