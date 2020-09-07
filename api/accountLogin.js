@@ -5,6 +5,10 @@ const loginSession = (email, password, cb) => {
     let query = `SELECT * FROM accounts WHERE email = ${connection.escape(email)}`
     connection.query(query, (err, rows) => {
         if(err) throw err;
+        if(rows.length == 0) {
+            cb(false, null);
+            return;
+        }
         bcrypt.compare(password, rows[0].password, (err, same) => {
             if(err) throw err;
             cb(same, rows[0]);

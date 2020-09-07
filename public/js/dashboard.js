@@ -12,6 +12,8 @@ $.ajax({
     if(data.name) {
       $("#username-text").text(data.name);
       $("#committee-text").text(data.committee == "NONE" ? "No Committee Designated" : data.committee + " Committee");
+      if(data.status == "chair") chairUpdate(data.committee);
+      else if (data.status == "officer") officerUpdate();
     } else {
       location.href = "/login";
     }
@@ -67,11 +69,10 @@ $.ajax({
       withCredentials: true
   },
   success: (data) => {
-    console.log(data)
     if(data.length != 0) {
       $("#no-meetings-message").hide();
       for(meeting of data) { 
-        attendanceData.push(meeting.status);
+        attendanceData.push(meeting.attendance_status);
         let attendanceRow = $($("#attendance-row").html());
 
         attendanceRow.find("#meeting-name").text(meeting.meeting_name);
@@ -79,7 +80,7 @@ $.ajax({
         let date = moment(new Date(meeting.meeting_time)).format(timeFormat);
         attendanceRow.find("#meeting-date").text(date);
 
-        let status = meeting.status == 0 ? "Absent" : "Present";
+        let status = meeting.attendance_status == 0 ? "Absent" : "Present";
         attendanceRow.find("#meeting-attendance").attr("class", `badge ${status}`).text(status);
 
         $("#attendance").append(attendanceRow);
@@ -96,6 +97,112 @@ $.ajax({
     }
   }
 })
+
+function chairUpdate(committee) { 
+  fetchCommitteeAttendance(committee, (chartData) => { 
+    let committeeAttendanceTemplate = $("#comittee-attendance-row").html();
+
+    chartData.forEach((row) => {
+      let comAttRow = $(committeeAttendanceTemplate);
+      comAttRow.find("#comittee-attendance-row-name").text(row.name);
+      comAttRow.find("#comittee-attendance-row-percent").text(row.percent + "%");
+      $("#committee-attendance").append(comAttRow);
+    });
+
+    $("#committee-attendance-search").keyup((e) =>  {
+      let committeeSearchResults = chartData.filter(x => x.name.toLowerCase().includes(e.target.value.toLowerCase()));
+      $("#committee-attendance").html('');
+      committeeSearchResults.forEach((row) => {
+        let comAttRow = $(committeeAttendanceTemplate);
+        comAttRow.find("#comittee-attendance-row-name").text(row.name);
+        comAttRow.find("#comittee-attendance-row-percent").text(row.percent + "%");
+        $("#committee-attendance").append(comAttRow);
+      });
+    });
+  }, (graphData) => {
+    committeeChart.data.datasets[0].data = graphData;
+    committeeChart.data.datasets[0].label = "Percent of " + committee + " Members in Attendance";
+    committeeChart.update();
+  });
+  
+}
+
+function officerUpdate() { 
+  let committees = ['Community Service', 'PR & Fundraising', 'Dance and Induction'];
+  let colors = ['0, 0, 255', '0, 255, 0', '255, 0, 0'];
+  let selectedCommittee = 0;
+  let committeeAttendanceByMember = [];
+  
+  committeeChart.data.datasets = [];
+
+  committees.forEach(committee => {
+    let index = committees.indexOf(committee);
+    fetchCommitteeAttendance(committee, (chartData) => {
+      let committeeAttendanceTemplate = $("#comittee-attendance-row").html();
+      committeeAttendanceByMember.push(chartData);
+      
+      if(index == committees.length - 1) {
+        committeeAttendanceByMember[selectedCommittee].forEach((row) => {
+          let comAttRow = $(committeeAttendanceTemplate);
+          comAttRow.find("#comittee-attendance-row-name").text(row.name);
+          comAttRow.find("#comittee-attendance-row-percent").text(row.percent + "%");
+          $("#committee-attendance").append(comAttRow);
+        });
+      
+
+        $("#committee-attendance-search").keyup((e) =>  {
+          let committeeSearchResults = committeeAttendanceByMember[selectedCommittee].filter(x => x.name.toLowerCase().includes(e.target.value.toLowerCase()));
+          $("#committee-attendance").html('');
+          committeeSearchResults.forEach((row) => {
+            let comAttRow = $(committeeAttendanceTemplate);
+            comAttRow.find("#comittee-attendance-row-name").text(row.name);
+            comAttRow.find("#comittee-attendance-row-percent").text(row.percent + "%");
+            $("#committee-attendance").append(comAttRow);
+          });
+        });
+
+      }
+    }, (graphData) => {
+      committeeChart.data.datasets.push({label: "Percent of " + committee + " Members in Attendance", borderColor: "rgb(" + colors[index] + ")", backgroundColor: 'rgba(' + colors[index] + ', .4)', data: graphData});
+      committeeChart.update();
+    });
+  });
+}
+
+//Sets up commitee attendance data
+function fetchCommitteeAttendance(committee, chartcb, graphcb) { 
+  let committeeAttendanceByMember = [];
+  let committeeAttendanceByEvent = [];
+  let url = "http://api.bpnhs.org:3000/" + committee;
+  console.log(url);
+  $.get(url + "/attendance", (attendance) => {
+
+    //sort committee attendance by member and set up table
+    $.get(url + "/members", (members) => {
+      members.forEach(member => {
+        let memberAttendance = attendance.filter(x => x.name === member.name);
+        let memberAttendancePercentage = (memberAttendance.filter(x => x.attendance_status === 1).length / memberAttendance.length) * 100;
+        committeeAttendanceByMember.push({name : member.name, percent : memberAttendancePercentage});
+      });
+
+      chartcb(committeeAttendanceByMember);
+      
+    });
+
+    //sort committee attendance by event
+    $.get(url + "/meetings", (meetings) => {
+      meetings.forEach(meeting => {
+        let meetingAttendance = attendance.filter(x => x.meeting_time == meeting.meeting_time);
+        let meetingAttendancePercentage = meetingAttendance.filter(x => x.attendance_status === 1).length / meetingAttendance.length * 100;
+        committeeAttendanceByEvent.push({meetingname : meeting.name, x: meeting.meeting_time, y : meetingAttendancePercentage});
+      });
+
+      graphcb(committeeAttendanceByEvent);
+      
+    });
+  });
+}
+
 
 
 // HOURS CHART
@@ -226,20 +333,20 @@ var options3 = {
     }],
     yAxes: [{
       ticks: {
-        max: 6,
+        max: 100,
         min: 0
       }
     }]
   } 
 }
 
-hoursGraph = new Chart(ctx3, {
+committeeChart = new Chart(ctx3, {
   type: 'line',
   data: {
     datasets: 
     [
       {
-        label: "Community Service Members in Attendance",
+        label: "Percent of Community Service Members in Attendance",
         borderColor: "#fca474",
         backgroundColor: 'rgba(252, 164, 116, .4)',
         data: []

@@ -183,7 +183,7 @@
             </div>
 
             <div class="col-md-4 com-table table-search">
-                <input type="text" id="committee-attendance-search" onkeyup="searchTable()" placeholder="Search for students..." class="form-control">
+                <input type="text" id="committee-attendance-search" placeholder="Search for students..." class="form-control">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -193,10 +193,12 @@
                             </tr>
                         </thead>
                         <tbody id="committee-attendance">
-                            <tr>
-                                <th>John Doe</th>
-                                <th>100%</th>
-                            </tr>
+                            <template id="comittee-attendance-row">
+                                <tr>
+                                    <th id="comittee-attendance-row-name">John Doe</th>
+                                    <th id="comittee-attendance-row-percent">100%</th>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
