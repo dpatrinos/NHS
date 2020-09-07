@@ -64,6 +64,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="dashboard.html">Dashboard</a></li>
                                 <li><a href="actions.html">Actions</a></li>
+                                <li><a href="students.html">Student Lookup</a></li>
                                 <li><a href="settings.html">Settings</a></li>
                                 <li role="separator" class="divider"></li>
                                 <!-- EVAN FIX ACTION-->
@@ -75,6 +76,7 @@
                    <ul id="right-menu-collapse" class="nav navbar-nav navbar-right">
                         <li><a href="dashboard.html">Dashboard</a></li>
                         <li><a href="actions.html">Actions</a></li>
+                        <li><a href="students.html">Student Lookup</a></li>
                         <li><a href="settings.html">Settings</a></li>
                         <li role="separator" class="divider"></li>
                         <!-- EVAN FIX ACTION-->
@@ -125,9 +127,10 @@
             </div>
 
             <div class="col-md-4">
-                <canvas id="hoursDoughnut" height="425px" width="425px"></canvas>
+                <canvas id="hoursGraph" height="425px" width="425px"></canvas>
             </div>
         </div>
+
         <div class="container">
             <div class="col-md-4">
                 <canvas id="attendanceDoughnut" height="400px" width="400px"></canvas>
@@ -159,6 +162,76 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="privelege-section" id="admin">
+        <div class="container">
+
+            <div class="navbar col-md-6">
+                <ul id="committee-view" class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a id="current-com" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Community Service Committee Attendance <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li id="csa"><a>Community Service Committee Attendance</a></li>
+                            <li id="dia"><a>Dance and Induction Committee Attendance</a></li>
+                            <li id="prfa"><a>PR and Fundraising Committee Attendance</a></li>
+                            <li id="alla"><a>All Members Attendance</a></li>
+                        </ul>
+                    </li>
+               </ul>
+            </div>
+
+            <div class="col-md-4 col-right table-search">
+                <input type="text" id="committee-attendance-search" onkeyup="searchTable()" placeholder="Search for students..." class="form-control">
+            </div>
+
+            <div class="col-md-12 com-table">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="white-space:nowrap">Student Name</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                                <th>mm/dd/yyyy</th>
+                            </tr>
+                        </thead>
+                        <tbody id="committee-attendance">
+                            <tr>
+                                <td>John Doe</td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                                <td><span class="badge approved">Present</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 col-centered text-center">
+                    <ul class="pagination pagination-lg pager" id="committee-attendance-pager"></ul>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <canvas id="committee-attendance-chart" width="100%"></canvas>
+            </div>
+
         </div>
     </section>
 

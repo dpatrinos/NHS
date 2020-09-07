@@ -150,7 +150,7 @@
     height: 390px;
   }
 
-  .col-centered{
+  .col-centered {
     float: none;
     margin: 0 auto;
   }
@@ -158,6 +158,12 @@
   .col-right {
     float:right;
     margin-right:0;
+  }
+
+  #committee-view li:hover ul {
+    left:auto;
+    right:0;
+    margin-right:-10px;
   }
 
   /*---------------------------------------
@@ -699,6 +705,10 @@
     line-height: 20px;
   }
 
+  .pw-info h2 small {
+    font-size: 14px;
+  }
+
   .pw-info:before {
     content: "\25B2";
     position:absolute;
@@ -800,7 +810,7 @@
     padding:0, .75rem, 0, 0;
   }
 
-  #account-info li a {
+  #account-info li a, .com-table li a {
     border: 0;
     border-radius: 100px;
     font-size: 15px;
@@ -822,9 +832,10 @@
     padding:2rem;
   }
 
-  #attendanceDoughnut {
+  #attendanceDoughnut, #hoursGraph {
     background: #f9f9f9;
     border-radius: 8px;
+    margin-bottom: 30px;
   }
 
   #hours-pager, #attendance-pager {
@@ -842,11 +853,6 @@
   .approved {
     background: #6aa84f;
   }
-
-  #hoursDoughnut {
-    background: #f9f9f9;
-    border-radius: 8px;
-  }
   
   .action-form {
     padding: 3rem 0 1rem;
@@ -857,7 +863,7 @@
     margin-bottom: 5px;
   }
 
-  .action-form .form-control {
+  .action-form .form-control, .table-search .form-control {
     border: 0;
     border-radius: 5px;
     box-shadow: none;
@@ -881,7 +887,7 @@
     border: 8px solid #f9f9f9;
   }
 
-  .action-form input[type='text'], .action-form input[type='email'], .action-form input[type='date'], .action-form input[type='number'], .action-form input[type='time'], .action-form input[type='password'] {
+  .action-form input[type='text'], .action-form input[type='email'], .action-form input[type='date'], .action-form input[type='number'], .action-form input[type='time'], .action-form input[type='password'], .table-search input {
     height: 50px;
     width: 100%; 
   }
@@ -918,6 +924,25 @@
   .user-label {
     margin-top:15px;
   }
+
+  .privelege-section {
+    margin-top:-175px;
+  }
+
+  #csa {
+    display:none;
+  }
+
+  #csa, #dia, #prfa {
+    width:100%;
+    transition: height 350ms ease-in-out, opacity 750ms ease-in-out;
+  }
+
+  #current-com:hover {
+    background:none;
+    color: #454545;
+  }
+
 
   /*---------------------------------------
      RESPONSIVE STYLES              
