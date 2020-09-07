@@ -89,11 +89,11 @@
         <div class="container">
             <div class="col-md-12 col-xs-12 col-sm-12">
                 <div class="table-search">
-                    <input type="text" id="student-lookup" placeholder="Search for students..." class="form-control"> 
+                    <input type="search" id="student-lookup" placeholder="Search for students..." class="form-control"> 
                 </div>
                 <div class="section-title">
-                    <h2 style="padding-top:5px;" id="username-text">John Doe</h2>
-                    <h3 style="margin-top:-5px" id="committee-text">Community Service Committee</h3>
+                    <h2 style="padding-top:5px;" id="lookup-username-text">John Doe</h2>
+                    <h3 style="margin-top:-5px" id="lookup-committee-text">Community Service Committee</h3>
                 </div>
             </div>
 
@@ -109,48 +109,16 @@
                             </tr>
                         </thead>
                         <tbody id="lookup-hours">
-                            <tr>
-                                <td>Wellness Summit</td>
-                                <td>01/01/2020</td>
-                                <td>3.0</td>
-                                <td><span class="badge pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>Wellness Summit</td>
-                                <td>01/01/2020</td>
-                                <td>3.0</td>
-                                <td><span class="badge pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>Wellness Summit</td>
-                                <td>01/01/2020</td>
-                                <td>3.0</td>
-                                <td><span class="badge pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>Wellness Summit</td>
-                                <td>01/01/2020</td>
-                                <td>3.0</td>
-                                <td><span class="badge pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>Wellness Summit</td>
-                                <td>01/01/2020</td>
-                                <td>3.0</td>
-                                <td><span class="badge pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>Wellness Summit</td>
-                                <td>01/01/2020</td>
-                                <td>3.0</td>
-                                <td><span class="badge pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>Wellness Summit</td>
-                                <td>01/01/2020</td>
-                                <td>3.0</td>
-                                <td><span class="badge pending">Pending</span></td>
-                            </tr>
+                            <tr id="no-events-message"><td>Student has no events logged</td></tr>
+
+                            <template id="lookup-event-row">
+                                <tr>
+                                    <td id="lookup-event-name">Wellness Summit</td>
+                                    <td id="lookup-event-date">01/01/2020</td>
+                                    <td id="lookup-event-hours">3.0</td>
+                                    <td><span id="lookup-event-status" class="badge pending">Pending</span></td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -166,35 +134,20 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th style="white-space:nowrap">Student Name</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
+                                <th>Meeting</th>
+                                <th>Date</th>
+                                <th>Attendance</th>
                             </tr>
                         </thead>
                         <tbody id="lookup-attendance">
-                            <tr>
-                                <td>John Doe</td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                            </tr>
+                            <tr id="no-meetings-message"><td>Student has no meetings logged</td></tr>
+                            <template id="lookup-attendance-row">
+                                <tr>
+                                    <td id="lookup-meeting-name">Community Service Committee</td>
+                                    <td id="lookup-meeting-date">01/01/2020</td>
+                                    <td><span id="lookup-meeting-attendance" class="badge approved">Present</span></td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
