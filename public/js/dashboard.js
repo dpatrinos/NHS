@@ -143,25 +143,48 @@ function officerUpdate() {
       committeeAttendanceByMember.push(chartData);
       
       if(index == committees.length - 1) {
-        committeeAttendanceByMember[selectedCommittee].forEach((row) => {
-          let comAttRow = $(committeeAttendanceTemplate);
-          comAttRow.find("#comittee-attendance-row-name").text(row.name);
-          comAttRow.find("#comittee-attendance-row-percent").text(row.percent + "%");
-          $("#committee-attendance").append(comAttRow);
-        });
-      
-
-        $("#committee-attendance-search").keyup((e) =>  {
-          let committeeSearchResults = committeeAttendanceByMember[selectedCommittee].filter(x => x.name.toLowerCase().includes(e.target.value.toLowerCase()));
-          $("#committee-attendance").html('');
-          committeeSearchResults.forEach((row) => {
+        function updateTable(clear=true) {
+          if(clear) $("#committee-attendance").html('');
+          committeeAttendanceByMember[selectedCommittee].forEach((row) => {
             let comAttRow = $(committeeAttendanceTemplate);
             comAttRow.find("#comittee-attendance-row-name").text(row.name);
             comAttRow.find("#comittee-attendance-row-percent").text(row.percent + "%");
             $("#committee-attendance").append(comAttRow);
           });
+        }
+
+        function updateTableAll() {
+          $("#committee-attendance").html('');
+          committees.forEach(committee => {
+            selectedCommittee = committees.indexOf(committee);
+            updateTable(false);
+          });
+
+          selectedCommittee = null;
+        }
+
+        console.log(committeeAttendanceByMember);
+        updateTable();
+        
+        $("#committee-attendance-search").keyup((e) =>  {
+          $("#committee-attendance").html('');
+          function searchCommittee(scommittee) {
+            let committeeSearchResults = committeeAttendanceByMember[scommittee].filter(x => x.name.toLowerCase().includes(e.target.value.toLowerCase()));
+            committeeSearchResults.forEach((row) => {
+              let comAttRow = $(committeeAttendanceTemplate);
+              comAttRow.find("#comittee-attendance-row-name").text(row.name);
+              comAttRow.find("#comittee-attendance-row-percent").text(row.percent + "%");
+              $("#committee-attendance").append(comAttRow);
+            });
+          }
+
+          selectedCommittee != null ? searchCommittee(selectedCommittee) : committees.forEach(x => searchCommittee(committees.indexOf(x)));
         });
 
+        $('#dia').click(() => {selectedCommittee = 2; updateTable();});
+        $('#csa').click(() => {selectedCommittee = 0; updateTable();});
+        $('#prfa').click(() =>  {selectedCommittee = 1; updateTable();});
+        $('#alla').click(() => {updateTableAll()});
       }
     }, (graphData) => {
       committeeChart.data.datasets.push({label: "Percent of " + committee + " Members in Attendance", borderColor: "rgb(" + colors[index] + ")", backgroundColor: 'rgba(' + colors[index] + ', .4)', data: graphData});
