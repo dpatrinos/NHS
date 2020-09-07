@@ -66,7 +66,7 @@
                                 <li><a href="settings.html">Settings</a></li>
                                 <li role="separator" class="divider"></li>
                                 <!-- EVAN FIX ACTION-->
-                                <li><a action="" class="smoothScroll">Log Out</a></li>
+                                <li><a action="" id="logout-button" class="smoothScroll">Log Out</a></li>
                             </ul>
                         </li>
                    </ul>
@@ -77,7 +77,7 @@
                         <li><a href="settings.html">Settings</a></li>
                         <li role="separator" class="divider"></li>
                         <!-- EVAN FIX ACTION-->
-                        <li><a action="" class="smoothScroll">Log Out</a></li>
+                        <li><a action="" id="logout-button" class="smoothScroll">Log Out</a></li>
                    </ul>
                 </div>
             </div>
@@ -89,7 +89,7 @@
             <div class="col-md-6">
                 <div class="col-md-8 col-centered action-box">
                     <h2><small>Hours Log Form</small></h2>
-                    <form autocomplete="off" id="hours-request" class="action-form" role="form" action="" method="post" enctype="multipart/form-data">
+                    <form autocomplete="on" id="hours-request" class="action-form" role="form" action="" method="post" enctype="multipart/form-data">
                         <label for="event">Event Name</label>
                         <input type="text" class="form-control" id="event" name='eventname' required="">
 
@@ -112,17 +112,16 @@
                     <h2><small>Event Sign Up</small></h2>
                     <form autocomplete="off" id="event-signup" class="action-form" role="form" action="" method="post">
                         <label for="event-select">Event Name</label>
-                        <input type="text" class="form-control" list="event-list" id="event-select" required="">
+                        <input type="text" class="form-control" list="event-list" id="event-select" name="eventname" required="">
                             <datalist id="event-list">
-                                <option value='Event 1'></option>
-                                <option value='Event 2'></option>
+                                
                             </datalist>
 
                         <label for="time-start">Start Time</label>
-                        <input type="time" class="form-control" id="time-start" step="3600" required="">
+                        <input type="time" class="form-control" id="timestart" name="timestart" step="3600" required="">
 
                         <label for="time-end">End Time</label>
-                        <input type="time" class="form-control" id="time-end" step="3600" required="">
+                        <input type="time" class="form-control" id="timeend" name="timeend" step="3600" required="">
 
                         <div class="robo"><div class="g-recaptcha" data-sitekey="6Lfix8QZAAAAAP5BoOfBaGXNykRLJrjmQyjPnzH4"></div></div>
 
@@ -205,7 +204,7 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/smoothscroll.js"></script>
     <script src="js/custom.js"></script>
-    <script src="js/actions.js"></script>
+    <script src="js/actions.js" defer></script>
 
 </body>
 </html>
