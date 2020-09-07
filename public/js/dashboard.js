@@ -100,7 +100,7 @@ $.ajax({
 
 // HOURS CHART
 var hoursGraph;
-var ctx = document.getElementById('hoursDoughnut').getContext('2d');
+var ctx = document.getElementById('hoursGraph').getContext('2d');
 var options = {
   title: {
       display: true,
@@ -111,8 +111,8 @@ var options = {
   },
   layout: {
       padding: {
-          left: 0,
-          right: 0,
+          left: 15,
+          right: 15,
           top: 15,
           bottom: 20
       }
@@ -205,6 +205,50 @@ var attendanceDoughnut = new Chart(ctx2, {
     options: options2
 })
 
+// COMMITTEE CHAIR ATTENDANCE CHART
+var committeeChart;
+var ctx3 = document.getElementById('committee-attendance-chart').getContext('2d');
+var options3 = {
+  layout: {
+      padding: {
+          left: 15,
+          right: 15,
+          top: 15,
+          bottom: 20
+      }
+  },
+  scales: {
+    xAxes: [{
+        type: 'time',
+        time: {
+          unit: 'month'
+        }
+    }],
+    yAxes: [{
+      ticks: {
+        max: 6,
+        min: 0
+      }
+    }]
+  } 
+}
+
+hoursGraph = new Chart(ctx3, {
+  type: 'line',
+  data: {
+    datasets: 
+    [
+      {
+        label: "Community Service Members in Attendance",
+        borderColor: "#fca474",
+        backgroundColor: 'rgba(252, 164, 116, .4)',
+        data: []
+      },
+    ]
+  },
+  options: options3
+})
+
 Chart.pluginService.register({
   beforeDraw: function(chart) {
     if (chart.config.options.elements.center) {
@@ -268,3 +312,156 @@ Chart.pluginService.register({
     }
   }
 });
+
+
+(function ($) {
+  "use strict";
+
+    //TABLE PAGINATION
+    $.fn.pageMe = function(opts){
+      var $this = this,
+          defaults = {
+              perPage: 7,
+              showPrevNext: false,
+              hidePageNumbers: false
+          },
+          settings = $.extend(defaults, opts);
+      
+      var listElement = $this;
+      var perPage = settings.perPage; 
+      var children = listElement.children();
+      var pager = $('.pager');
+      
+      if (typeof settings.childSelector!="undefined") {
+          children = listElement.find(settings.childSelector);
+      }
+      
+      if (typeof settings.pagerSelector!="undefined") {
+          pager = $(settings.pagerSelector);
+      }
+      
+      var numItems = children.size();
+      var numPages = Math.ceil(numItems/perPage);
+
+      pager.data("curr",0);
+      
+      if (settings.showPrevNext){
+          $('<li><a href="#" class="prev_link">Previous</a></li>').appendTo(pager);
+      }
+      
+      var curr = 0;
+      while(numPages > curr && (settings.hidePageNumbers==false)){
+          $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo(pager);
+          curr++;
+      }
+      
+      if (settings.showPrevNext){
+          $('<li><a href="#" class="next_link">Next</a></li>').appendTo(pager);
+      }
+      
+      pager.find('.page_link:first').addClass('active');
+      pager.find('.prev_link').hide();
+      if (numPages<=1) {
+          pager.find('.next_link').hide();
+      }
+      pager.children().eq(1).addClass("active");
+      
+      children.hide();
+      children.slice(0, perPage).show();
+      
+      pager.find('li .page_link').click(function(){
+          var clickedPage = $(this).html().valueOf()-1;
+          goTo(clickedPage,perPage);
+          return false;
+      });
+      pager.find('li .prev_link').click(function(){
+          previous();
+          return false;
+      });
+      pager.find('li .next_link').click(function(){
+          next();
+          return false;
+      });
+      
+      function previous(){
+          var goToPage = parseInt(pager.data("curr")) - 1;
+          goTo(goToPage);
+      }
+      
+      function next(){
+          var goToPage = parseInt(pager.data("curr")) + 1;
+          goTo(goToPage);
+      }
+      
+      function goTo(page){
+          var startAt = page * perPage,
+              endOn = startAt + perPage;
+          
+          children.css('display','none').slice(startAt, endOn).show();
+          
+          if (page>=1) {
+              pager.find('.prev_link').show();
+          }
+          else {
+              pager.find('.prev_link').hide();
+          }
+          
+          if (page<(numPages-1)) {
+              pager.find('.next_link').show();
+          }
+          else {
+              pager.find('.next_link').hide();
+          }
+          
+          pager.data("curr",page);
+          pager.children().removeClass("active");
+          pager.children().eq(page+1).addClass("active");
+      
+      }
+    };
+
+    $(document).ready(function(){
+      $('#hours').pageMe({pagerSelector:'#hours-pager',showPrevNext:true,hidePageNumbers:false,perPage:4});
+    });
+
+    $(document).ready(function(){
+      $('#attendance').pageMe({pagerSelector:'#attendance-pager',showPrevNext:true,hidePageNumbers:false,perPage:4});
+    });
+
+    $(document).ready(function(){
+      $('#committee-attendance').pageMe({pagerSelector:'#committee-attendance-pager',showPrevNext:true,hidePageNumbers:false,perPage:4});
+    });
+
+    $(document).ready(function() {
+      $('#csa').click(function() {
+        $('#current-com').text('Community Service Committee Attendance ');
+        $('<span class="caret"></span>').appendTo('#current-com')
+        $('#csa').hide();
+        $('#dia').show();
+        $('#prfa').show();
+      });
+      $('#dia').click(function() {
+        $('#current-com').text('Dance and Induction Committee Attendance ');
+        $('<span class="caret"></span>').appendTo('#current-com')
+        $('#dia').hide();
+        $('#csa').show();
+        $('#prfa').show();
+      });
+      $('#prfa').click(function() {
+        $('#current-com').text('PR and Fundraising Committee Attendance ');
+        $('<span class="caret"></span>').appendTo('#current-com')
+        $('#prfa').hide();
+        $('#csa').show();
+        $('#dia').show();
+      });
+    });
+
+    $(document).ready(function() {
+      $('.committee-drop').hover(function() {
+        $('#current-com').css('color','#f56b2c');
+      });
+    });
+
+    //$(document).ready(function)
+
+})(jQuery);
