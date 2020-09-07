@@ -68,7 +68,7 @@
                                 <li><a href="settings.html">Settings</a></li>
                                 <li role="separator" class="divider"></li>
                                 <!-- EVAN FIX ACTION-->
-                                <li><a action="" id="logout-button" class="smoothScroll">Log Out</a></li>
+                                <li><a action="" class="smoothScroll">Log Out</a></li>
                             </ul>
                         </li>
                    </ul>
@@ -80,7 +80,7 @@
                         <li><a href="settings.html">Settings</a></li>
                         <li role="separator" class="divider"></li>
                         <!-- EVAN FIX ACTION-->
-                        <li><a action="" id="logout-button" class="smoothScroll">Log Out</a></li>
+                        <li><a action="" class="smoothScroll">Log Out</a></li>
                    </ul>
                 </div>
 
@@ -168,7 +168,7 @@
     <section class="privelege-section" id="admin">
         <div class="container">
 
-            <div class="navbar col-md-6">
+            <div class="navbar col-md-12">
                 <ul id="committee-view" class="nav navbar-nav">
                     <li class="dropdown">
                         <a id="current-com" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Community Service Committee Attendance <span class="caret"></span></a>
@@ -182,43 +182,20 @@
                </ul>
             </div>
 
-            <div class="col-md-4 col-right table-search">
+            <div class="col-md-4 com-table table-search">
                 <input type="text" id="committee-attendance-search" onkeyup="searchTable()" placeholder="Search for students..." class="form-control">
-            </div>
-
-            <div class="col-md-12 com-table">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th style="white-space:nowrap">Student Name</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
-                                <th>mm/dd/yyyy</th>
+                                <th>Student Name</th>
+                                <th>Overall Attendance Percentage</th> <!-- Make dynamic for overall or committee -->
                             </tr>
                         </thead>
                         <tbody id="committee-attendance">
                             <tr>
-                                <td>John Doe</td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
-                                <td><span class="badge approved">Present</span></td>
+                                <th>John Doe</th>
+                                <th>100%</th>
                             </tr>
                         </tbody>
                     </table>
@@ -228,7 +205,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <canvas id="committee-attendance-chart" width="100%"></canvas>
             </div>
 
