@@ -431,7 +431,7 @@ Chart.pluginService.register({
     $(document).ready(function(){
       $('#committee-attendance').pageMe({pagerSelector:'#committee-attendance-pager',showPrevNext:true,hidePageNumbers:false,perPage:4});
     });
-
+    
     $(document).ready(function(){
       $('#lookup-attendance').pageMe({pagerSelector:'#lookup-attendance-pager',showPrevNext:true,hidePageNumbers:false,perPage:4});
     });
@@ -439,7 +439,7 @@ Chart.pluginService.register({
     $(document).ready(function(){
       $('#lookup-hours').pageMe({pagerSelector:'#lookup-hours-pager',showPrevNext:true,hidePageNumbers:false,perPage:4});
     });
-
+    
     $(document).ready(function() {
       $('#csa').click(function() {
         $('#current-com').text('Community Service Committee Attendance ');
@@ -474,5 +474,5 @@ Chart.pluginService.register({
         $('#prfa').show();
       });
     });
-
+    
 })(jQuery);
