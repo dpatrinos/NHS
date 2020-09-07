@@ -439,6 +439,7 @@ Chart.pluginService.register({
         $('#csa').hide();
         $('#dia').show();
         $('#prfa').show();
+        $('#alla').show();
       });
       $('#dia').click(function() {
         $('#current-com').text('Dance and Induction Committee Attendance ');
@@ -446,6 +447,7 @@ Chart.pluginService.register({
         $('#dia').hide();
         $('#csa').show();
         $('#prfa').show();
+        $('#alla').show();
       });
       $('#prfa').click(function() {
         $('#current-com').text('PR and Fundraising Committee Attendance ');
@@ -453,15 +455,16 @@ Chart.pluginService.register({
         $('#prfa').hide();
         $('#csa').show();
         $('#dia').show();
+        $('#alla').show();
+      });
+      $('#alla').click(function() {
+        $('#current-com').text('All Members Attendance ');
+        $('<span class="caret"></span>').appendTo('#current-com')
+        $('#alla').hide();
+        $('#csa').show();
+        $('#dia').show();
+        $('#prfa').show();
       });
     });
-
-    $(document).ready(function() {
-      $('.committee-drop').hover(function() {
-        $('#current-com').css('color','#f56b2c');
-      });
-    });
-
-    //$(document).ready(function)
 
 })(jQuery);

@@ -19,7 +19,9 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/df95adec8c.js" crossorigin="anonymous"></script>
-    <script src="../node_modules/chart.js/dist/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js" crossorigin="anonymous"></script>
    
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -57,109 +59,106 @@
                     </ul>
 
                     <ul id="right-menu" class="nav navbar-nav navbar-right">
-                         <li class="dropdown">
-                             <a class="dropdown-toggle fas fa-user-circle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">  <span class="caret"></span></a>
-                             <ul class="dropdown-menu">
-                                 <li><a href="dashboard.html">Dashboard</a></li>
-                                 <li><a href="actions.html">Actions</a></li>
-                                 <li><a href="students.html">Student Lookup</a></li>
-                                 <li><a href="settings.html">Settings</a></li>
-                                 <li role="separator" class="divider"></li>
-                                 <!-- EVAN FIX ACTION-->
-                                 <li><a action="" class="smoothScroll">Log Out</a></li>
-                             </ul>
-                         </li>
-                    </ul>
- 
-                    <ul id="right-menu-collapse" class="nav navbar-nav navbar-right">
-                         <li><a href="dashboard.html">Dashboard</a></li>
-                         <li><a href="actions.html">Actions</a></li>
-                         <li><a href="students.html">Student Lookup</a></li>
-                         <li><a href="settings.html">Settings</a></li>
-                         <li role="separator" class="divider"></li>
-                         <!-- EVAN FIX ACTION-->
-                         <li><a action="" class="smoothScroll">Log Out</a></li>
-                    </ul>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle fas fa-user-circle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">  <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="dashboard.html">Dashboard</a></li>
+                                <li><a href="actions.html">Actions</a></li>
+                                <li><a href="students.html">Student Lookup</a></li>
+                                <li><a href="settings.html">Settings</a></li>
+                                <li role="separator" class="divider"></li>
+                                <!-- EVAN FIX ACTION-->
+                                <li><a action="" class="smoothScroll">Log Out</a></li>
+                            </ul>
+                        </li>
+                   </ul>
+
+                   <ul id="right-menu-collapse" class="nav navbar-nav navbar-right">
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="actions.html">Actions</a></li>
+                        <li><a href="students.html">Student Lookup</a></li>
+                        <li><a href="settings.html">Settings</a></li>
+                        <li role="separator" class="divider"></li>
+                        <!-- EVAN FIX ACTION-->
+                        <li><a action="" class="smoothScroll">Log Out</a></li>
+                   </ul>
                 </div>
 
             </div>
     </section>
 
-
-    <section id="settings">
+    <section id="account-info">
         <div class="container">
-
-            <div style="margin-bottom:40px;" class="col-xs-12 action-box">
-                <div class="col-md-3">
-                   <label class="user-label">First Name</label>
-                   <h3 class="user-stuff"><small>John</small></h3>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="table-search">
+                    <input type="text" id="student-lookup" placeholder="Search for students..." class="form-control"> 
                 </div>
-
-                <div class="col-md-3">
-                   <label class="user-label">Last Name</label>
-                   <h3 class="user-stuff"><small>Doe</small></h3>
-                </div>
-
-                <div class="col-md-3">
-                   <label class="user-label">Email</label>
-                   <h3 class="user-stuff"><small>example@domain.com</small></h3>
-                </div>
-
-                <div class="col-md-3">
-                   <label class="user-label">Committee</label>
-                   <h3 class="user-stuff"><small>Community Service</small></h3>
-                </div>
-           </div>
-
-           <div class="col-md-6">
-                <div class="col-md-8 col-centered action-box">
-                    <h2><small>Change Password</small></h2>
-                    <form autocomplete="no" id="change-pw" class="action-form" role="form" action="" method="post">
-                        <label for="current-pw">Current Password</label>
-                        <input type="password" class="form-control" id="current-pw" required="">
-
-                        <label for="set-pw">New Password</label>
-                        <input autocomplete="no" type="password" class="form-control" id="set-pw" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-
-                         <div class="pw-info">
-                              <h2 style="margin-top:-12px;"><small>Password must meet the following requirements:</small></h2>
-                              <ul class="fa-ul">
-                                   <li id="letter"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one lower-case letter</strong></li>
-                                   <li id="capital"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one capital letter</strong></li>
-                                   <li id="number"><span class="fa-li"><i class="fas fa-times"></i></span>At least <strong>one number</strong></li>
-                                   <li id="length"><span class="fa-li"><i class="fas fa-times"></i></span>Be at least <strong>8 characters</strong></li>
-                              </ul>
-                         </div>
-
-                        <label for="set-pw2">Confirm New Password</label>
-                        <input autocomplete="no" type="password" class="form-control" id="set-pw2" required="" onchange="checkPasswordMatch();">
-
-                        <input id="new-pw-submit" type="submit" class="form-control" value="Submit">
-                    </form>
+                <div class="section-title">
+                    <h2 style="padding-top:5px;" id="username-text">John Doe</h2>
+                    <h3 style="margin-top:-5px" id="committee-text">Community Service Committee</h3>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class= "col-md-8 col-centered action-box">
-                <h2><small>Change Email</small></h2>
-                <form autocomplete="off" id="change-email" class="action-form" role="form" action="" method="post">
-                    <label for="set-email">New Email</label>
-                    <input type="email" class="form-control" id="set-email" required="">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Date</th>
+                                <th>Hours</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hours">
+                            <tr id="no-events-message"><td>You have no events logged</td></tr>
 
-                    <label for="set-email2">Confirm New Email</label>
-                    <input type="email" class="form-control" id="set-email2" required="" onchange="checkEmailMatch();">
-
-                    <label for="email-pw">Password</label>
-                    <input type="password" class="form-control" id="email-pw" required="">
-
-                    <input id="new-email-submit" type="submit" class="form-control" value="Submit">
-                </form>
+                            <template id="event-row">
+                                <tr>
+                                    <td id="event-name">Wellness Summit</td>
+                                    <td id="event-date">01/01/2020</td>
+                                    <td id="event-hours">3.0</td>
+                                    <td><span id="event-status" class="badge pending">Pending</span></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 text-center">
+                    <ul class="pagination pagination-lg pager" id="hours-pager"></ul>
                 </div>
             </div>
+        </div>
 
+        <div class="container">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Meeting</th>
+                                <th>Date</th>
+                                <th>Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance">
+                            <tr id="no-meetings-message"><td>You have no meetings logged</td></tr>
+                            <template id="attendance-row">
+                                <tr>
+                                    <td id="meeting-name">Community Service Committee</td>
+                                    <td id="meeting-date">01/01/2020</td>
+                                    <td><span id="meeting-attendance" class="badge approved">Present</span></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                    <div class="col-md-12 text-center">
+                        <ul class="pagination pagination-lg pager" id="attendance-pager"></ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-
 
     <!-- FOOTER -->
     <footer id="footer">
@@ -224,13 +223,14 @@
              </div>
         </div>
    </footer>
-
+    
     <!-- SCRIPTS -->
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/smoothscroll.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/dashboard.js"></script>
 
 </body>
 </html>
