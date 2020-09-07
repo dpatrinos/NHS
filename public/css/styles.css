@@ -872,7 +872,7 @@
     color: #575757;
   }
 
-  .action-form input[type='submit'] {
+  .action-form input[type='submit'], #upcoming-events button {
     border-radius: 500px;
     border: 1px solid transparent;
     margin-top: 10px;
@@ -882,7 +882,13 @@
     margin-right: auto;
   }
 
-  .action-form input[type='submit']:hover {
+  #upcoming-events button {
+    padding:0;
+    margin:0;
+    height:35px;
+  }
+
+  .action-form input[type='submit']:hover, #upcoming-events button:hover {
     background: transparent;
     border: 8px solid #f9f9f9;
   }
