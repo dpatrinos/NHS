@@ -287,7 +287,7 @@ router.get("/currentUser/pastevents", (req, res) => {
 //get user's attendance record
 router.get("/currentUser/attendance", (req, res) => { 
     if(req.session.account != null) {
-        let query = `SELECT status, meeting_name, meeting_time FROM attendance a INNER JOIN meetings m ON a.meeting_id = m.id WHERE a.account_id = ${req.session.account.id} ORDER BY m.meeting_time`;
+        let query = `SELECT attendance_status, meeting_name, meeting_time FROM attendance a INNER JOIN meetings m ON a.meeting_id = m.id WHERE a.account_id = ${req.session.account.id} ORDER BY m.meeting_time`;
         connection.query(query, (err, rows) => { 
             if(err) throw err;
 
@@ -298,24 +298,47 @@ router.get("/currentUser/attendance", (req, res) => {
     }
 })
 
+
+//get committee members by committee
+router.get("/:committee/members", (req, res) => {
+    let auth = authority(req);
+    if(auth == 3 || (auth == 2 && req.params.committee == req.session.account.committee)) {
+        let query = `SELECT name FROM accounts WHERE committee = ${connection.escape(req.params.committee)}`;
+        connection.query(query, (err, rows) => { 
+            if (err) throw err;
+
+            res.send(rows);
+        });
+    } else { 
+        res.sendStatus(403);
+    }
+});
+
+//get committee meetings
+router.get("/:committee/meetings", (req, res) => {
+    let auth = authority(req);
+    if(auth == 3 || (auth == 2 && req.params.committee == req.session.account.committee)) {
+        let query = `SELECT meeting_name, meeting_description, meeting_time FROM meetings WHERE meeting_committee = ${connection.escape(req.params.committee)}`;
+        connection.query(query, (err, rows) => {
+            if (err) throw err;
+
+            res.send(rows);
+        });
+    } else {
+        res.sendStatus(403);
+    }
+})
+
 //get committee attendance records
-router.get("/committeeAttendance/:committee?", (req, res) => {
-    if(req.session.account && req.session.account.status != 'member') {
-        if(req.params.committee == null && req.session.account.role === 'ALL') {
-            let query = `SELECT event_name, participated, event_time, committee, name, email, role FROM participation INNER JOIN events USING (event_name) INNER JOIN accounts ON participation.account_id = accounts.id`;
-            connection.query(query, (err, rows) => {
-                if (err) throw err;
+router.get("/:committee/attendance", (req, res) => {
+    let auth = authority(req);
+    if(auth == 3 || (auth == 2 && req.params.committee == req.session.account.committee)) {
+        let query = `SELECT meeting_name, attendance_status, meeting_time, meeting_committee, committee, name, email, status FROM attendance INNER JOIN meetings ON attendance.meeting_id = meetings.id INNER JOIN accounts ON attendance.account_id = accounts.id WHERE accounts.committee= ${connection.escape(req.session.account.committee)}`;
+        connection.query(query, (err, rows) => {
+            if (err) throw err;
 
-                res.send(rows);
-            });
-        } else if(req.session.account.role == req.params.committee || req.session.account.role === 'ALL') { 
-            let query = `SELECT event_name, participated, event_time, committee, name, email, role FROM participation INNER JOIN events USING (event_name) INNER JOIN accounts ON participation.account_id = accounts.id WHERE events.committee = ${connection.escape(req.params.committee)}`;
-            connection.query(query, (err, rows) => {
-                if (err) throw err;
-
-                res.send(rows);
-            });
-        }
+            res.send(rows);
+        });
     } else {
         res.sendStatus(403);
     }
