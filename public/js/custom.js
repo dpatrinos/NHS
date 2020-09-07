@@ -8,6 +8,14 @@
     });
 
 
+    //setup ajax 
+    $.ajaxSetup({
+      crossDomain: true,
+      xhrFields: {
+          withCredentials: true
+      }
+    });
+
     // MENU
     $('.navbar-collapse a').on('click',function(){
       $(".navbar-collapse").collapse('hide');
@@ -186,7 +194,34 @@
         $('.pw-info').hide();
       });
     });
-    
+
+    // .pw-info placement NEEDS FIXED
+    $(document).ready(function() {
+      var pathname = $(location).attr('href').pathname;
+      var pwInfoSpot = $('#set-pw').position();
+      if(pathname=='/create.html'){
+        var leftSpot = pwInfoSpot.left-20;
+        var topSpot = pwInfoSpot.top+285;
+      }
+      else {
+        var leftSpot = pwInfoSpot.left+38;
+        var topSpot = pwInfoSpot.top+65;
+      }
+      $('.pw-info').css('left', leftSpot);
+      $('.pw-info').css('top', topSpot);
+    });
+
+    //logout listener
+    $("#logout-button").click((e) => {
+      e.preventDefault();
+
+      $.get("http://api.bpnhs.org:3000/logout", (response) => {
+        if(response.status = "success") { 
+          location.href = "/";
+        }
+      });
+    });
+
 })(jQuery);
 
 document.addEventListener('DOMContentLoaded', function() {
