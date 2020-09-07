@@ -112,16 +112,16 @@
                     <h2><small>Event Sign Up</small></h2>
                     <form autocomplete="off" id="event-signup" class="action-form" role="form" action="" method="post">
                         <label for="event-select">Event Name</label>
-                        <input type="text" class="form-control" list="event-list" id="event-select" required="">
+                        <input type="text" class="form-control" list="event-list" id="event-select" name="eventname" required="">
                             <datalist id="event-list">
                                 
                             </datalist>
 
                         <label for="time-start">Start Time</label>
-                        <input type="time" class="form-control" id="time-start" name="time-start" step="3600" required="">
+                        <input type="time" class="form-control" id="timestart" name="timestart" step="3600" required="">
 
                         <label for="time-end">End Time</label>
-                        <input type="time" class="form-control" id="time-end" name="time-end" step="3600" required="">
+                        <input type="time" class="form-control" id="timeend" name="timeend" step="3600" required="">
 
                         <div class="robo"><div class="g-recaptcha" data-sitekey="6Lfix8QZAAAAAP5BoOfBaGXNykRLJrjmQyjPnzH4"></div></div>
 

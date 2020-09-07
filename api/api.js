@@ -118,55 +118,9 @@ router.get("/eventslike/:eventq?", (req, res) => {
     }
 });
 
-//hnadle get reqests to event signup
-router.get("/eventSignup/:eventname", (req, res) => { 
-
-    //escape the 'eventname' parameter
-    let eventname = connection.escape(req.params.eventname);
-
-    //Check if signed in
-    if(req.session.account) { 
-
-        //Make sure event exists / is for the correct committee of the user
-        let query = `SELECT * FROM events WHERE event_name = ${eventname}`;
-        connection.query(query, (err, rows) => { 
-            if(err) throw err;
-
-            if(rows.length === 0 || (rows[0].committee != 'ALL' && rows[0].committee != req.session.account.role)) {
-                res.send({'status' : 'failure', 'error' : 'Permission denied'});
-                return;
-            }
-
-            //Make sure event has not already been signed up for by user
-            query = `SELECT * FROM participation WHERE account_id = ${req.session.account.id} AND event_name = ${eventname}`;
-            connection.query(query, (err, rows) => {
-                if(err) throw err;
-
-                if(rows.length != 0) {
-                    res.send({'status' : 'failure', 'error' : 'You are already signed up for this event'});
-                    return;
-                }
-
-                //If all above parameter queries are met, insert the signup information into participation
-                query = `INSERT INTO participation (account_id, event_name) VALUES (${req.session.account.id}, ${eventname})`;
-                connection.query(query, (err) => { 
-                    if(err) throw err;
-
-                    res.send({'status' : 'success'});
-                    return;
-                });
-            });     
-        });
-    }
-    else {
-        //Return forbidden without account session active
-        res.sendStatus(403);
-    }
-});
-
 //Hours log Form submission
 router.post("/submithours", (req, res) => {
-    if(req.session.account) {
+    if(authority(req) != 0) {
         let hourFormUpload = upload.single('eventpic');
         hourFormUpload(req, res, (err) => {
             
@@ -204,6 +158,46 @@ router.post("/submithours", (req, res) => {
 router.get("/img", (req, res) => {
     res.sendFile('__dirname+/uploads/event-pic-1599279569819.jpg')
 })
+
+//Event signup submission
+router.post("/eventsignup", urlencodedParser, (req, res) => {
+    if(authority(req) != 0) {
+        let event_id;
+        let query = `SELECT id from events WHERE event_name = ${connection.escape(req.body.eventname)}`;
+        connection.query(query, (err, rows) => {
+            if(err) throw err;
+            if(rows.length == 0) { 
+                res.send({status : "Event does not exist"});
+                return;
+            }
+
+            event_id = rows[0].id;
+            query = `SELECT * FROM signups WHERE account_id = ${req.session.account.id} AND event_id = ${event_id}`;
+            connection.query(query, (err, rows) => {
+                if(err) throw err;
+                if(rows.length != 0) return res.send({status: 'Already signed up for event'});
+
+                query = `INSERT INTO signups (account_id, event_id, time_start, time_end) VALUES (
+                    ${req.session.account.id},
+                    ${event_id},
+                    ${connection.escape(req.body.timestart)},
+                    ${connection.escape(req.body.timeend)}
+                )`;
+                connection.query(query, (err) => { 
+                    if(err) throw err;
+        
+                    res.send({status: 'success'});
+                    return;
+                });
+            });
+        });
+        //console.log(event_id);
+    }
+    else { 
+        console.log("unauthorized");
+        res.sendStatus(403);
+    }
+});
 
 //handle post requests to login endpoint
 const loginSession = require('./accountLogin');

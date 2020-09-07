@@ -53,9 +53,13 @@ $("#event-select").keyup((e) => {
 //event signup submission
 $("#event-signup").submit((e) => {
     e.preventDefault();
-    if($(grecaptcha.getResponse())) {
-        console.log($(".g-recaptcha"))
-        let data = new FormData($("#event-signup")[0]);
-        console.log(data.get('time-start'));
+    if(grecaptcha.getResponse() != "") {
+        let data = $("#event-signup").serialize();
+        $.post("http://api.bpnhs.org:3000/eventsignup", data, (res) => {
+            console.log(res);
+            if(res.status = "success") { 
+                //location.href = "dashboard";
+            }
+        });
     }
 });
