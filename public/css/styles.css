@@ -940,7 +940,9 @@
 
   #current-com:hover {
     background:none;
+    color: #454545;
   }
+
 
   /*---------------------------------------
      RESPONSIVE STYLES              
