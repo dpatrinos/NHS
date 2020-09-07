@@ -67,8 +67,7 @@
                                 <li><a href="students.html">Student Lookup</a></li>
                                 <li><a href="settings.html">Settings</a></li>
                                 <li role="separator" class="divider"></li>
-                                <!-- EVAN FIX ACTION-->
-                                <li><a action="" class="smoothScroll">Log Out</a></li>
+                                <li><a id="logout-button" class="smoothScroll">Log Out</a></li>
                             </ul>
                         </li>
                    </ul>
@@ -79,8 +78,7 @@
                         <li><a href="students.html">Student Lookup</a></li>
                         <li><a href="settings.html">Settings</a></li>
                         <li role="separator" class="divider"></li>
-                        <!-- EVAN FIX ACTION-->
-                        <li><a action="" class="smoothScroll">Log Out</a></li>
+                        <li><a id="logout-button" class="smoothScroll">Log Out</a></li>
                    </ul>
                 </div>
 
@@ -103,13 +101,56 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-
-
-
+                            <tr>
+                                <th>Event</th>
+                                <th>Date</th>
+                                <th>Hours</th>
+                                <th>Status</th>
+                            </tr>
                         </thead>
                         <tbody id="lookup-hours">
-
-
+                            <tr>
+                                <td>Wellness Summit</td>
+                                <td>01/01/2020</td>
+                                <td>3.0</td>
+                                <td><span class="badge pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Wellness Summit</td>
+                                <td>01/01/2020</td>
+                                <td>3.0</td>
+                                <td><span class="badge pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Wellness Summit</td>
+                                <td>01/01/2020</td>
+                                <td>3.0</td>
+                                <td><span class="badge pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Wellness Summit</td>
+                                <td>01/01/2020</td>
+                                <td>3.0</td>
+                                <td><span class="badge pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Wellness Summit</td>
+                                <td>01/01/2020</td>
+                                <td>3.0</td>
+                                <td><span class="badge pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Wellness Summit</td>
+                                <td>01/01/2020</td>
+                                <td>3.0</td>
+                                <td><span class="badge pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Wellness Summit</td>
+                                <td>01/01/2020</td>
+                                <td>3.0</td>
+                                <td><span class="badge pending">Pending</span></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -156,9 +197,9 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="col-md-12 text-center">
-                        <ul class="pagination pagination-lg pager" id="lookup-attendance-pager"></ul>
-                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <ul class="pagination pagination-lg pager" id="lookup-attendance-pager"></ul>
                 </div>
             </div>
         </div>
@@ -235,6 +276,7 @@
     <script src="js/smoothscroll.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/pagination.js"></script>
 
 </body>
 </html>
