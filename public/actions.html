@@ -86,7 +86,47 @@
     </section>
 
     <section id="event-entry">
-         
+         <div class="container">
+
+               <div class="col-md-6">
+                    <div class="col-md-8 col-centered action-box">
+                         <h2><small>Meeting Creation Form</small></h2>
+                         <form id="meeting-creation" class="action-form" role="form" action="" method="post">
+                              <label for="meeting-name">Meeting Name</label>
+                              <input type="text" class="form-control" id="meeting-name" required="">
+     
+                              <label for="meeting-date">Meeting Date</label>
+                              <input type="datetime" class="form-control" id="meeting-date" required="">
+     
+                              <label for="meeting-description">Meeting Description</label>
+                              <input type="text" class="form-control" id="meeting-description" required="">
+     
+                              <label for="meeting-committee">Meeting Committee</label>
+                              <input type="text" class="form-control" id="meeting-committee" required="">
+     
+                              <input id="meeting-submit" type="submit" class="form-control" value="Submit">
+                         </form>
+                    </div>
+                </div>
+    
+                <div class="col-md-6">
+                    <div class="col-md-8 col-centered action-box">
+                        <h2><small>Service Event Creation Form</small></h2>
+                        <form autocomplete="off" id="event-creation" class="action-form" role="form" action="" method="post">
+                              <label for="service-name">Event Name</label>
+                              <input type="text" class="form-control" id="service-name" required="">
+
+                              <label for="service-date">Event Date</label>
+                              <input type="date" class="form-control" id="service-date" required="">
+
+                              <label for="slot-num">Number of Time Slots</label>
+                              <input type="number" class="form-control" id="slot-num" required="">
+
+                        </form>
+                    </div>
+                </div>
+
+         </div>
     </section>
 
 

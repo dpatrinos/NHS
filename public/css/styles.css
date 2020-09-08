@@ -887,7 +887,7 @@
     border: 8px solid #f9f9f9;
   }
 
-  .action-form input[type='text'], .action-form input[type='email'], .action-form input[type='date'], .action-form input[type='number'], .action-form input[type='time'], .action-form input[type='password'], .table-search input {
+  .action-form input[type='text'], .action-form input[type='datetime'], .action-form input[type='email'], .action-form input[type='date'], .action-form input[type='number'], .action-form input[type='time'],  .action-form input[type='password'], .table-search input {
     height: 50px;
     width: 100%; 
   }
@@ -899,6 +899,8 @@
 
   .action-box {
     border: 1px solid #cccccc;
+    height: 548px;
+    overflow: auto;
   }
 
   .robo {

@@ -206,6 +206,16 @@
       });
     });
 
+    $('#slot-num').keyup(function() {    
+      var numSlots = $('#slot-num').val();
+      var eventForm = $('#event-creation');
+      for(var i=0; i<numSlots; i++) {
+          $('<label>Time Slot '+(i+1)+'</label>').appendTo(eventForm);
+          $('<input type="time" class="form-control" id="event-start-'+(i+1)+'" required="">').appendTo(eventForm);
+          $('<input type="time" class="form-control" id="event-end-'+(i+1)+'" required="">').appendTo(eventForm);
+      }
+    });
+
 })(jQuery);
 
 document.addEventListener('DOMContentLoaded', function() {
