@@ -333,7 +333,7 @@ router.get("/:committee/meetings", (req, res) => {
 router.get("/:committee/attendance", (req, res) => {
     let auth = authority(req);
     if(auth == 3 || (auth == 2 && req.params.committee == req.session.account.committee)) {
-        let query = `SELECT meeting_name, attendance_status, meeting_time, meeting_committee, committee, name, email, status FROM attendance INNER JOIN meetings ON attendance.meeting_id = meetings.id INNER JOIN accounts ON attendance.account_id = accounts.id WHERE accounts.committee= ${connection.escape(req.session.account.committee)}`;
+        let query = `SELECT meeting_name, attendance_status, meeting_time, meeting_committee, committee, name, email, status FROM attendance INNER JOIN meetings ON attendance.meeting_id = meetings.id INNER JOIN accounts ON attendance.account_id = accounts.id WHERE accounts.committee= ${connection.escape(req.params.committee)}`;
         connection.query(query, (err, rows) => {
             if (err) throw err;
 
