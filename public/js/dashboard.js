@@ -15,6 +15,7 @@ $.ajax({
       $("#committee-text").text(data.committee == "NONE" ? "No Committee Designated" : data.committee + " Committee");
       if(data.status == "chair") chairUpdate(data.committee);
       else if (data.status == "officer") officerUpdate();
+      else {$("#admin").remove();}
     } else {
       location.href = "/login";
     }
@@ -102,6 +103,7 @@ $.ajax({
 function chairUpdate(committee) { 
   fetchCommitteeAttendance(committee, (chartData) => { 
     let committeeAttendanceTemplate = $("#comittee-attendance-row").html();
+    $("#committee-attendance-text").text(committee + " Committee Attendance")
 
     chartData.forEach((row) => {
       let comAttRow = $(committeeAttendanceTemplate);
@@ -129,7 +131,7 @@ function chairUpdate(committee) {
 }
 
 function officerUpdate() { 
-  let committees = ['Community Service', 'PR & Fundraising', 'Dance and Induction'];
+  let committees = ['Community Service', 'PR and Fundraising', 'Dance and Induction'];
   let colors = ['0, 0, 255', '0, 255, 0', '255, 0, 0'];
   let selectedCommittee = 0;
   let committeeAttendanceByMember = [];
@@ -205,7 +207,7 @@ function fetchCommitteeAttendance(committee, chartcb, graphcb) {
     $.get(url + "/members", (members) => {
       members.forEach(member => {
         let memberAttendance = attendance.filter(x => x.name === member.name);
-        let memberAttendancePercentage = (memberAttendance.filter(x => x.attendance_status === 1).length / memberAttendance.length) * 100;
+        let memberAttendancePercentage = Math.round((memberAttendance.filter(x => x.attendance_status === 1).length / memberAttendance.length) * 100);
         committeeAttendanceByMember.push({name : member.name, percent : memberAttendancePercentage});
       });
 
@@ -218,7 +220,7 @@ function fetchCommitteeAttendance(committee, chartcb, graphcb) {
       meetings.forEach(meeting => {
         let meetingAttendance = attendance.filter(x => x.meeting_time == meeting.meeting_time);
         let meetingAttendancePercentage = meetingAttendance.filter(x => x.attendance_status === 1).length / meetingAttendance.length * 100;
-        committeeAttendanceByEvent.push({meetingname : meeting.name, x: meeting.meeting_time, y : meetingAttendancePercentage});
+        committeeAttendanceByEvent.push({meetingname : meeting.name, x: moment(new Date(meeting.meeting_time)).format(timeFormat), y : meetingAttendancePercentage});
       });
 
       graphcb(committeeAttendanceByEvent);
