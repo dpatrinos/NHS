@@ -872,7 +872,7 @@
     color: #575757;
   }
 
-  .action-form input[type='submit'], #upcoming-events button {
+  .action-form input[type='submit'] {
     border-radius: 500px;
     border: 1px solid transparent;
     margin-top: 10px;
@@ -886,9 +886,19 @@
     padding:0;
     margin:0;
     height:35px;
+    border-radius:500px;
+    border: 1px solid transparent;
+    background: #fff;
+    height: 35px;
+    width: 185px;
   }
 
-  .action-form input[type='submit']:hover, #upcoming-events button:hover {
+  #upcoming-events button:hover {
+    background: #f9f9f9;
+    border: 4px solid #fff
+  }
+
+  .action-form input[type='submit']:hover {
     background: transparent;
     border: 8px solid #f9f9f9;
   }
@@ -954,6 +964,10 @@
   .table-scroll {
     height: 225px;
     overflow: auto;
+  }
+
+  .radio-lbl {
+    padding:0 0.4rem 0 0.2rem;
   }
 
   /*---------------------------------------
