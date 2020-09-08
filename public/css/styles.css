@@ -882,6 +882,22 @@
     margin-right: auto;
   }
 
+  #upcoming-events button {
+    padding:0;
+    margin:0;
+    height:35px;
+    border-radius:500px;
+    border: 1px solid transparent;
+    background: #fff;
+    height: 35px;
+    width: 185px;
+  }
+
+  #upcoming-events button:hover {
+    background: #f9f9f9;
+    border: 4px solid #fff
+  }
+
   .action-form input[type='submit']:hover {
     background: transparent;
     border: 8px solid #f9f9f9;
@@ -950,6 +966,9 @@
     overflow: auto;
   }
 
+  .radio-lbl {
+     padding:0 0.4rem 0 0.2rem;
+  }
   @keyframes pulse { 
     from {opacity: .6; transform: scale(1);}
     to {opacity: .001; transform: scale(3);}
@@ -979,7 +998,7 @@
     transform: translate(-50%, -50%);
     width: 120px;
     height: 120px
-  }
+ }
 
   /*---------------------------------------
      RESPONSIVE STYLES              
