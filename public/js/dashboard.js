@@ -201,10 +201,10 @@ function fetchCommitteeAttendance(committee, chartcb, graphcb) {
   let committeeAttendanceByEvent = [];
   let url = "http://api.bpnhs.org:3000/" + committee;
   console.log(url);
-  $.get(url + "/attendance", (attendance) => {
+  $.get(url + "/committeeattendance", (attendance) => {
 
     //sort committee attendance by member and set up table
-    $.get(url + "/members", (members) => {
+    $.get(url + "/committeemembers", (members) => {
       members.forEach(member => {
         let memberAttendance = attendance.filter(x => x.name === member.name);
         let memberAttendancePercentage = Math.round((memberAttendance.filter(x => x.attendance_status === 1).length / memberAttendance.length) * 100);
@@ -216,7 +216,7 @@ function fetchCommitteeAttendance(committee, chartcb, graphcb) {
     });
 
     //sort committee attendance by event
-    $.get(url + "/meetings", (meetings) => {
+    $.get(url + "/committeemeetings", (meetings) => {
       meetings.forEach(meeting => {
         let meetingAttendance = attendance.filter(x => x.meeting_time == meeting.meeting_time);
         let meetingAttendancePercentage = meetingAttendance.filter(x => x.attendance_status === 1).length / meetingAttendance.length * 100;
