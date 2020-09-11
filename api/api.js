@@ -410,22 +410,44 @@ router.get("/events/:eventname?", (req, res) => {
 //get meeting attendance data
 router.get("/meetings/:meetingdate/:meetingname/attendance", (req, res) => {
     let auth = authority(req);
-    console.log('time : ' + req.params.meetingdate);
     if(auth > 1) {
         if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(req.params.meetingdate)) return res.sendStatus(400);
         let date = new Date(req.params.meetingdate);
         date = date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, "0") + "-" + date.getDate().toString().padStart(2, "0");
-        console.log(date);
         let query = `SELECT name, committee, attendance_status 
                     FROM attendance 
                     INNER JOIN accounts ON attendance.account_id = accounts.id 
-                    WHERE attendance.meeting_id = (SELECT id FROM meetings WHERE meeting_name = ${connection.escape(req.params.meetingname)} AND meeting_time = ${connection.escape(date)})`;
-        query += auth == 3 ? '' : ` AND attendance.meeting_committee - '${req.session.account.committee}'`;
+                    INNER JOIN meetings ON attendance.meeting_id = meetings.id
+                    WHERE meetings.meeting_name = ${connection.escape(req.params.meetingname)} AND meetings.meeting_time = ${connection.escape(date)}`;
+        query += auth == 3 ? '' : ` AND meetings.meeting_committee = '${req.session.account.committee}'`;
+
         connection.query(query, (err, rows) => {
             if(err) throw err;
 
             res.send(rows);
-        });
+        }); 
+    } else {
+        res.sendStatus(403);
+    }
+});
+
+//update meeting attendance member status
+router.get("/meetings/:meetingdate/:meetingname/attendance/updatemember/:member/:attendancestatus", (req, res) => {
+    let auth = authority(req);
+    if(auth > 1) {
+        if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(req.params.meetingdate)) return res.sendStatus(400);
+        let date = new Date(req.params.meetingdate);
+        date = date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, "0") + "-" + date.getDate().toString().padStart(2, "0");
+        let query = `UPDATE attendance INNER JOIN accounts ON attendance.account_id = accounts.id INNER JOIN meetings ON attendance.meeting_id = meetings.id
+                    SET attendance.attendance_status = '${req.params.attendancestatus === 'present' ? 1 : 0}'
+                    WHERE accounts.name = ${connection.escape(req.params.member)} 
+                    AND attendance.meeting_id = (SELECT id FROM meetings WHERE meeting_name = ${connection.escape(req.params.meetingname)} AND meeting_time = ${connection.escape(date)})`;
+        query += auth == 3 ? '' : ` AND meetings.meeting_committee = '${req.session.account.committee}'`;
+        connection.query(query, (err, rows) => {
+            if(err) throw err;
+
+            res.send({status : 'success'});
+        }); 
     } else {
         res.sendStatus(403);
     }
