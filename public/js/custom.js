@@ -15,6 +15,23 @@
           withCredentials: true
       }
     });
+
+    $.ajax({
+      type: 'get',
+      url: 'http://api.bpnhs.org:3000/currentUser',
+      crossDomain: true,
+      xhrFields: {
+          withCredentials: true
+      },
+      success: (data) => {
+        if(!data.name) {
+          $("#account-nav").hide();
+        }  else {
+          $("#login-nav").hide();
+        }
+      }
+  });
+  
     
     // MENU
     $('.navbar-collapse a').on('click',function(){

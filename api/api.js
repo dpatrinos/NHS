@@ -68,38 +68,6 @@ const authority = (req) => {
     }
 }
 
-//get event
-router.get("/events/:eventname?", (req, res) => {
-    let query;
-    let account_status;
-    if (req.params.eventname == null) {
-        query = "SELECT * FROM events ORDER BY event_time DESC";
-    }
-    else {
-        let event_name = connection.escape(req.params.eventname);
-        if(req.session.account) {
-            query = `SELECT * FROM participation WHERE account_id = ${req.session.account.id} AND event_name = ${event_name}`;
-            connection.query(query, (err,rows) => {
-                if(err) throw err;
-
-                account_status = rows.length != 0 ? 1 : 0;
-            });
-        }
-        query = `SELECT * FROM events WHERE event_name = ${event_name}`
-    }
-
-    connection.query(query, (err,rows) => {
-        if(err) throw err;
-
-        if(account_status) { 
-            rows[0].account_status = account_status;
-        }
-        
-        res.send(rows);
-        return;
-    });
-});
-
 //get events like 
 router.get("/eventslike/:eventq?", (req, res) => {
     if(req.params.eventq){
@@ -118,42 +86,22 @@ router.get("/eventslike/:eventq?", (req, res) => {
     }
 });
 
-//Hours log Form submission
-router.post("/submithours", (req, res) => {
-    if(authority(req) != 0) {
-        let hourFormUpload = upload.single('eventpic');
-        hourFormUpload(req, res, (err) => {
-            
-            if (req.fileValidationError) {
-                return res.send({ status: 'Forbidden file type'});
-            }
-            else if (!req.file) {
-                return res.send({ status : 'No image uploaded'});
-            }
-            else if (err instanceof multer.MulterError) {
-                return res.send(err);
-            }
-            else if (err) {
-                return res.send(err);
-            }
-            
-            let query = `INSERT INTO service (account_id, event_name, hours, event_date, img_name) VALUES (
-                ${req.session.account.id},
-                ${connection.escape(req.body.eventname)},
-                ${connection.escape(req.body.eventhours)},
-                ${connection.escape(req.body.eventdate)},
-                ${connection.escape(req.finalfilename)})`;
-            
-            connection.query(query, (err) => {
-                if (err) throw err;
+//get members like
+router.get("/memberslike/:memberq?", (req, res) => {
+    let auth = authority(req);
+    if(auth > 1) { 
+        let query = `SELECT * FROM accounts WHERE name LIKE ${connection.escape('%' + req.params.memberq + '%')}`;
+        query += auth == 3 ? '' : ` AND committee = '${req.session.account.committee}'`;
+        connection.query(query, (err, rows) => {
+            if(err) throw err;
 
-                res.send({status : 'success'});
-            })
+            res.send(rows);
         });
-    } else {
-        res.send(403);
+    } else { 
+        res.sendStatus(403);
     }
-});
+})
+
 
 router.get("/img", (req, res) => {
     res.sendFile('__dirname+/uploads/event-pic-1599279569819.jpg')
@@ -196,6 +144,43 @@ router.post("/eventsignup", urlencodedParser, (req, res) => {
     else { 
         console.log("unauthorized");
         res.sendStatus(403);
+    }
+});
+
+//Hours log Form submission
+router.post("/submithours", (req, res) => {
+    if(authority(req) != 0) {
+        let hourFormUpload = upload.single('eventpic');
+        hourFormUpload(req, res, (err) => {
+            
+            if (req.fileValidationError) {
+                return res.send({ status: 'Forbidden file type'});
+            }
+            else if (!req.file) {
+                return res.send({ status : 'No image uploaded'});
+            }
+            else if (err instanceof multer.MulterError) {
+                return res.send(err);
+            }
+            else if (err) {
+                return res.send(err);
+            }
+            
+            let query = `INSERT INTO service (account_id, event_name, hours, event_date, img_name) VALUES (
+                ${req.session.account.id},
+                ${connection.escape(req.body.eventname)},
+                ${connection.escape(req.body.eventhours)},
+                ${connection.escape(req.body.eventdate)},
+                ${connection.escape(req.finalfilename)})`;
+            
+            connection.query(query, (err) => {
+                if (err) throw err;
+
+                res.send({status : 'success'});
+            })
+        });
+    } else {
+        res.send(403);
     }
 });
 
@@ -269,7 +254,6 @@ router.get("/currentUser", (req, res) => {
     }
 });
 
-
 //get user's past events (submitted)
 router.get("/currentUser/pastevents", (req, res) => {
     if(req.session.account != null) { 
@@ -298,9 +282,8 @@ router.get("/currentUser/attendance", (req, res) => {
     }
 })
 
-
 //get committee members by committee
-router.get("/:committee/members", (req, res) => {
+router.get("/:committee/committeemembers", (req, res) => {
     let auth = authority(req);
     if(auth == 3 || (auth == 2 && req.params.committee == req.session.account.committee)) {
         let query = `SELECT name FROM accounts WHERE committee = ${connection.escape(req.params.committee)}`;
@@ -315,7 +298,7 @@ router.get("/:committee/members", (req, res) => {
 });
 
 //get committee meetings
-router.get("/:committee/meetings", (req, res) => {
+router.get("/:committee/committeemeetings", (req, res) => {
     let auth = authority(req);
     if(auth == 3 || (auth == 2 && req.params.committee == req.session.account.committee)) {
         let query = `SELECT meeting_name, meeting_description, meeting_time FROM meetings WHERE meeting_committee = ${connection.escape(req.params.committee)}`;
@@ -330,10 +313,10 @@ router.get("/:committee/meetings", (req, res) => {
 })
 
 //get committee attendance records
-router.get("/:committee/attendance", (req, res) => {
+router.get("/:committee/committeeattendance", (req, res) => {
     let auth = authority(req);
     if(auth == 3 || (auth == 2 && req.params.committee == req.session.account.committee)) {
-        let query = `SELECT meeting_name, attendance_status, meeting_time, meeting_committee, committee, name, email, status FROM attendance INNER JOIN meetings ON attendance.meeting_id = meetings.id INNER JOIN accounts ON attendance.account_id = accounts.id WHERE accounts.committee= ${connection.escape(req.session.account.committee)}`;
+        let query = `SELECT meeting_name, attendance_status, meeting_time, meeting_committee, committee, name, email, status FROM attendance INNER JOIN meetings ON attendance.meeting_id = meetings.id INNER JOIN accounts ON attendance.account_id = accounts.id WHERE accounts.committee= ${connection.escape(req.params.committee)}`;
         connection.query(query, (err, rows) => {
             if (err) throw err;
 
@@ -343,6 +326,134 @@ router.get("/:committee/attendance", (req, res) => {
         res.sendStatus(403);
     }
 });
+
+//get member info 
+router.get("/:member/memberinfo", (req, res) => {
+    let auth = authority(req);
+    if(auth > 1) { 
+        let query = `SELECT name, committee, email FROM accounts WHERE name = ${connection.escape(req.params.member)}`;
+        query += auth == 3 ? '' : ` AND committee = '${req.session.account.committee}'`;
+        connection.query(query, (err, rows) => {
+            if (err) throw err;
+
+            res.send(rows[0]);
+        });
+    } else { 
+        res.sendStatus(403);
+    }
+});
+
+//get member attendance 
+router.get("/:member/memberattendance", (req, res) => {
+    let auth = authority(req);
+    if(auth > 1) { 
+        let query = `SELECT meeting_name, meeting_time, attendance_status FROM attendance INNER JOIN meetings ON attendance.meeting_id = meetings.id WHERE attendance.account_id = (SELECT id FROM accounts WHERE name = ${connection.escape(req.params.member)}`;
+        query += auth == 3 ? ')' : ` AND committee = '${req.session.account.committee}')`;
+        connection.query(query, (err, rows) => {
+            if (err) throw err;
+
+            res.send(rows);
+        });
+    } else { 
+        res.sendStatus(403);
+    }
+});
+
+//get member info 
+router.get("/:member/memberhours", (req, res) => {
+    let auth = authority(req);
+    if(auth > 1) { 
+        let query = `SELECT event_name, event_date, hours, status FROM service WHERE account_id = (SELECT id FROM accounts WHERE name = ${connection.escape(req.params.member)}`;
+        query += auth == 3 ? ')' : ` AND committee = '${req.session.account.committee}')`;
+        connection.query(query, (err, rows) => {
+            if (err) throw err;
+
+            res.send(rows);
+        });
+    } else { 
+        res.sendStatus(403);
+    }
+});
+
+//get event
+router.get("/events/:eventname?", (req, res) => {
+    let query;
+    let account_status;
+    if (req.params.eventname == null) {
+        query = "SELECT * FROM events ORDER BY event_time DESC";
+    }
+    else {
+        let event_name = connection.escape(req.params.eventname);
+        if(req.session.account) {
+            query = `SELECT * FROM participation WHERE account_id = ${req.session.account.id} AND event_name = ${event_name}`;
+            connection.query(query, (err,rows) => {
+                if(err) throw err;
+
+                account_status = rows.length != 0 ? 1 : 0;
+            });
+        }
+        query = `SELECT * FROM events WHERE event_name = ${event_name}`
+    }
+
+    connection.query(query, (err,rows) => {
+        if(err) throw err;
+
+        if(account_status) { 
+            rows[0].account_status = account_status;
+        }
+        
+        res.send(rows);
+        return;
+    });
+});
+
+//get meeting attendance data
+router.get("/meetings/:meetingdate/:meetingname/attendance", (req, res) => {
+    let auth = authority(req);
+    if(auth > 1) {
+        if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(req.params.meetingdate)) return res.sendStatus(400);
+        let date = new Date(req.params.meetingdate);
+        date = date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, "0") + "-" + date.getDate().toString().padStart(2, "0");
+        let query = `SELECT name, committee, attendance_status 
+                    FROM attendance 
+                    INNER JOIN accounts ON attendance.account_id = accounts.id 
+                    INNER JOIN meetings ON attendance.meeting_id = meetings.id
+                    WHERE meetings.meeting_name = ${connection.escape(req.params.meetingname)} AND meetings.meeting_time = ${connection.escape(date)}`;
+        query += auth == 3 ? '' : ` AND meetings.meeting_committee = '${req.session.account.committee}'`;
+
+        connection.query(query, (err, rows) => {
+            if(err) throw err;
+
+            res.send(rows);
+        }); 
+    } else {
+        res.sendStatus(403);
+    }
+});
+
+//update meeting attendance member status
+router.get("/meetings/:meetingdate/:meetingname/attendance/updatemember/:member/:attendancestatus", (req, res) => {
+    let auth = authority(req);
+    if(auth > 1) {
+        if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(req.params.meetingdate)) return res.sendStatus(400);
+        let date = new Date(req.params.meetingdate);
+        date = date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, "0") + "-" + date.getDate().toString().padStart(2, "0");
+        let query = `UPDATE attendance INNER JOIN accounts ON attendance.account_id = accounts.id INNER JOIN meetings ON attendance.meeting_id = meetings.id
+                    SET attendance.attendance_status = '${req.params.attendancestatus === 'present' ? 1 : 0}'
+                    WHERE accounts.name = ${connection.escape(req.params.member)} 
+                    AND attendance.meeting_id = (SELECT id FROM meetings WHERE meeting_name = ${connection.escape(req.params.meetingname)} AND meeting_time = ${connection.escape(date)})`;
+        query += auth == 3 ? '' : ` AND meetings.meeting_committee = '${req.session.account.committee}'`;
+        connection.query(query, (err, rows) => {
+            if(err) throw err;
+
+            res.send({status : 'success'});
+        }); 
+    } else {
+        res.sendStatus(403);
+    }
+});
+
+
 
 router.all('*', (req, res) => {return res.sendStatus(404)}) 
 

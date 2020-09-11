@@ -92,9 +92,6 @@
                     <div class="col-md-9 section-title">
                         <h3>Take Attendance for Community Service Committee Meeting 01/02/2020</h3>
                     </div>
-                    <div class="col-md-3">
-                        <input type="submit" id="take-attendance-submit" class="form-control" value="Submit">
-                    </div>
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <table class="table table-hover">
@@ -105,25 +102,26 @@
                                         <th>Attendance</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>John Doe</td>
-                                        <td>Community Service Committee</td>
-                                        <td>
-                                            <input type="radio" id="pres" name="student1"><label for="pres" class="radio-lbl">Present</label>
-                                            <input type="radio" id="abs" name="student1"><label for="abs" class="radio-lbl">Absent</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jane Doe</td>
-                                        <td>Community Service Committee</td>
-                                        <td>
-                                            <input type="radio" id="pres" name="student2"><label for="pres" class="radio-lbl">Present</label>
-                                            <input type="radio" id="abs" name="student2"><label for="abs" class="radio-lbl">Absent</label>
-                                        </td>
-                                    </tr>
+                                
+                                <tbody id="attendance-body">
+                                    
+                                    
+                                    <template id="attendance-row">
+                                        <tr>
+                                            <td id="member-name">John Doe</td>
+                                            <td id="member-committee">Community Service Committee</td>
+                                            <td>
+                                                <input type="radio" id="member-attendance" value="present" name="attendance"><label for="pres" class="radio-lbl">Present</label>
+                                                <input type="radio" id="member-attendance" value="absent" name="attendance"><label for="abs" class="radio-lbl">Absent</label>
+                                            </td>
+                                        </tr>
+                                    </template>
                                 </tbody>
                             </table>
+                            
+                        </div>
+                        <div id="table-spinner" class="spinner">
+                            <span class="spinner-rotate"></span>
                         </div>
                     </div>
                 </form>
@@ -201,7 +199,7 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/smoothscroll.js"></script>
     <script src="js/custom.js"></script>
-    <script src="js/dashboard.js"></script>
+    <script src="js/attendance.js"></script>
     <script src="js/pagination.js"></script>
     
 </body>

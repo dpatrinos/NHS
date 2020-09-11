@@ -27,11 +27,9 @@
 
      <!-- PRE LOADER -->
      <section class="preloader">
-          <div class="spinner">
+          <img src="./images/crest-min.png" class="preloader-img">
 
-               <span class="spinner-rotate"></span>
-               
-          </div>
+          <div class="centerpiece"><div class="pulse"></div></div>
      </section>
 
 
@@ -60,9 +58,25 @@
                          <li><a href="#resources" class="smoothScroll">Resources</a></li>
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                         <li><a href="login.html" class="smoothScroll">Log In</a></li>
+                    <ul id="login-nav" class="nav navbar-nav navbar-right">
+                         <li><a href="login" class="smoothScroll">Log In</a></li>
                     </ul>
+
+                    <ul id="account-nav" class="nav navbar-nav navbar-right">
+                         <li class="dropdown">
+                             <a class="dropdown-toggle fas fa-user-circle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">  <span class="caret"></span></a>
+                             <ul class="dropdown-menu">
+                                 <li><a href="dashboard">Dashboard</a></li>
+                                 <li><a href="actions">Actions</a></li>
+                                 <li><a href="students">Student Lookup</a></li>
+                                 <li><a href="settings">Settings</a></li>
+                                 <li role="separator" class="divider"></li>
+                                 <li><a id="logout-button" class="smoothScroll">Log Out</a></li>
+                             </ul>
+                         </li>
+                    </ul>
+
+                    
                </div>
 
           </div>
