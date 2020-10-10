@@ -734,7 +734,7 @@
     font-size: 14px;
   }
 
-  #login-form, #recovery-form, #create-form {
+  #login-form, .recovery, #create-form {
     padding: 1em 0;
   }
 
@@ -747,7 +747,7 @@
     padding-left: 0;
   }
 
-  #login-form .form-control, #recovery-form .form-control, #create-form .form-control {
+  #login-form .form-control, .recovery .form-control, #create-form .form-control {
     border: 0;
     border-radius: 5px;
     box-shadow: none;
@@ -758,12 +758,12 @@
     color: #575757;
   }
 
-  #login-form input[type='email'], #login-form input[type='password'], #recovery-form input[type='text'], #recovery-form input[type='password'], #recovery-form input[type='email'] {
+  #login-form input[type='email'], #login-form input[type='password'], .recovery input[type='text'], .recovery input[type='password'], .recovery input[type='email'] {
     height: 50px;
     width: 300px;
   }
 
-  #login-form input[type='submit'], #recovery-form input[type='button'], #recovery-form input[type='submit'], #create-form input[type='submit'] {
+  #login-form input[type='submit'], .recovery input[type='button'], .recovery input[type='submit'], #create-form input[type='submit'] {
     border-radius: 50px;
     border: 1px solid transparent;
     margin-top: 10px;
@@ -771,7 +771,7 @@
     width: 185px;
   }
 
-  #login-form input[type='submit']:hover, #recovery-form input[type='submit']:hover, #recovery-form input[type='button']:hover, #create-form input[type='submit']:hover {
+  #login-form input[type='submit']:hover, .recovery input[type='submit']:hover, .recovery input[type='button']:hover, #create-form input[type='submit']:hover {
     background: transparent;
     border: 8px solid #f9f9f9;
   }
@@ -794,6 +794,18 @@
     height: 50px;
     width: 47%;
     display: inline;
+  }
+
+  .recovery-stuff {
+    background: #f9f9f9;
+    text-align:center;
+    border-radius:8px;
+    height:84px;
+    font-size:24px;
+    padding-left:10px;
+    padding-top:5px;
+    padding-bottom:0px;
+    margin-top:0;
   }
 
   /*---------------------------------------
