@@ -210,7 +210,7 @@ router.get("/logout", (req, res) => {
 router.post("/register", urlencodedParser, (req, res) => {
     verifyData(req.body, (status) => {
 
-        console.log("Initiated");
+        console.log(status);
 
         if(status != "valid") { 
             res.send({ "status" : status });
