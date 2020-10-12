@@ -7,7 +7,7 @@ const cors = require("cors");
 router.use(
     cors({
         credentials: true,
-        origin: "http://www.bpnhs.org",
+        origin: ["http://www.bpnhs.org", "http://bpnhs.org"],
     })
 )
 
