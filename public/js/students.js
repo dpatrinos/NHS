@@ -1,8 +1,6 @@
-const apiPath = 'http://api.bpnhs.org';
-
 $.ajax({
     type: 'get',
-    url: apiPath + '/currentUser',
+    url: 'http://api.bpnhs.org/currentUser',
     crossDomain: true,
     xhrFields: {
         withCredentials: true
@@ -19,7 +17,7 @@ $("#student-lookup").keyup(e => {
     if (e.which == 16) return;
     $("#student-list").html(''); 
     let query = e.target.value;
-    $.get(apiPath + "/memberslike/" + query, (data) => { 
+    $.get("http://api.bpnhs.org/memberslike/" + query, (data) => { 
         data.forEach(student => {
             $("#student-list").append($('<option/>').text(student.name));
         });
@@ -32,12 +30,12 @@ let eventRowTemplate = $("#lookup-event-row").html();
 let meetingErrorMessage = $("#no-meetings-message");
 let meetingRowTemplate = $("#lookup-attendance-row").html();
 $("#student-switch").click(e => { 
-    $.get(apiPath + "/" + $("#student-lookup").val() + "/memberinfo", (data) => { 
+    $.get('http://api.bpnhs.org' + "/" + $("#student-lookup").val() + "/memberinfo", (data) => { 
         if(data.name) { 
             $("#lookup-username-text").text(data.name);
             $("#lookup-committee-text").text(data.committee);
 
-            $.get(apiPath + "/" + data.name + "/memberhours", (data) => {
+            $.get('http://api.bpnhs.org' + "/" + data.name + "/memberhours", (data) => {
                 $("#lookup-hours").empty();
                 if(data.length == 0) $("#lookup-hours").append(eventErrorMessage);
                 data.forEach(event => {
@@ -51,7 +49,7 @@ $("#student-switch").click(e => {
                 });
             });
 
-            $.get(apiPath + "/" + data.name + "/memberattendance", (data) => {
+            $.get('http://api.bpnhs.org' + "/" + data.name + "/memberattendance", (data) => {
                 $("#lookup-attendance").empty();
                 if(data.length == 0) $("#lookup-attendance").append(meetingErrorMessage);
                 data.forEach(meeting => {
