@@ -234,6 +234,7 @@ const verifyData = (data, cb) => {
     let passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
     if(!passwordRegex.test(data.password)) {
          cb("Invalid password");
+         return;
     }
 
     let query = `SELECT * FROM accounts WHERE email = ${connection.escape(data.email)}`;
@@ -243,6 +244,7 @@ const verifyData = (data, cb) => {
         
         if(rows.length != 0) { 
             cb("Email already exists.");
+            return;
         }
         else {
             cb("valid")
