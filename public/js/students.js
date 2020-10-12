@@ -1,6 +1,10 @@
+const dotenv = require("dotenv").config();
+const port = process.env.PORT;
+const apiPath = 'http://api.bpnhs.org:' + port;
+
 $.ajax({
     type: 'get',
-    url: 'http://api.bpnhs.org:3000/currentUser',
+    url: apiPath + '/currentUser',
     crossDomain: true,
     xhrFields: {
         withCredentials: true
@@ -17,7 +21,7 @@ $("#student-lookup").keyup(e => {
     if (e.which == 16) return;
     $("#student-list").html(''); 
     let query = e.target.value;
-    $.get("http://api.bpnhs.org:3000/memberslike/" + query, (data) => { 
+    $.get(apiPath + "/memberslike/" + query, (data) => { 
         data.forEach(student => {
             $("#student-list").append($('<option/>').text(student.name));
         });
@@ -30,12 +34,12 @@ let eventRowTemplate = $("#lookup-event-row").html();
 let meetingErrorMessage = $("#no-meetings-message");
 let meetingRowTemplate = $("#lookup-attendance-row").html();
 $("#student-switch").click(e => { 
-    $.get("http://api.bpnhs.org:3000/" + $("#student-lookup").val() + "/memberinfo", (data) => { 
+    $.get(apiPath + "/" + $("#student-lookup").val() + "/memberinfo", (data) => { 
         if(data.name) { 
             $("#lookup-username-text").text(data.name);
             $("#lookup-committee-text").text(data.committee);
 
-            $.get("http://api.bpnhs.org:3000/" + data.name + "/memberhours", (data) => {
+            $.get(apiPath + "/" + data.name + "/memberhours", (data) => {
                 $("#lookup-hours").empty();
                 if(data.length == 0) $("#lookup-hours").append(eventErrorMessage);
                 data.forEach(event => {
@@ -49,7 +53,7 @@ $("#student-switch").click(e => {
                 });
             });
 
-            $.get("http://api.bpnhs.org:3000/" + data.name + "/memberattendance", (data) => {
+            $.get(apiPath + "/" + data.name + "/memberattendance", (data) => {
                 $("#lookup-attendance").empty();
                 if(data.length == 0) $("#lookup-attendance").append(meetingErrorMessage);
                 data.forEach(meeting => {
