@@ -2,6 +2,7 @@
     e.preventDefault();
     let data = $("#login-form").serialize()
     console.log(data);
+    setTimeout(() => {}, 5000)
     $.ajax({
         type: 'post',
         url: 'http://api.bpnhs.org/login',
