@@ -1,9 +1,7 @@
-const apiPath = 'http://api.bpnhs.org';
-
 //Check logged in
 $.ajax({
     type: 'get',
-    url: apiPath + '/currentUser',
+    url: 'http://api.bpnhs.org/currentUser',
     crossDomain: true,
     xhrFields: {
         withCredentials: true
@@ -22,7 +20,7 @@ $("#hours-request").submit((e) => {
     console.log(data.get('event-pic'));
     $.ajax({
         type: 'post',
-        url: apiPath + '/submithours',
+        url:'http://api.bpnhs.org/submithours',
         crossDomain: true,
         xhrFields: {
             withCredentials: true
@@ -44,7 +42,7 @@ $("#event-select").unbind();
 $("#event-select").keyup((e) => { 
     if(e.which != 16) { 
         $("#event-list").html('');
-        $.get(apiPath+ "/eventslike/" + e.target.value, (res) => {
+        $.get("http://api.bpnhs.org/eventslike/" + e.target.value, (res) => {
             res.forEach((event) => {
                 $("#event-list").append($('<option/>').text(event.event_name));
             });
@@ -57,7 +55,7 @@ $("#event-signup").submit((e) => {
     e.preventDefault();
     if(grecaptcha.getResponse() != "") {
         let data = $("#event-signup").serialize();
-        $.post(apiPath + "/eventsignup", data, (res) => {
+        $.post("http://api.bpnhs.org/eventsignup", data, (res) => {
             console.log(res);
             if(res.status = "success") { 
                 //location.href = "dashboard";

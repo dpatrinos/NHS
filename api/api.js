@@ -1,15 +1,13 @@
 //initialize express and its router
 const express = require("express");
 const router = express.Router();
-const dotenv = require("dotenv").config();
-const basePath = "http://bpnhs.org";
 
 //CORS
 const cors = require("cors");
 router.use(
     cors({
         credentials: true,
-        origin: basePath,
+        origin: "http://bpnhs.org",
     })
 )
 

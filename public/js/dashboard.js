@@ -1,10 +1,9 @@
-const apiPath = 'http://api.bpnhs.org';
 let timeFormat = 'MM/DD/YYYY';
 
 //Get User info
 $.ajax({
   type: 'get',
-  url: apiPath + '/currentUser',
+  url: 'http://api.bpnhs.org/currentUser',
   crossDomain: true,
   xhrFields: {
       withCredentials: true
@@ -26,7 +25,7 @@ $.ajax({
 let eventData = [];
 $.ajax({
   type: 'get',
-  url: apiPath + '/currentUser/pastevents',
+  url: 'http://api.bpnhs.org/currentUser/pastevents',
   crossDomain: true,
   xhrFields: {
       withCredentials: true
@@ -65,7 +64,7 @@ $.ajax({
 let attendanceData = [];
 $.ajax({
   type: 'get',
-  url: apiPath + '/currentUser/attendance',
+  url: 'http://api.bpnhs.org/currentUser/attendance',
   crossDomain: true,
   xhrFields: {
       withCredentials: true

@@ -1,11 +1,9 @@
-const apiPath = 'http://api.bpnhs.org';
-
 ("#login-form").submit((e) => {
     e.preventDefault();
     let data = $("#login-form").serialize()
     $.ajax({
         type: 'post',
-        url: apiPath + '/login',
+        url: 'http://api.bpnhs.org/login',
         data: data,
         success: function (res) {
             if(res.status == "logged in") { 

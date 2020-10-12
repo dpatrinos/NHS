@@ -1,5 +1,3 @@
-const apiPath = 'http://api.bpnhs.org';
-
 (function ($) {
 
   "use strict";
@@ -20,7 +18,7 @@ const apiPath = 'http://api.bpnhs.org';
 
     $.ajax({
       type: 'get',
-      url: apiPath + '/currentUser',
+      url: 'http://api.bpnhs.org/currentUser',
       crossDomain: true,
       xhrFields: {
           withCredentials: true
@@ -218,7 +216,7 @@ const apiPath = 'http://api.bpnhs.org';
     $("#logout-button").click((e) => {
       e.preventDefault();
 
-      $.get(apiPath + "/logout", (response) => {
+      $.get("http://api.bpnhs.org/logout", (response) => {
         if(response.status = "success") { 
           location.href = "/";
         }
