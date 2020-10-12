@@ -24,6 +24,7 @@
           withCredentials: true
       },
       success: (data) => {
+        console.log(data);
         if(!data.name) {
           $("#account-nav").hide();
         }  else {
