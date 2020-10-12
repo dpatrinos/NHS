@@ -1,3 +1,5 @@
+console.log("submitted");
+
 ("#login-form").submit((e) => {
     console.log("submitted");
 
