@@ -1,6 +1,4 @@
-const dotenv = require("dotenv").config();
-const port = process.env.PORT;
-const apiPath = 'http://api.bpnhs.org:' + port;
+const apiPath = 'http://api.bpnhs.org';
 let timeFormat = 'MM/DD/YYYY';
 
 //Get User info
