@@ -2,8 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const dotenv = require("dotenv").config();
-const port = process.env.PORT;
-const basePath = "http://bpnhs.org:" + port;
+const basePath = "http://bpnhs.org";
 
 //CORS
 const cors = require("cors");
