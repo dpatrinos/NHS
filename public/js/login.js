@@ -1,4 +1,6 @@
 ("#login-form").submit((e) => {
+    console.log("submitted");
+
     e.preventDefault();
 
     let data = $("#login-form").serialize()
