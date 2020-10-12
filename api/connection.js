@@ -1,6 +1,8 @@
 const mysql = require("mysql");
 const dotenv = require("dotenv").config();
 
+const connection = mysql.createConnection(process.env.JAWSDB_MARIA_URL);
+/*
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -8,7 +10,7 @@ const connection = mysql.createConnection({
     database: 'NHS',
     port: '3306'
 });
-
+*/
 connection.connect((err) => {
     if (err) throw err;
 });
