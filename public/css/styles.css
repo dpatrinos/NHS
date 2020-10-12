@@ -679,6 +679,15 @@
      LOGIN             
   -----------------------------------------*/
 
+  #login-fail {
+    width:375px;
+    background: rgb(245, 184, 17);
+    margin-top:55px;
+    border-radius: 10px;
+    line-height: 25px;
+    display: none;
+  }
+
   .pw-info {
     position:absolute;
     width:250px;
@@ -966,6 +975,10 @@
   #csa, #dia, #prfa {
     width:100%;
     transition: height 350ms ease-in-out, opacity 750ms ease-in-out;
+  }
+
+  #csa:hover, #dia:hover, #prfa:hover, #alla:hover {
+    cursor: pointer;
   }
 
   #current-com:hover {
