@@ -2,7 +2,8 @@
 const express = require('express');
 const session = require('express-session')
 const app = express();
-const port = 3000;
+const dotenv = require("dotenv").config();
+const port = process.env.PORT;
 const subdomain = require("express-subdomain");
 
 //import the api router
