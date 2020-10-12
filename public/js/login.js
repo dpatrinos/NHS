@@ -9,9 +9,6 @@
             if(res.status == "logged in") { 
                 location.href = "dashboard"
             }   
-        },
-        error: function(res) {
-            $('#login-fail').show();
         }
     });
 })
