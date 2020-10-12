@@ -186,7 +186,7 @@
                let form = $("#create-form").serialize()
                console.log(form)
                $.post("http://api.bpnhs.org/register", form, (res) => {
-                    console.log("res:" + res);
+                    console.log("res:" + res.status);
                     if(res.status == "success") {
                          window.location.href = "/login"
                     }

@@ -209,10 +209,15 @@ router.get("/logout", (req, res) => {
 //handle registration requests 
 router.post("/register", urlencodedParser, (req, res) => {
     verifyData(req.body, (status) => {
+
+        console.log("Initiated");
+
         if(status != "valid") { 
-            res.send({ "status" : status })
+            res.send({ "status" : status });
             return;
         }
+
+        console.log("Made");
 
         bcrypt.hash(req.body.password, 10, function(err, hash) {
             let query = `INSERT INTO accounts (name, password, email) VALUES (${connection.escape(req.body.firstname + " " + req.body.lastname)}, ${connection.escape(hash)}, ${connection.escape(req.body.email)})`;
