@@ -1,6 +1,10 @@
+const dotenv = require("dotenv").config();
+const port = process.env.PORT;
+const apiPath = 'http://api.bpnhs.org:' + port;
+
 setInterval (() => {$.ajax({
     type: 'get',
-    url: 'http://api.bpnhs.org:3000/currentUser',
+    url: apiPath + '/currentUser',
     crossDomain: true,
     xhrFields: {
         withCredentials: true
@@ -16,7 +20,7 @@ const attendanceRowTemplate = $("#attendance-row").html();
 //get attendance info
 const updateAttendanceInfo = () => { 
     let params = new URLSearchParams(location.search);
-    $.get("http://api.bpnhs.org:3000/meetings/" + params.get("meetingtime").replaceAll("/", "%2F") + "/" + params.get("meetingname") + "/attendance", (data) => { 
+    $.get(apiPath + "/meetings/" + params.get("meetingtime").replaceAll("/", "%2F") + "/" + params.get("meetingname") + "/attendance", (data) => { 
         $("#attendance-body").show();
         $("#table-spinner").hide();
         $("#attendance-body").empty();
@@ -29,7 +33,7 @@ const updateAttendanceInfo = () => {
             attendanceRow.find("#member-attendance")[checkedIndex].checked = true;
             attendanceRow.find("#member-attendance").change((e) => { 
                 clearInterval(updateInt);
-                $.get("http://api.bpnhs.org:3000/meetings/" + params.get("meetingtime").replaceAll("/", "%2F") + "/" + params.get("meetingname") + "/attendance/updatemember/" + e.target.name + "/" + e.target.value, (data) => { 
+                $.get(apiPath + "/meetings/" + params.get("meetingtime").replaceAll("/", "%2F") + "/" + params.get("meetingname") + "/attendance/updatemember/" + e.target.name + "/" + e.target.value, (data) => { 
                     console.log(data)
                     updateInt = setInterval(updateAttendanceInfo, 1000);
                 });

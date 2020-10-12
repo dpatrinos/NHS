@@ -1,10 +1,12 @@
-
+const dotenv = require("dotenv").config();
+const port = process.env.PORT;
+const apiPath = 'http://api.bpnhs.org:' + port;
 let timeFormat = 'MM/DD/YYYY';
 
 //Get User info
 $.ajax({
   type: 'get',
-  url: 'http://api.bpnhs.org:3000/currentUser',
+  url: apiPath + '/currentUser',
   crossDomain: true,
   xhrFields: {
       withCredentials: true
@@ -26,7 +28,7 @@ $.ajax({
 let eventData = [];
 $.ajax({
   type: 'get',
-  url: 'http://api.bpnhs.org:3000/currentUser/pastevents',
+  url: apiPath + '/currentUser/pastevents',
   crossDomain: true,
   xhrFields: {
       withCredentials: true
@@ -65,7 +67,7 @@ $.ajax({
 let attendanceData = [];
 $.ajax({
   type: 'get',
-  url: 'http://api.bpnhs.org:3000/currentUser/attendance',
+  url: apiPath + '/currentUser/attendance',
   crossDomain: true,
   xhrFields: {
       withCredentials: true

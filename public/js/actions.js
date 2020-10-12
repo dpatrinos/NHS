@@ -1,7 +1,11 @@
+const dotenv = require("dotenv").config();
+const port = process.env.PORT;
+const apiPath = 'http://api.bpnhs.org:' + port;
+
 //Check logged in
 $.ajax({
     type: 'get',
-    url: 'http://api.bpnhs.org:3000/currentUser',
+    url: apiPath + '/currentUser',
     crossDomain: true,
     xhrFields: {
         withCredentials: true
@@ -20,7 +24,7 @@ $("#hours-request").submit((e) => {
     console.log(data.get('event-pic'));
     $.ajax({
         type: 'post',
-        url: 'http://api.bpnhs.org:3000/submithours',
+        url: apiPath + '/submithours',
         crossDomain: true,
         xhrFields: {
             withCredentials: true
@@ -42,7 +46,7 @@ $("#event-select").unbind();
 $("#event-select").keyup((e) => { 
     if(e.which != 16) { 
         $("#event-list").html('');
-        $.get("http://api.bpnhs.org:3000/eventslike/" + e.target.value, (res) => {
+        $.get(apiPath+ "/eventslike/" + e.target.value, (res) => {
             res.forEach((event) => {
                 $("#event-list").append($('<option/>').text(event.event_name));
             });
@@ -55,7 +59,7 @@ $("#event-signup").submit((e) => {
     e.preventDefault();
     if(grecaptcha.getResponse() != "") {
         let data = $("#event-signup").serialize();
-        $.post("http://api.bpnhs.org:3000/eventsignup", data, (res) => {
+        $.post(apiPath + "/eventsignup", data, (res) => {
             console.log(res);
             if(res.status = "success") { 
                 //location.href = "dashboard";

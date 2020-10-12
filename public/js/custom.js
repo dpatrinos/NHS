@@ -1,3 +1,7 @@
+const dotenv = require("dotenv").config();
+const port = process.env.PORT;
+const apiPath = 'http://api.bpnhs.org:' + port;
+
 (function ($) {
 
   "use strict";
@@ -18,7 +22,7 @@
 
     $.ajax({
       type: 'get',
-      url: 'http://api.bpnhs.org:3000/currentUser',
+      url: apiPath + '/currentUser',
       crossDomain: true,
       xhrFields: {
           withCredentials: true
@@ -216,7 +220,7 @@
     $("#logout-button").click((e) => {
       e.preventDefault();
 
-      $.get("http://api.bpnhs.org:3000/logout", (response) => {
+      $.get(apiPath + "/logout", (response) => {
         if(response.status = "success") { 
           location.href = "/";
         }
