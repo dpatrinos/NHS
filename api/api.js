@@ -7,7 +7,7 @@ const cors = require("cors");
 router.use(
     cors({
         credentials: true,
-        origin: "http://bpnhs.org",
+        origin: ["http://www.bpnhs.org", "http://bpnhs.org"],
     })
 )
 
@@ -209,10 +209,15 @@ router.get("/logout", (req, res) => {
 //handle registration requests 
 router.post("/register", urlencodedParser, (req, res) => {
     verifyData(req.body, (status) => {
+
+        console.log(status);
+
         if(status != "valid") { 
-            res.send({ "status" : status })
+            res.send({ "status" : status });
             return;
         }
+
+        console.log("Made");
 
         bcrypt.hash(req.body.password, 10, function(err, hash) {
             let query = `INSERT INTO accounts (name, password, email) VALUES (${connection.escape(req.body.firstname + " " + req.body.lastname)}, ${connection.escape(hash)}, ${connection.escape(req.body.email)})`;
@@ -229,6 +234,7 @@ const verifyData = (data, cb) => {
     let passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
     if(!passwordRegex.test(data.password)) {
          cb("Invalid password");
+         return;
     }
 
     let query = `SELECT * FROM accounts WHERE email = ${connection.escape(data.email)}`;
@@ -238,6 +244,7 @@ const verifyData = (data, cb) => {
         
         if(rows.length != 0) { 
             cb("Email already exists.");
+            return;
         }
         else {
             cb("valid")
