@@ -1,3 +1,28 @@
+//setup ajax 
+$.ajaxSetup({
+  crossDomain: true,
+  xhrFields: {
+      withCredentials: true
+  }
+});
+
+$.ajax({
+  type: 'get',
+  url: 'http://api.bpnhs.org/currentUser',
+  crossDomain: true,
+  xhrFields: {
+      withCredentials: true
+  },
+  success: (data) => {
+    console.log("response:" + data);
+    if(!data.name) {
+      $("#account-nav").hide();
+    }  else {
+      $("#login-nav").hide();
+    }
+  }
+});
+
 (function ($) {
 
   "use strict";
@@ -7,7 +32,7 @@
       $('.preloader').fadeOut(1000); // set duration in brackets    
     });
 
-    
+    /*
     //setup ajax 
     $.ajaxSetup({
       crossDomain: true,
@@ -32,7 +57,7 @@
         }
       }
   });
-  
+  */
     
     // MENU
     $('.navbar-collapse a').on('click',function(){
