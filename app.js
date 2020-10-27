@@ -26,7 +26,7 @@ app.use(session({
 app.use(subdomain('api', api));
 
 //serve static resources from the public folder
-app.use((req, res, next) => {console.log(req.session); next();}, express.static(__dirname + "/public", { extensions:['html'] }));
+app.use((req, res, next) => {console.log(req.session.account); next();}, express.static(__dirname + "/public", { extensions:['html'] }));
 
 //check if user logged in, if so then serve /user
 const auth = require("./authenticateUser")
