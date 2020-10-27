@@ -1,6 +1,6 @@
 console.log("submitted");
 
-("#login-form").submit((e) => {
+$("#login-form").submit((e) => {
     console.log("submitted");
 
     e.preventDefault();
